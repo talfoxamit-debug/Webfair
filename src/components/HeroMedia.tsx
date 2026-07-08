@@ -1,54 +1,46 @@
 "use client";
 
-import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import HeroVisual from "./HeroVisual";
 import { hero } from "@/lib/content";
 
 /**
- * Hero mascot. Renders the fox image (hero.image) when set, otherwise falls
- * back to the abstract gradient visual. next/image optimizes the large source
- * PNG down to a small responsive webp for fast mobile load.
- *
- * hero.imageOpaqueBg = the asset has a baked-in dark background, so we blend it
- * with `screen` (dissolves the dark background into the dark hero) plus an
- * elliptical feather mask to hide the image's rectangular edge.
+ * Hero mascot. The fox is a transparent webp, so it's placed directly (no blend)
+ * with a soft glow behind it, and served via a plain <img> with srcset — a
+ * pre-optimized static asset (127 KB mobile / 333 KB desktop) straight from the
+ * CDN with no image-optimizer round-trip, for a fast LCP. Falls back to the
+ * abstract gradient visual if the asset is missing.
  */
 export default function HeroMedia() {
   const src = hero.image;
-  const opaqueBg = hero.imageOpaqueBg;
   const [failed, setFailed] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    const img = imgRef.current;
+    if (img && img.complete && img.naturalWidth === 0) setFailed(true);
+  }, [src]);
+
   const showImage = Boolean(src) && !failed;
 
   return (
-    <div className="relative z-10 mx-auto aspect-[3/4] w-full max-w-lg">
-      {/* Electric glow behind the mascot */}
-      <div className="pointer-events-none absolute inset-10 rounded-full bg-[radial-gradient(circle,rgba(162,28,224,0.4),rgba(46,107,255,0.12)_55%,transparent_72%)] blur-2xl" />
-      <div className="pointer-events-none absolute bottom-10 right-0 h-40 w-[80%] -skew-x-12 bg-[linear-gradient(115deg,transparent,rgba(162,28,224,0.16),rgba(46,107,255,0.4),transparent)] blur-md" />
+    <div className="relative z-10 mx-auto aspect-[4/5] w-full max-w-[300px] sm:max-w-sm lg:max-w-lg">
+      {/* Soft electric glow behind the mascot */}
+      <div className="pointer-events-none absolute inset-6 rounded-full bg-[radial-gradient(circle,rgba(162,28,224,0.38),rgba(46,107,255,0.1)_55%,transparent_72%)] blur-2xl" />
 
       {showImage ? (
-        <Image
+        /* eslint-disable-next-line @next/next/no-img-element -- static pre-optimized asset with srcset + onError fallback */
+        <img
+          ref={imgRef}
           src={src as string}
+          srcSet="/fox-620.webp 620w, /fox.webp 1000w"
+          sizes="(max-width: 640px) 300px, (max-width: 1024px) 384px, 512px"
           alt=""
-          fill
-          priority
-          sizes="(max-width: 1024px) 90vw, 520px"
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
           onError={() => setFailed(true)}
-          style={
-            opaqueBg
-              ? {
-                  maskImage:
-                    "radial-gradient(ellipse 92% 94% at 50% 47%, #000 58%, transparent 100%)",
-                  WebkitMaskImage:
-                    "radial-gradient(ellipse 92% 94% at 50% 47%, #000 58%, transparent 100%)",
-                }
-              : undefined
-          }
-          className={`animate-float select-none ${
-            opaqueBg
-              ? "object-cover object-center mix-blend-screen"
-              : "object-contain object-center drop-shadow-[0_0_70px_rgba(162,28,224,0.5)]"
-          }`}
+          className="relative h-full w-full animate-float select-none object-contain drop-shadow-[0_0_55px_rgba(162,28,224,0.45)]"
         />
       ) : (
         <HeroVisual className="relative h-full w-full drop-shadow-[0_0_60px_rgba(162,28,224,0.35)]" />
