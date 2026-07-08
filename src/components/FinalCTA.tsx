@@ -1,6 +1,5 @@
-import AuditForm from "./AuditForm";
 import Reveal from "./Reveal";
-import { Check, Sparkles } from "./icons";
+import { ArrowRight, Calendar, Check } from "./icons";
 import { finalCta, site } from "@/lib/content";
 
 const avatarGradients = [
@@ -35,27 +34,26 @@ export default function FinalCTA() {
           </ul>
         </Reveal>
 
-        {/* Right: form card */}
-        <Reveal delay={120} className="card relative p-6 sm:p-8">
+        {/* Right: booking card */}
+        <Reveal delay={120} className="card relative p-8 sm:p-10">
           <div className="mb-6 flex items-start gap-3">
-            <span className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-lime text-ink">
-              <Sparkles width={22} height={22} />
+            <span className="mt-0.5 flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-violet-400/50 bg-violet-500/10 text-violet-400">
+              <Calendar width={28} height={28} />
             </span>
             <div>
-              <h3 className="font-display text-xl uppercase text-white">{finalCta.formTitle}</h3>
-              <p className="mt-1 text-sm text-white/55">{finalCta.formSub}</p>
+              <h3 className="font-display text-2xl uppercase text-white">{finalCta.formTitle}</h3>
+              <p className="mt-1 text-base text-white/65">{finalCta.formSub}</p>
             </div>
           </div>
-
-          <AuditForm />
 
           <a
             href={site.calendlyUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-5 block text-center text-sm font-medium text-white/60 underline-offset-4 transition-colors hover:text-lime hover:underline"
+            className="btn-primary mt-8 flex w-full !rounded-md"
           >
-            {finalCta.calendlyLabel} →
+            {finalCta.calendlyLabel}
+            <ArrowRight width={18} height={18} />
           </a>
 
           <div className="mt-6 flex items-center gap-3 border-t border-white/[0.08] pt-6">

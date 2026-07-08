@@ -4,9 +4,9 @@ import { investment } from "@/lib/content";
 
 export default function Investment() {
   return (
-    <section className="py-20 sm:py-24">
+    <section className="border-y border-violet-500/30 bg-gradient-to-r from-violet-900 via-violet-700 to-ink py-10 sm:py-12">
       <div className="container-content">
-        <Reveal className="relative overflow-hidden rounded-3xl border border-violet-500/30 bg-gradient-to-br from-violet-700 via-violet-600 to-violet-700 px-6 py-12 shadow-glow-violet sm:px-12 sm:py-14">
+        <Reveal className="relative overflow-hidden px-0 py-0">
           {/* Growth-curve backdrop */}
           <svg
             className="pointer-events-none absolute inset-y-0 right-0 hidden h-full w-1/2 opacity-70 lg:block"
@@ -36,14 +36,14 @@ export default function Investment() {
           </svg>
 
           <div className="relative grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-center">
-            <div>
+            <div className="border-white/15 lg:border-r lg:pr-10">
               <p className="text-xs font-semibold uppercase tracking-[0.25em] text-lime">
                 {investment.eyebrow}
               </p>
               <h2 className="mt-4 font-display text-3xl uppercase leading-none text-white sm:text-4xl">
                 {investment.headline}
               </h2>
-              <p className="mt-1 font-display text-6xl leading-none text-white sm:text-7xl">
+              <p className="mt-1 font-display text-6xl leading-none text-lime sm:text-7xl">
                 {investment.price}
               </p>
             </div>
@@ -52,7 +52,7 @@ export default function Investment() {
               <p className="max-w-sm text-base leading-relaxed text-white/85">
                 {investment.sub}
               </p>
-              <a href="#about" className="btn-dark mt-6">
+              <a href="#about" className="btn-primary mt-6 !rounded-md">
                 {investment.cta}
                 <ArrowRight width={18} height={18} />
               </a>

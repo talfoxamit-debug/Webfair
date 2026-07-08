@@ -24,18 +24,18 @@ export default function Nav() {
           : "border-b border-transparent bg-transparent"
       }`}
     >
-      <nav className="container-content flex h-[72px] items-center justify-between">
+      <nav className="container-content flex h-[86px] items-center justify-between">
         <a href="#top" aria-label="Stackwrk — home">
           <Logo />
         </a>
 
         {/* Desktop links */}
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="hidden items-center gap-10 md:flex">
           {nav.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="text-sm font-medium uppercase tracking-wide text-white/70 transition-colors hover:text-white"
+              className="font-display text-sm uppercase tracking-wide text-white transition-colors hover:text-lime"
             >
               {item.label}
             </a>
@@ -43,8 +43,8 @@ export default function Nav() {
         </div>
 
         <div className="hidden md:block">
-          <a href="#about" className="btn-primary !py-2.5 !px-5">
-            Book a Free Audit
+          <a href="#about" className="btn-primary !rounded-md !px-7 !py-3">
+            Book a Free Site Audit
             <ArrowRight width={16} height={16} />
           </a>
         </div>

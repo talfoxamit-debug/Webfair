@@ -1,29 +1,28 @@
 /**
  * Single source of truth for all site copy and links.
- * Public-facing brand is "Stackwrk". "Fox Solutions LLC" is the legal entity
- * and appears ONLY in the footer copyright — never as brand/imagery.
- *
- * Copy below is derived from the Direction B reference screenshot. Replace the
- * placeholder links (Calendly, live project URLs) with real values before launch.
+ * Single source of truth for the Direction B landing page copy.
+ * Replace the placeholder links (Calendly, live project URLs) with real values
+ * before launch.
  */
 
 export const site = {
-  brand: "STACKWRK",
-  domain: "stackwrk.com",
+  brand: "FOX SOLUTIONS",
+  domain: "foxsolutions.dev",
   legalEntity: "Fox Solutions LLC",
-  email: "hello@stackwrk.com",
+  email: "hello@foxsolutions.dev",
   // TODO: confirm final Calendly link before launch.
   calendlyUrl: "https://calendly.com/",
   socials: {
     linkedin: "https://www.linkedin.com/",
     github: "https://github.com/",
-    email: "mailto:hello@stackwrk.com",
+    email: "mailto:hello@foxsolutions.dev",
   },
 };
 
 export const nav = [
   { label: "Work", href: "#work" },
   { label: "Process", href: "#process" },
+  { label: "Stack", href: "#stack" },
   { label: "About", href: "#about" },
 ];
 
@@ -33,7 +32,7 @@ export const hero = {
   // file is missing or fails to load, HeroMedia falls back to the abstract
   // gradient visual — so this is safe to point at an asset that isn't uploaded
   // yet. Drop the PNG/SVG into /public at this path and it appears.
-  image: "/fox-solutions-direction-b-fox-transparent.png" as string | null,
+  image: "/fox-solutions-neon-fox-900.png" as string | null,
   titleLines: ["BOLD WEBSITES.", "REAL RESULTS."],
   subtitle:
     "Custom web apps and sites that solve real problems, drive bookings, and grow your business.",
@@ -74,7 +73,7 @@ export const projects: Project[] = [
     accent: "from-sky-800 via-indigo-900 to-ink-700",
   },
   {
-    name: "Dock Rentals",
+    name: "FoxStays Docks",
     tag: "Premium dock rentals in Fort Lauderdale",
     blurb:
       "Dual-sided dock rental marketplace with real-time booking and blog.",
@@ -133,13 +132,13 @@ export const finalCta = {
   body: "Book a free site audit and I’ll show you exactly how we can improve your online presence and drive more results.",
   points: ["Free 30-min audit", "Actionable insights", "No obligation"],
   formTitle: "Book a Free Site Audit",
-  formSub: "Tell me about your project — I’ll reply within one business day.",
+  formSub: "Pick a time that works for you.",
   formCta: "Request My Free Audit",
-  calendlyLabel: "Prefer to pick a time? Book on Calendly",
+  calendlyLabel: "Book on Calendly",
   trust: "Trusted by business owners across the U.S. and beyond.",
 };
 
 export const footer = {
-  copyright: "© 2026 Fox Solutions LLC",
+  copyright: "© 2024 Fox Solutions LLC",
   tagline: "Built with passion. Focused on results.",
 };

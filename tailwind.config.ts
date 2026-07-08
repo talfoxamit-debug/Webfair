@@ -37,8 +37,8 @@ const config: Config = {
         },
       },
       fontFamily: {
-        display: ["var(--font-anton)", "Impact", "sans-serif"],
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        display: ["Impact", "Haettenschweiler", "Arial Narrow Bold", "sans-serif"],
+        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
       },
       maxWidth: {
         content: "1200px",
