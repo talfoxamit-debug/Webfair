@@ -8,6 +8,7 @@ import WhatYouGet from "@/components/WhatYouGet";
 import HowItWorks from "@/components/HowItWorks";
 import Testimonials from "@/components/Testimonials";
 import Investment from "@/components/Investment";
+import Plans from "@/components/Plans";
 import Guarantee from "@/components/Guarantee";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
@@ -24,6 +25,7 @@ export default function Home() {
       <HowItWorks />
       <Testimonials />
       <Investment />
+      <Plans />
       <Guarantee />
       <FinalCTA />
       <Footer />

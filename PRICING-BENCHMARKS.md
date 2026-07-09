@@ -62,6 +62,38 @@ for Stage A, but planned step-ups should be baked in now.**
 
 ---
 
+## Reality check (Tal's pushback — and he's partly right)
+
+Tal flagged the market figures as "very inflated for today's market." Assessment:
+
+- **Where the data is solid:** maintenance-plan and website-build prices. Hundreds
+  of providers publish those exact rates; they're real market-clearing prices.
+  (This is also why our care tiers needed zero correction.)
+- **Where the data skews high:** the automation / AI-chatbot / custom-CRM figures
+  come largely from **dev-shop content marketing** written to anchor their own
+  quotes, and reflect what *funded startups and mid-market* companies pay — not
+  what a local SMB will pay a solo operator. A dentist will not pay $15K for a
+  chatbot regardless of what a pricing guide says. AI-assisted delivery is also
+  deflating these categories in real time.
+- **Resolution:** the site ships **Tal's original ladder as the live founding
+  rates**. The benchmark-informed "standard" rates exist as (a) the struck-through
+  anchor price on the site and (b) the step-up path in the quote builder — to be
+  validated by **real closed deals, not blog posts**. Willingness-to-pay discovery
+  is an explicit Stage-A goal: every proposal logs accept/negotiate/reject in the
+  CRM, and we re-price from evidence after ~10 proposals.
+
+## How this research is applied ON the website
+
+| Research finding | Where it lives on stackwrk.com |
+|---|---|
+| Care tiers sit exactly on market tier boundaries | 3-tier Care cards ($99/$249/$499) in the Plans section, middle tier highlighted "Most popular" |
+| Price anchoring (standard vs founding) | Services grid shows the standard rate struck through next to the live founding rate |
+| Founding-client urgency | "Founding-client rates — first 5 clients only" badge on the Plans section; echoed in cold-email T3 |
+| CRM wedge ("custom at off-the-shelf prices" for 5-seat businesses) | Custom CRM leads the "Beyond websites" services grid |
+| Value pricing, not hourly | "Fixed prices, no hourly meters" copy; no hourly rate anywhere on the site |
+| #1 buyer fear = vanished web guy | Care plans framed as "I don't disappear after launch"; Guarantee section |
+| Quote-time pricing discipline | Internal quote builder at /quote (noindex) pulls from the same `src/lib/pricing.ts` price book as the public page — one source of truth, no drift |
+
 ## Sources
 
 - [Jim.com — Small Business Website Cost in 2026](https://www.jim.com/blog/small-business-website-cost)

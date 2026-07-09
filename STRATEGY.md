@@ -176,7 +176,11 @@ Truth: at day 0 the moat is thin — it gets built deliberately, in this order:
 
 ## Level tracker (mission 2)
 
-- **Level 1 — Strategy: ☑ this document**
-- Level 2 — Productize offers into the site (needs Tal's pricing sign-off): ☐
-- Level 3 — Go-to-market engine (sequences, CRM pipeline, campaign links): ☐
+- **Level 1 — Strategy: ☑ this document** (+ `PRICING-BENCHMARKS.md` market validation)
+- **Level 2 — Productize offers into the site: ☑** — public Plans section (#plans,
+  care tiers + services grid w/ founding-rate anchoring), nav "Pricing" link, and the
+  internal quote builder at `/quote` (noindex). Price book: `src/lib/pricing.ts`.
+- **Level 3 — Go-to-market engine: ◐** — `MARKETING.md` done (channels, audit-led
+  cold-email sequences, cadence, metrics). Remaining: Supabase leads CRM wiring
+  (blocked on Tal's project choice + Vercel env vars), sending-domain warmup.
 - Level 4 — Scale systems (Stripe billing, portal, delivery checklists, tool library): ☐
