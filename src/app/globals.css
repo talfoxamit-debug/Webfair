@@ -38,12 +38,15 @@
   }
 
   body {
-    @apply bg-ink text-white/90 font-sans antialiased;
+    @apply text-white/90 font-sans antialiased;
+    /* Deep near-black base — cinematic, not a purple wash. */
+    background-color: #070312;
   }
 
   /* Ambient glow pinned to the viewport via a composited fixed layer — far
      cheaper on mobile than `background-attachment: fixed`, which repaints on
-     every scroll frame. */
+     every scroll frame. Restrained + top-anchored so the bulk of the page
+     stays deep black; a couple of glows just keep it from feeling flat. */
   body::before {
     content: "";
     position: fixed;
@@ -51,9 +54,8 @@
     z-index: -1;
     pointer-events: none;
     background-image:
-      radial-gradient(60rem 60rem at 78% 5%, rgba(46, 107, 255, 0.18), transparent 58%),
-      radial-gradient(54rem 54rem at 100% 20%, rgba(162, 28, 224, 0.2), transparent 62%),
-      radial-gradient(50rem 50rem at -10% 10%, rgba(46, 107, 255, 0.1), transparent 55%);
+      radial-gradient(40rem 32rem at 86% -8%, rgba(124, 58, 237, 0.16), transparent 62%),
+      radial-gradient(34rem 30rem at 6% 0%, rgba(46, 107, 255, 0.09), transparent 60%);
   }
 
   ::selection {
@@ -137,7 +139,7 @@
   }
 
   .card {
-    @apply rounded-lg border border-violet-500/35 bg-ink-600/70 backdrop-blur-sm;
+    @apply rounded-xl border border-white/[0.08] bg-white/[0.025] backdrop-blur-sm;
   }
 
   /* Faint dotted-grid backdrop used behind hero + panels. */
