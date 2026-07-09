@@ -37,6 +37,15 @@
     scroll-padding-top: 68px; /* offset for the slim sticky nav on anchor jumps */
   }
 
+  /* Backstop: never let a stray wide child cause a horizontal scroll / cut-off.
+     `clip` (not `hidden`) avoids creating a scroll container that would break
+     the fixed nav or sticky elements. */
+  html,
+  body {
+    overflow-x: clip;
+    max-width: 100%;
+  }
+
   body {
     @apply text-white/90 font-sans antialiased;
     /* Deep near-black base — cinematic, not a purple wash. */

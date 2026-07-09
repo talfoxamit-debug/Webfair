@@ -590,9 +590,9 @@ export default function DemoShowcase() {
         <div className="pointer-events-none absolute -right-24 -top-10 h-72 w-72 rounded-full bg-lime/[0.06] blur-[90px]" />
         <div className="pointer-events-none absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-violet-600/15 blur-[90px]" />
 
-        <div className="relative grid lg:grid-cols-[0.82fr_2fr]">
+        <div className="relative grid grid-cols-1 lg:grid-cols-[0.82fr_2fr]">
           {/* Left rail — explanation + vertical tabs */}
-          <div className="border-b border-white/[0.06] p-5 sm:p-6 lg:border-b-0 lg:border-r">
+          <div className="min-w-0 border-b border-white/[0.06] p-5 sm:p-6 lg:border-b-0 lg:border-r">
             <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-lime">
               <Sparkles width={14} height={14} /> Live product lab
             </p>
@@ -619,7 +619,7 @@ export default function DemoShowcase() {
           </div>
 
           {/* Right — the live demo */}
-          <div className="relative p-4 sm:p-5">
+          <div className="relative min-w-0 p-4 sm:p-5">
             <div className="mb-3 flex items-center gap-2 px-1 text-xs text-white/45">
               <span className="h-1.5 w-1.5 rounded-full bg-lime shadow-[0_0_6px_rgba(203,255,60,0.9)]" />
               {current.note} — go ahead, try it

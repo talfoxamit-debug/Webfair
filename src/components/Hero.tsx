@@ -102,9 +102,9 @@ export default function Hero() {
         <HeroMedia variant="bleed" />
       </div>
 
-      <div className="container-content relative z-10 grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+      <div className="container-content relative z-10 grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
         {/* Left: copy */}
-        <div>
+        <div className="min-w-0">
           <span className="inline-flex animate-fade-up items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-white/80">
             <Bolt width={14} height={14} className="text-lime" />
             {hero.eyebrow}
@@ -128,12 +128,12 @@ export default function Hero() {
             {hero.subtitle}
           </p>
 
-          <div className="mt-9 flex animate-fade-up flex-wrap gap-4" style={{ animationDelay: "240ms" }}>
-            <a href="#about" className="btn-primary !rounded-md">
+          <div className="mt-9 flex animate-fade-up flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4" style={{ animationDelay: "240ms" }}>
+            <a href="#about" className="btn-primary w-full !rounded-md sm:w-auto">
               {hero.primaryCta}
               <ArrowRight width={18} height={18} />
             </a>
-            <a href="#work" className="btn-ghost !rounded-md">
+            <a href="#work" className="btn-ghost w-full !rounded-md sm:w-auto">
               {hero.secondaryCta}
               <ArrowDown width={18} height={18} />
             </a>
@@ -169,7 +169,7 @@ export default function Hero() {
 
         {/* Right column: code card overlaps the fox's chest at center-right on
             desktop; on mobile the fox panel + card stack in the normal flow */}
-        <div className="relative animate-fade-up lg:h-[26rem]" style={{ animationDelay: "200ms" }}>
+        <div className="relative min-w-0 animate-fade-up lg:h-[26rem]" style={{ animationDelay: "200ms" }}>
           <div className="flex flex-col items-center gap-6 lg:hidden">
             <HeroMedia />
             <CodeCard className="w-full max-w-sm" />
