@@ -20,11 +20,11 @@ export default function Nav() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "border-b border-white/[0.08] bg-ink/80 backdrop-blur-md"
+          ? "border-b border-white/[0.07] bg-[#070312]/70 backdrop-blur-xl"
           : "border-b border-transparent bg-transparent"
       }`}
     >
-      <nav className="container-content flex h-[86px] items-center justify-between">
+      <nav className="container-content flex h-[68px] items-center justify-between">
         <a href="#top" aria-label="Stackwrk home">
           <Logo />
         </a>

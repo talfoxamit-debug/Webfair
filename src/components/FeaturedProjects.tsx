@@ -1,31 +1,30 @@
 import Reveal from "./Reveal";
 import CardSpotlight from "./CardSpotlight";
-import { ArrowRight, Check, TrendUp } from "./icons";
+import { ArrowRight, Check } from "./icons";
 import { projects, type Project } from "@/lib/content";
 
-function BrowserMock({ project }: { project: Project }) {
-  const host = (() => {
-    try {
-      return new URL(project.href).host.replace(/^www\./, "");
-    } catch {
-      return project.href;
-    }
-  })();
+function hostOf(href: string) {
+  try {
+    return new URL(href).host.replace(/^www\./, "");
+  } catch {
+    return href;
+  }
+}
 
+/** Browser-framed, full-brightness screenshot with a glass "live" pill. */
+function Shot({ project, ratio = "aspect-[16/11]" }: { project: Project; ratio?: string }) {
   return (
-    <div className="relative overflow-hidden rounded-md border border-white/10 bg-ink-800 shadow-[0_16px_40px_-24px_rgba(0,0,0,0.9)]">
-      {/* Browser chrome */}
-      <div className="flex items-center gap-1.5 border-b border-white/[0.06] bg-ink-700/80 px-3 py-2">
-        <span className="h-2 w-2 rounded-full bg-white/25" />
-        <span className="h-2 w-2 rounded-full bg-white/25" />
-        <span className="h-2 w-2 rounded-full bg-white/25" />
-        <span className="ml-2 flex h-3.5 flex-1 items-center rounded bg-white/[0.06] px-2 text-[0.55rem] font-medium text-white/40">
-          {host}
+    <div className="relative overflow-hidden">
+      {/* chrome */}
+      <div className="flex items-center gap-1.5 bg-white/[0.03] px-3 py-2">
+        <span className="h-2 w-2 rounded-full bg-white/20" />
+        <span className="h-2 w-2 rounded-full bg-white/20" />
+        <span className="h-2 w-2 rounded-full bg-white/20" />
+        <span className="ml-2 flex h-3.5 flex-1 items-center rounded bg-white/[0.05] px-2 text-[0.55rem] font-medium text-white/35">
+          {hostOf(project.href)}
         </span>
       </div>
-      {/* Real screenshot — slow parallax-lift on hover; gradient fallback tint
-          behind it while the image loads / if it 404s. */}
-      <div className={`relative aspect-[16/11] overflow-hidden bg-gradient-to-br ${project.accent}`}>
+      <div className={`relative overflow-hidden ${ratio} bg-gradient-to-br ${project.accent}`}>
         {project.image && (
           /* eslint-disable-next-line @next/next/no-img-element -- static, pre-optimized local screenshot */
           <img
@@ -33,13 +32,12 @@ function BrowserMock({ project }: { project: Project }) {
             alt={`${project.name} website`}
             loading="lazy"
             decoding="async"
-            className="h-full w-full object-cover object-top transition-transform duration-[1200ms] ease-out group-hover:scale-[1.06]"
+            className="h-full w-full object-cover object-top brightness-[1.1] saturate-[1.05] transition-transform duration-[1400ms] ease-out group-hover:scale-[1.05]"
           />
         )}
-        {/* Bottom scrim so the badge stays legible on any screenshot */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/60 to-transparent" />
-        <span className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded bg-lime px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-wide text-ink shadow-lg">
-          <span className="h-1.5 w-1.5 rounded-full bg-ink" />
+        {/* premium glass pill — never competes with the screenshot */}
+        <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/45 px-2.5 py-1 text-[0.6rem] font-semibold uppercase tracking-wide text-lime backdrop-blur-md">
+          <span className="h-1.5 w-1.5 rounded-full bg-lime shadow-[0_0_6px_rgba(203,255,60,0.9)]" />
           {project.badge ?? "Live project"}
         </span>
       </div>
@@ -47,67 +45,114 @@ function BrowserMock({ project }: { project: Project }) {
   );
 }
 
-export default function FeaturedProjects() {
+function Bullets({ items, className = "" }: { items: string[]; className?: string }) {
   return (
-    <section id="work" className="relative border-t border-white/[0.08] py-16 sm:py-24">
-      <div className="container-content">
-        <Reveal className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+    <ul className={className}>
+      {items.map((f) => (
+        <li key={f} className="flex items-center gap-2 text-[0.82rem] text-white/70">
+          <Check width={14} height={14} className="shrink-0 text-lime" />
+          {f}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function LiveLink({ href, pin = true }: { href: string; pin?: boolean }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`${pin ? "mt-auto" : "mt-1"} inline-flex items-center gap-2 pt-4 text-[0.8rem] font-bold uppercase tracking-wide text-lime transition-[gap] group-hover:gap-3`}
+    >
+      View live site
+      <ArrowRight width={15} height={15} />
+    </a>
+  );
+}
+
+const cardBase =
+  "group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] transition-all duration-500 hover:border-lime/35 hover:shadow-[0_30px_80px_-42px_rgba(203,255,60,0.3)]";
+
+export default function FeaturedProjects() {
+  const [featured, ...rest] = projects;
+
+  return (
+    <section
+      id="work"
+      className="relative scroll-mt-24 overflow-hidden bg-[#070312] py-14 sm:py-20"
+    >
+      {/* Deep cinematic backdrop — near-black base, a few restrained glows, and a
+          grid so faint it only reads as texture. Not a flat purple block. */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -left-40 top-4 h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.16),transparent_68%)] blur-2xl" />
+        <div className="absolute -right-28 top-1/3 h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(circle,rgba(255,45,155,0.09),transparent_70%)] blur-2xl" />
+        <div className="absolute bottom-[-6rem] left-1/4 h-[26rem] w-[44rem] rounded-full bg-[radial-gradient(ellipse,rgba(46,107,255,0.1),transparent_70%)] blur-2xl" />
+        <div className="grid-backdrop absolute inset-0 opacity-[0.045] [mask-image:radial-gradient(ellipse_at_50%_40%,#000,transparent_78%)]" />
+      </div>
+
+      <div className="container-content relative z-10">
+        {/* Header */}
+        <Reveal className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="eyebrow">Featured projects</p>
-          <h2 className="mt-3 font-display text-4xl uppercase text-white sm:text-5xl">
-              Real projects. Real impact.
+            <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-violet-300/80">
+              <span className="h-px w-8 bg-lime" />
+              Featured projects
+            </p>
+            <h2 className="mt-4 font-display text-4xl uppercase leading-[0.9] text-white sm:text-5xl lg:text-[3.4rem]">
+              Real projects. <span className="brush-word text-accent-glow">Real impact.</span>
             </h2>
           </div>
           <a
             href="#about"
-            className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-lime transition-colors hover:text-lime-400"
+            className="inline-flex items-center gap-2 whitespace-nowrap text-sm font-bold uppercase tracking-wide text-lime transition-colors hover:text-lime-400"
           >
-            Get a site like these
+            Start your project
             <ArrowRight width={16} height={16} />
           </a>
         </Reveal>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2">
-          {projects.map((project, i) => (
+        {/* Featured case study — wide, screenshot + copy side by side */}
+        <Reveal as="article" className={`mt-9 ${cardBase}`}>
+          <CardSpotlight />
+          <div className="relative z-[1] grid lg:grid-cols-[1.55fr_1fr]">
+            <div className="border-b border-white/[0.06] lg:border-b-0 lg:border-r">
+              <Shot project={featured} ratio="aspect-[16/10]" />
+            </div>
+            <div className="flex flex-col justify-center gap-4 p-6 sm:p-8">
+              <div>
+                <span className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-violet-300/70">Featured build</span>
+                <h3 className="mt-1.5 font-display text-3xl uppercase leading-none text-white">{featured.name}</h3>
+              </div>
+              <p className="text-sm leading-relaxed text-white/60">{featured.blurb}</p>
+              <Bullets items={featured.features} className="space-y-2" />
+              <p className="border-l-2 border-lime/50 pl-3 text-[0.82rem] italic leading-relaxed text-white/70">
+                {featured.result}
+              </p>
+              <LiveLink href={featured.href} pin={false} />
+            </div>
+          </div>
+        </Reveal>
+
+        {/* Supporting case studies — equal 3-up */}
+        <div className="mt-5 grid gap-5 md:grid-cols-3">
+          {rest.map((project, i) => (
             <Reveal
               as="article"
               key={project.name}
-              delay={i * 120}
-              className="card group relative flex flex-col overflow-hidden p-5 transition-all duration-300 hover:-translate-y-1 hover:border-lime/55 hover:shadow-[0_24px_60px_-30px_rgba(203,255,60,0.35)]"
+              delay={i * 110}
+              className={`flex flex-col ${cardBase} hover:-translate-y-1`}
             >
               <CardSpotlight />
               <div className="relative z-[1] flex flex-1 flex-col">
-                <BrowserMock project={project} />
-
-                <h3 className="mt-6 flex items-center gap-2 font-display text-2xl uppercase text-white">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-md border border-lime/40 text-lime">▱</span>
-                  {project.name}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-white/60">{project.blurb}</p>
-
-                <p className="mt-4 flex items-start gap-2 rounded-lg border border-lime/20 bg-lime/[0.05] px-3 py-2.5 text-sm text-white/85">
-                  <TrendUp width={16} height={16} className="mt-0.5 shrink-0 text-lime" />
-                  <span>{project.result}</span>
-                </p>
-
-                <ul className="mt-5 space-y-2.5">
-                  {project.features.map((f) => (
-                    <li key={f} className="flex items-center gap-2.5 text-sm text-white/75">
-                      <Check width={16} height={16} className="shrink-0 text-lime" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-
-                <a
-                  href={project.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-auto inline-flex items-center gap-2 border-t border-white/[0.08] pt-5 text-sm font-bold uppercase tracking-wide text-lime transition-transform group-hover:gap-3"
-                >
-                  View live site
-                  <ArrowRight width={16} height={16} />
-                </a>
+                <Shot project={project} />
+                <div className="flex flex-1 flex-col gap-2.5 p-5">
+                  <h3 className="font-display text-xl uppercase leading-none text-white">{project.name}</h3>
+                  <p className="text-[0.82rem] leading-relaxed text-white/55">{project.blurb}</p>
+                  <Bullets items={project.features} className="mt-0.5 space-y-1.5" />
+                  <LiveLink href={project.href} />
+                </div>
               </div>
             </Reveal>
           ))}
