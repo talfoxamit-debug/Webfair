@@ -420,55 +420,89 @@ function BeforeAfterDemo() {
           dragging ? "cursor-grabbing" : "cursor-ew-resize"
         }`}
       >
-        {/* AFTER (modern) — a full, believable site so every slice has content */}
-        <div className="absolute inset-0 overflow-hidden bg-gradient-to-br from-ink-700 via-ink-600 to-violet-900">
-          <div className="grid-backdrop absolute inset-0 opacity-25" />
-          <div className="pointer-events-none absolute -right-12 top-2 h-40 w-40 rounded-full bg-lime/10 blur-2xl" />
+        {/* AFTER (modern) — an art-directed hero: aurora mesh, rating + avatars,
+            and a floating glass booking widget. Reads as a real premium site.
+            `isolate` keeps its inner z-index from bleeding over the BEFORE pane. */}
+        <div className="absolute inset-0 isolate overflow-hidden">
+          {/* aurora-mesh background */}
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundColor: "#0c0718",
+              backgroundImage:
+                "radial-gradient(42% 55% at 80% 10%, rgba(255,45,155,0.55), transparent 60%)," +
+                "radial-gradient(46% 62% at 96% 72%, rgba(124,58,237,0.6), transparent 62%)," +
+                "radial-gradient(52% 60% at 52% 104%, rgba(46,107,255,0.5), transparent 60%)," +
+                "radial-gradient(34% 46% at 62% 44%, rgba(203,255,60,0.12), transparent 60%)",
+            }}
+          />
+          <div className="grid-backdrop absolute inset-0 opacity-[0.07]" />
+          <div className="pointer-events-none absolute -right-8 -top-10 h-40 w-40 rounded-full bg-white/10 blur-3xl" />
+          {/* readability scrim behind the right-anchored copy */}
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-2/3 bg-gradient-to-l from-black/45 via-black/15 to-transparent" />
+
           {/* top nav */}
-          <div className="absolute inset-x-0 top-0 flex items-center justify-between px-4 py-2.5 sm:px-5">
+          <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-4 py-2.5 sm:px-5">
             <div className="flex items-center gap-1.5">
-              <span className="h-3.5 w-3.5 rounded bg-lime" />
-              <span className="text-[0.6rem] font-bold uppercase tracking-wider text-white">Bold Studio</span>
+              <span className="flex h-4 w-4 items-center justify-center rounded bg-lime text-[0.55rem] font-black leading-none text-ink">B</span>
+              <span className="text-[0.62rem] font-bold uppercase tracking-wider text-white">Bold Studio</span>
             </div>
-            <div className="flex items-center gap-2.5">
-              <span className="hidden h-1.5 w-6 rounded-full bg-white/25 sm:block" />
-              <span className="hidden h-1.5 w-6 rounded-full bg-white/25 sm:block" />
-              <span className="hidden h-1.5 w-6 rounded-full bg-white/25 sm:block" />
-              <span className="rounded bg-lime px-2 py-1 text-[0.5rem] font-bold uppercase text-ink">Book</span>
+            <div className="flex items-center gap-3">
+              <span className="hidden text-[0.55rem] font-medium text-white/60 sm:inline">Menu</span>
+              <span className="hidden text-[0.55rem] font-medium text-white/60 sm:inline">About</span>
+              <span className="rounded-md bg-white/10 px-2.5 py-1 text-[0.52rem] font-bold uppercase text-white ring-1 ring-inset ring-white/15 backdrop-blur">
+                Book
+              </span>
             </div>
           </div>
-          {/* hero: product visual left, copy right — so the modern punchline is
-              what shows against the dated site at a middle split */}
-          <div className="absolute inset-x-0 top-[52%] flex -translate-y-1/2 items-center justify-between gap-4 px-4 sm:px-6">
-            <div className="hidden w-[36%] shrink-0 sm:block">
-              <div className="rounded-lg border border-white/15 bg-ink-800/60 p-2 shadow-xl backdrop-blur-sm">
-                <div className="flex items-center gap-1.5">
-                  <span className="h-6 w-6 rounded-full bg-gradient-to-br from-lime/50 to-violet-500/50" />
-                  <div className="flex-1 space-y-1">
-                    <span className="block h-1.5 w-full rounded bg-white/30" />
-                    <span className="block h-1.5 w-2/3 rounded bg-white/15" />
-                  </div>
-                </div>
-                <div className="mt-2 grid grid-cols-7 gap-1">
-                  {Array.from({ length: 21 }).map((_, k) => (
-                    <span key={k} className={`h-2 rounded-sm ${k === 11 ? "bg-lime" : "bg-white/10"}`} />
-                  ))}
-                </div>
-                <div className="mt-2 h-4 rounded bg-lime/25" />
+
+          {/* hero copy — right-anchored so the punchline shows at a middle split */}
+          <div className="absolute right-4 top-[52%] z-10 max-w-[70%] -translate-y-1/2 text-right sm:right-6 sm:max-w-[60%]">
+            <div className="mb-1.5 flex items-center justify-end gap-1.5">
+              <span className="text-[0.62rem] leading-none tracking-tight text-lime">★★★★★</span>
+              <span className="text-[0.5rem] text-white/60">5.0 · 240 reviews</span>
+            </div>
+            <p className="font-display text-2xl uppercase leading-[0.88] text-white drop-shadow-[0_2px_18px_rgba(0,0,0,0.55)] sm:text-[2.5rem]">
+              Modern.<br />Fast.<br />
+              <span className="text-accent-glow">Converts.</span>
+            </p>
+            <p className="mt-2 hidden text-[0.66rem] leading-snug text-white/75 sm:ml-auto sm:block sm:max-w-[15rem]">
+              A site that turns visitors into booked customers — on any device.
+            </p>
+            <div className="mt-3 flex items-center justify-end gap-2">
+              <span className="hidden items-center rounded-md border border-white/25 px-2.5 py-1.5 text-[0.56rem] font-semibold text-white/85 sm:inline-flex">
+                View menu
+              </span>
+              <span className="inline-flex items-center gap-1 rounded-md bg-lime px-3 py-1.5 text-[0.6rem] font-bold uppercase text-ink shadow-[0_0_24px_-4px_rgba(203,255,60,0.85)]">
+                Book now →
+              </span>
+            </div>
+            <div className="mt-3 flex items-center justify-end gap-2">
+              <div className="flex -space-x-1.5">
+                {["from-flare-orange to-flare-red", "from-flare-red to-flare-purple", "from-flare-purple to-flare-blue", "from-flare-blue to-lime"].map((g, i) => (
+                  <span key={i} className={`h-4 w-4 rounded-full border border-ink bg-gradient-to-br ${g}`} />
+                ))}
               </div>
-            </div>
-            <div className="ml-auto max-w-[62%] text-right sm:max-w-[58%]">
-              <span className="text-[0.5rem] font-semibold uppercase tracking-[0.2em] text-lime sm:text-[0.55rem]">Modern web design</span>
-              <p className="mt-1 font-display text-2xl uppercase leading-[0.92] text-white sm:text-4xl">Modern.<br />Fast.<br />Converts.</p>
-              <p className="mt-2 hidden max-w-[15rem] text-[0.65rem] leading-snug text-white/65 sm:ml-auto sm:block">Turns visitors into booked customers — fast on every device.</p>
-              <span className="mt-3 inline-flex items-center gap-1 rounded-md bg-lime px-3 py-1.5 text-[0.6rem] font-bold uppercase text-ink shadow-[0_0_20px_-4px_rgba(203,255,60,0.7)]">Book now →</span>
+              <span className="text-[0.5rem] text-white/55">2,000+ booked this year</span>
             </div>
           </div>
-          {/* trust strip */}
-          <div className="absolute inset-x-0 bottom-2.5 flex items-center justify-center gap-2 px-4">
-            {["★★★★★", "24/7 booking", "Loads in 1s"].map((t) => (
-              <span key={t} className="rounded-full border border-white/10 bg-white/[0.06] px-2 py-0.5 text-[0.5rem] font-medium text-white/60">{t}</span>
-            ))}
+
+          {/* floating glass booking widget — the "wow" element */}
+          <div className="absolute bottom-3 left-3 z-10 hidden w-40 rounded-xl border border-white/15 bg-white/[0.08] p-2.5 shadow-2xl backdrop-blur-md md:block">
+            <div className="flex items-center justify-between">
+              <span className="text-[0.55rem] font-bold uppercase tracking-wide text-white">Book a table</span>
+              <span className="flex items-center gap-1 text-[0.48rem] text-lime">
+                <span className="h-1 w-1 rounded-full bg-lime" /> Live
+              </span>
+            </div>
+            <div className="mt-2 grid grid-cols-3 gap-1">
+              {["6:00", "7:30", "8:00", "8:30", "9:00", "9:30"].map((t, i) => (
+                <span key={t} className={`rounded py-1 text-center text-[0.5rem] font-medium ${i === 2 ? "bg-lime text-ink" : "bg-white/10 text-white/70"}`}>
+                  {t}
+                </span>
+              ))}
+            </div>
+            <div className="mt-2 rounded-md bg-lime py-1 text-center text-[0.52rem] font-bold uppercase text-ink">Confirm</div>
           </div>
         </div>
         {/* BEFORE (dated) — clipped to pos%; fixed inner width so it never reflows */}
