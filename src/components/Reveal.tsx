@@ -57,8 +57,8 @@ export default function Reveal({
       // @ts-expect-error — ref type varies by element tag, safe at runtime
       ref={ref}
       style={{ transitionDelay: `${delay}ms` }}
-      className={`transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-        hidden ? "translate-y-6 opacity-0" : "translate-y-0 opacity-100"
+      className={`transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        hidden ? "translate-y-8 scale-[0.985] opacity-0 blur-[3px]" : "translate-y-0 scale-100 opacity-100 blur-0"
       } ${className}`}
     >
       {children}

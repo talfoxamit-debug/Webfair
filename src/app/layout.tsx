@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Nav from "@/components/Nav";
+import ScrollProgress from "@/components/ScrollProgress";
+import CustomCursor from "@/components/CustomCursor";
 import "./globals.css";
 
 const title = "Stackwrk — Bold Websites. Real Results.";
@@ -43,6 +45,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
+        <ScrollProgress />
+        <CustomCursor />
         <Nav />
         <main>{children}</main>
       </body>

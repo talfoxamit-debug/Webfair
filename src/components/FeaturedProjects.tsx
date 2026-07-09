@@ -1,5 +1,6 @@
 import Reveal from "./Reveal";
 import CardSpotlight from "./CardSpotlight";
+import ScrollParallax from "./ScrollParallax";
 import { ArrowRight, Check } from "./icons";
 import { projects, type Project } from "@/lib/content";
 
@@ -88,8 +89,8 @@ export default function FeaturedProjects() {
       {/* Deep cinematic backdrop — near-black base, a few restrained glows, and a
           grid so faint it only reads as texture. Not a flat purple block. */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -left-40 top-4 h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.16),transparent_68%)] blur-2xl" />
-        <div className="absolute -right-28 top-1/3 h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(circle,rgba(255,45,155,0.09),transparent_70%)] blur-2xl" />
+        <ScrollParallax speed={0.22} className="absolute -left-40 top-4 h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.16),transparent_68%)] blur-2xl" />
+        <ScrollParallax speed={-0.16} className="absolute -right-28 top-1/3 h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(circle,rgba(255,45,155,0.09),transparent_70%)] blur-2xl" />
         <div className="absolute bottom-[-6rem] left-1/4 h-[26rem] w-[44rem] rounded-full bg-[radial-gradient(ellipse,rgba(46,107,255,0.1),transparent_70%)] blur-2xl" />
         <div className="grid-backdrop absolute inset-0 opacity-[0.045] [mask-image:radial-gradient(ellipse_at_50%_40%,#000,transparent_78%)]" />
       </div>

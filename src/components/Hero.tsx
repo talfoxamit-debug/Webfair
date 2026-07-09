@@ -1,6 +1,7 @@
 import HeroMedia from "./HeroMedia";
 import HeroWaves from "./HeroWaves";
 import PointerVars from "./PointerVars";
+import ScrollParallax from "./ScrollParallax";
 import { ArrowRight, ArrowDown, Bolt, TrendUp, Phone } from "./icons";
 import {
   NextMark,
@@ -80,7 +81,7 @@ export default function Hero() {
 
       {/* Backdrop: faint grid + deep radial atmosphere behind the fox */}
       <div className="pointer-events-none absolute inset-0 grid-backdrop opacity-[0.16]" />
-      <div className="pointer-events-none absolute -right-40 -top-32 h-[46rem] w-[46rem] rounded-full bg-[radial-gradient(circle,rgba(162,28,224,0.28),rgba(46,107,255,0.1)_55%,transparent_75%)] blur-2xl" />
+      <ScrollParallax speed={0.18} className="pointer-events-none absolute -right-40 -top-32 h-[46rem] w-[46rem] rounded-full bg-[radial-gradient(circle,rgba(162,28,224,0.28),rgba(46,107,255,0.1)_55%,transparent_75%)] blur-2xl" />
       <div className="pointer-events-none absolute -left-40 top-24 h-72 w-72 rounded-full bg-violet-600/15 blur-[80px]" />
       <div className="pointer-events-none absolute bottom-[-10%] right-[10%] h-[26rem] w-[40rem] rounded-full bg-[radial-gradient(ellipse,rgba(255,45,155,0.14),rgba(46,107,255,0.1)_50%,transparent_75%)] blur-2xl" />
 
