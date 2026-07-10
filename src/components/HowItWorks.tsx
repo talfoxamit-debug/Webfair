@@ -154,10 +154,11 @@ export default function HowItWorks() {
                   delay={i * 140}
                   className="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6 transition-colors hover:border-lime/30"
                 >
-                  {/* ghost digit */}
+                  {/* ghost digit — kept fully inside the card so it reads as a
+                      faint watermark instead of a cropped number at the edge */}
                   <span
                     aria-hidden="true"
-                    className="pointer-events-none absolute -right-3 -top-7 select-none font-display text-[7rem] leading-none text-white/[0.045] transition-colors duration-500 group-hover:text-lime/[0.07]"
+                    className="pointer-events-none absolute right-4 top-3 select-none font-display text-[5rem] leading-none text-white/[0.05] transition-colors duration-500 group-hover:text-lime/[0.08]"
                   >
                     {s.n}
                   </span>
