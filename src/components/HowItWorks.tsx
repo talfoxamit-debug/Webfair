@@ -130,6 +130,12 @@ export default function HowItWorks() {
           </h2>
         </Reveal>
 
+        {/* Mobile: the running fox in-flow (centered, can't overflow). */}
+        <div className="pointer-events-none mx-auto mt-6 w-56 max-w-[72%] xl:hidden" aria-hidden="true">
+          {/* eslint-disable-next-line @next/next/no-img-element -- decorative */}
+          <img src="/fox-run.webp" alt="" loading="lazy" decoding="async" className="w-full animate-float-y opacity-90 drop-shadow-[0_0_30px_rgba(255,90,40,0.18)]" />
+        </div>
+
         <div ref={ref} className="relative mt-10">
           {/* Connecting journey line — draws itself across the three steps */}
           <svg

@@ -87,6 +87,12 @@ export default function ToolsHubPage() {
             </p>
           </div>
 
+          {/* Mobile: alert fox in-flow above the tool cards (centered, no overflow). */}
+          <div className="pointer-events-none mx-auto mt-8 w-40 xl:hidden" aria-hidden="true">
+            {/* eslint-disable-next-line @next/next/no-img-element -- decorative */}
+            <img src="/fox-alert.webp" alt="" loading="lazy" decoding="async" className="w-full animate-float-y opacity-90 drop-shadow-[0_0_35px_rgba(203,255,60,0.16)]" />
+          </div>
+
           <div className="mx-auto mt-12 grid max-w-4xl gap-5 sm:grid-cols-2">
             {freeTools.map((t) => {
               const Icon = ICONS[t.icon];
