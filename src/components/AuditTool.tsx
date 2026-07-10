@@ -367,19 +367,17 @@ export default function AuditTool() {
           {/* Left: the ask */}
           <div>
             <form onSubmit={run} className="flex flex-col gap-3">
-              <div className="flex items-center rounded-xl border border-white/12 bg-ink-800/70 pl-4 focus-within:border-lime/60 focus-within:ring-2 focus-within:ring-lime/20">
-                <span className="select-none text-sm text-white/35">https://</span>
-                <input
-                  value={url}
-                  onChange={(e) => setUrl(e.target.value)}
-                  placeholder="yoursite.com"
-                  inputMode="url"
-                  autoCapitalize="off"
-                  autoCorrect="off"
-                  spellCheck={false}
-                  className="w-full bg-transparent px-2 py-4 text-sm text-white placeholder-white/35 outline-none"
-                />
-              </div>
+              <input
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                placeholder="yoursite.com"
+                inputMode="url"
+                autoCapitalize="off"
+                autoCorrect="off"
+                spellCheck={false}
+                aria-label="Your website address"
+                className="w-full rounded-xl border border-white/12 bg-ink-800/70 px-4 py-4 text-base text-white placeholder-white/35 outline-none transition-colors focus:border-lime/60 focus:ring-2 focus:ring-lime/20"
+              />
               <button
                 type="submit"
                 disabled={phase === "loading"}

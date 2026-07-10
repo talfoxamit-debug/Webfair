@@ -599,14 +599,18 @@ export default function DemoShowcase() {
             <p className="mt-2 hidden text-sm leading-relaxed text-white/55 lg:block">
               Real features I build into client sites. Pick one and try it — every click works.
             </p>
-            <div className="mt-4 flex gap-2 overflow-x-auto pb-1 lg:mt-5 lg:flex-col lg:gap-1.5 lg:overflow-visible lg:pb-0">
+            {/* Mobile hint that the tools scroll sideways */}
+            <p className="mt-2 flex items-center gap-1.5 text-[0.7rem] font-medium text-white/40 lg:hidden">
+              Swipe for more tools <ArrowRight width={12} height={12} />
+            </p>
+            <div className="mt-2 flex snap-x snap-mandatory gap-2 overflow-x-auto pb-1 [mask-image:linear-gradient(to_right,#000_84%,transparent)] lg:mt-5 lg:flex-col lg:gap-1.5 lg:overflow-visible lg:pb-0 lg:[mask-image:none]">
               {TABS.map((t) => {
                 const on = active === t.key;
                 return (
                   <button
                     key={t.key}
                     onClick={() => setActive(t.key)}
-                    className={`flex shrink-0 flex-col items-start rounded-xl border px-4 py-2.5 text-left transition-colors lg:shrink ${
+                    className={`flex shrink-0 snap-start flex-col items-start rounded-xl border px-4 py-2.5 text-left transition-colors lg:shrink ${
                       on ? "border-lime/40 bg-lime/[0.08]" : "border-white/[0.06] bg-white/[0.01] hover:border-white/15"
                     }`}
                   >

@@ -85,6 +85,17 @@
     @apply bg-lime/30 text-white;
   }
 
+  /* iOS Safari zooms into (and shifts the whole page around) any focused text
+     field smaller than 16px. Force 16px on phones so focusing an input never
+     jerks the layout off-center. Sliders are exempt. */
+  @media (max-width: 767px) {
+    input:not([type="range"]),
+    textarea,
+    select {
+      font-size: 16px;
+    }
+  }
+
   /* Respect reduced-motion preferences everywhere. */
   @media (prefers-reduced-motion: reduce) {
     html {
