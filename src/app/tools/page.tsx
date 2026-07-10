@@ -66,6 +66,13 @@ export default function ToolsHubPage() {
       <JsonLd data={jsonLd} />
       <div className="relative overflow-hidden pt-28 pb-10 sm:pt-32">
         <div className="pointer-events-none absolute left-1/2 top-0 h-64 w-[42rem] -translate-x-1/2 rounded-full bg-lime/[0.06] blur-[100px]" />
+        {/* Alert fox presenting the tools (desktop only) */}
+        <div className="pointer-events-none absolute right-[1%] top-16 z-0 hidden w-44 opacity-90 xl:block 2xl:w-52" aria-hidden="true">
+          <div className="animate-float-y">
+            {/* eslint-disable-next-line @next/next/no-img-element -- static decorative asset */}
+            <img src="/fox-alert.webp" alt="" loading="lazy" decoding="async" className="w-full drop-shadow-[0_0_40px_rgba(203,255,60,0.16)]" />
+          </div>
+        </div>
         <div className="container-content relative">
           <div className="mx-auto max-w-2xl text-center">
             <span className="inline-flex items-center gap-2 rounded-full border border-lime/25 bg-lime/[0.06] px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-lime">

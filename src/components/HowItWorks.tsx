@@ -107,7 +107,20 @@ export default function HowItWorks() {
 
   return (
     <section id="how" className="relative scroll-mt-20 py-12 sm:py-16">
-      <div className="container-content">
+      {/* Running fox — reinforces "live in weeks, not months" (desktop only). */}
+      <div className="pointer-events-none absolute right-[3%] top-4 z-0 hidden w-[32%] max-w-sm xl:block" aria-hidden="true">
+        <div className="animate-float-y">
+          {/* eslint-disable-next-line @next/next/no-img-element -- static decorative asset */}
+          <img
+            src="/fox-run.webp"
+            alt=""
+            loading="lazy"
+            decoding="async"
+            className="w-full opacity-90 drop-shadow-[0_0_40px_rgba(255,90,40,0.18)]"
+          />
+        </div>
+      </div>
+      <div className="container-content relative">
         <Reveal className="max-w-2xl">
           <p className="eyebrow">{howItWorks.eyebrow}</p>
           <h2 className="mt-3 font-display text-4xl uppercase leading-[0.95] text-white sm:text-5xl">
