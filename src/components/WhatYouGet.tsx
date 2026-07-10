@@ -1,4 +1,5 @@
 import Reveal from "./Reveal";
+import CardSpotlight from "./CardSpotlight";
 import { iconMap } from "./icons";
 import { whatYouGet } from "@/lib/content";
 
@@ -22,15 +23,16 @@ export default function WhatYouGet() {
               <Reveal
                 key={item.title}
                 delay={i * 90}
-                className="group rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-lime/30 hover:bg-white/[0.035] hover:shadow-[0_24px_60px_-34px_rgba(203,255,60,0.4)]"
+                className="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-lime/30 hover:bg-white/[0.035] hover:shadow-[0_24px_60px_-34px_rgba(203,255,60,0.4)]"
               >
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl border border-lime/40 bg-lime/[0.06] text-lime shadow-glow-lime transition-transform duration-300 group-hover:scale-105">
+                <CardSpotlight />
+                <span className="relative z-10 flex h-12 w-12 items-center justify-center rounded-xl border border-lime/40 bg-lime/[0.06] text-lime shadow-glow-lime transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:scale-110 group-hover:rotate-[-6deg]">
                   <Icon width={24} height={24} />
                 </span>
-                <h3 className="mt-4 font-display text-lg uppercase tracking-wide text-white">
+                <h3 className="relative z-10 mt-4 font-display text-lg uppercase tracking-wide text-white transition-colors duration-300 group-hover:text-lime">
                   {item.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/60">{item.body}</p>
+                <p className="relative z-10 mt-2 text-sm leading-relaxed text-white/60">{item.body}</p>
               </Reveal>
             );
           })}

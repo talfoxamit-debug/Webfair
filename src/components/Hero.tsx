@@ -99,7 +99,9 @@ export default function Hero() {
         className="pointer-events-none absolute bottom-0 right-[2%] top-0 z-[2] hidden w-[58%] will-change-transform lg:block"
         style={{ transform: "translate3d(calc(var(--mx, 0) * 12px), calc(var(--my, 0) * 8px), 0)" }}
       >
-        <HeroMedia variant="bleed" />
+        <div className="h-full w-full animate-float-y">
+          <HeroMedia variant="bleed" />
+        </div>
       </div>
 
       <div className="container-content relative z-10 grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
@@ -184,14 +186,29 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Feature highlights row */}
+      {/* Strengths row — the reasons to pick me, as cards. The 2-week speed
+          strength is accented so it reads first. */}
       <div id="stack" className="container-content relative z-10 mt-14">
-        <ul className="grid gap-6 sm:grid-cols-3">
+        <ul className="grid gap-4 sm:grid-cols-3">
           {hero.highlights.map((h, i) => {
             const Icon = highlightIcons[i];
+            const accent = i === 0;
             return (
-              <li key={h.title} className="flex items-start gap-4 border-white/10 sm:border-l sm:pl-8 first:sm:border-l-0 first:sm:pl-0">
-                <span className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-lime/45 text-lime shadow-[0_0_18px_-6px_rgba(203,255,60,0.5)]">
+              <li
+                key={h.title}
+                className={`group flex items-start gap-4 rounded-2xl border p-4 transition-all duration-300 hover:-translate-y-1 ${
+                  accent
+                    ? "border-lime/45 bg-lime/[0.06] shadow-[0_22px_55px_-30px_rgba(203,255,60,0.6)] hover:shadow-[0_26px_60px_-26px_rgba(203,255,60,0.75)]"
+                    : "border-white/[0.08] bg-white/[0.02] hover:border-lime/30 hover:bg-white/[0.035]"
+                }`}
+              >
+                <span
+                  className={`mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border text-lime transition-transform duration-300 group-hover:scale-110 ${
+                    accent
+                      ? "border-lime/60 bg-lime/10 shadow-[0_0_22px_-4px_rgba(203,255,60,0.7)]"
+                      : "border-lime/45 shadow-[0_0_18px_-6px_rgba(203,255,60,0.5)]"
+                  }`}
+                >
                   <Icon width={20} height={20} />
                 </span>
                 <div>

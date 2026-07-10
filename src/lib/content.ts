@@ -37,9 +37,9 @@ export const hero = {
   primaryCta: "Book a Free Site Audit",
   secondaryCta: "See My Work",
   highlights: [
-    { title: "Fast", sub: "Launch in 2–4 weeks" },
-    { title: "Converts", sub: "Built for leads & bookings" },
-    { title: "Mobile First", sub: "Pixel-perfect on any device" },
+    { title: "2-Week Launch", sub: "Most projects go live in ~2 weeks" },
+    { title: "Built to Convert", sub: "Engineered for leads & bookings" },
+    { title: "Work Direct With Me", sub: "No agencies. No handoffs." },
   ],
 };
 

@@ -108,6 +108,47 @@ export const freeTools: FreeTool[] = [
       },
     ],
   },
+  {
+    slug: "meta-tag-generator",
+    name: "Meta Tag & Social Preview Generator",
+    short: "Preview & generate your SEO tags",
+    blurb:
+      "See exactly how your page looks in Google, X/Twitter and Facebook — then copy ready-made meta and Open Graph tags.",
+    icon: "target",
+    h1: "Meta Tag & Social Preview Generator",
+    intro:
+      "Type your title, description, URL and image, and see live previews of how your page appears in Google search, on X/Twitter, and on Facebook — then copy production-ready meta + Open Graph tags. No signup.",
+    cta: "Generate my tags",
+    metaTitle: "Free Meta Tag & Open Graph Preview Generator | Stackwrk",
+    metaDescription:
+      "Free meta tag and Open Graph generator. Preview how your page looks in Google, X/Twitter and Facebook, then copy ready-to-paste meta + OG tags. No signup.",
+    keywords: [
+      "meta tag generator",
+      "open graph preview",
+      "og tags generator",
+      "twitter card preview",
+      "google serp preview",
+      "social media preview tool",
+    ],
+    faq: [
+      {
+        q: "What are meta tags and why do they matter?",
+        a: "Meta tags are snippets of HTML that tell search engines and social networks what your page is about — its title, description, and preview image. They shape how your page looks in Google results and when shared on social media, which directly affects click-through rate.",
+      },
+      {
+        q: "What's the ideal title and description length?",
+        a: "Aim for a title around 50–60 characters and a description around 120–160 characters. Longer than that and search engines truncate it with an ellipsis. This tool flags when you go over.",
+      },
+      {
+        q: "What is Open Graph (OG)?",
+        a: "Open Graph is the tag standard (og:title, og:description, og:image) that Facebook, LinkedIn, and most platforms read to build a rich link preview. X/Twitter uses its own twitter:card tags. This tool generates all of them for you.",
+      },
+      {
+        q: "Will meta tags improve my Google ranking?",
+        a: "A great title and description won't magically rank you #1, but they strongly influence whether people click your result — and click-through is a signal that helps. Clean tags also prevent Google from writing its own (often worse) snippet for you.",
+      },
+    ],
+  },
 ];
 
 export const getTool = (slug: string): FreeTool | undefined =>

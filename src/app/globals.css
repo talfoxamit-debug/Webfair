@@ -196,3 +196,19 @@
     text-wrap: balance;
   }
 }
+
+/* Gentle idle float — used on the hero fox so it breathes/hovers in place.
+   Applied to an inner wrapper so the outer layer keeps its cursor-parallax
+   transform. Frozen by the global reduced-motion rule. */
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+.animate-float-y {
+  animation: float-y 6.5s ease-in-out infinite;
+}

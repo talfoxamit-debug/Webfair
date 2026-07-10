@@ -1,4 +1,5 @@
 import Reveal from "./Reveal";
+import CardSpotlight from "./CardSpotlight";
 import { ArrowRight, Bolt, Check } from "./icons";
 import { carePlans, money } from "@/lib/pricing";
 
@@ -52,22 +53,23 @@ export default function Plans() {
               as="article"
               key={plan.id}
               delay={i * 110}
-              className={`card relative flex flex-col p-6 ${
+              className={`card group relative flex flex-col overflow-hidden p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-lime/40 hover:shadow-[0_28px_70px_-38px_rgba(203,255,60,0.5)] ${
                 plan.highlight ? "border-lime/35 shadow-[0_0_50px_-24px_rgba(203,255,60,0.45)]" : ""
               }`}
             >
+              <CardSpotlight />
               {plan.highlight && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-lime px-3 py-1 text-[0.6rem] font-bold uppercase tracking-widest text-ink">
+                <span className="absolute -top-3 left-1/2 z-10 -translate-x-1/2 rounded-full bg-lime px-3 py-1 text-[0.6rem] font-bold uppercase tracking-widest text-ink">
                   Most popular
                 </span>
               )}
-              <h3 className="font-display text-xl uppercase tracking-wide text-white">{plan.name}</h3>
-              <p className="mt-1 text-sm text-white/50">{plan.tagline}</p>
-              <p className="mt-5">
-                <span className="font-display text-5xl text-white">{money(plan.price)}</span>
+              <h3 className="relative z-10 font-display text-xl uppercase tracking-wide text-white">{plan.name}</h3>
+              <p className="relative z-10 mt-1 text-sm text-white/50">{plan.tagline}</p>
+              <p className="relative z-10 mt-5">
+                <span className="inline-block font-display text-5xl text-white transition-transform duration-300 group-hover:scale-105">{money(plan.price)}</span>
                 <span className="text-sm text-white/45">/mo</span>
               </p>
-              <ul className="mt-6 flex-1 space-y-2.5">
+              <ul className="relative z-10 mt-6 flex-1 space-y-2.5">
                 {plan.features.map((f) => (
                   <li key={f} className="flex items-start gap-2.5 text-sm text-white/75">
                     <Check width={15} height={15} className="mt-0.5 shrink-0 text-lime" />
@@ -120,11 +122,12 @@ export default function Plans() {
               as="div"
               key={c.title}
               delay={i * 90}
-              className="flex flex-col rounded-2xl border border-white/[0.07] bg-white/[0.015] p-6 transition-colors hover:border-white/15"
+              className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.015] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-lime/25 hover:bg-white/[0.03]"
             >
-              <h4 className="font-display text-lg uppercase tracking-wide text-white">{c.title}</h4>
-              <p className="mt-2 flex-1 text-sm leading-relaxed text-white/55">{c.blurb}</p>
-              <p className="mt-4 text-xs text-white/40">
+              <CardSpotlight />
+              <h4 className="relative z-10 font-display text-lg uppercase tracking-wide text-white transition-colors duration-300 group-hover:text-lime">{c.title}</h4>
+              <p className="relative z-10 mt-2 flex-1 text-sm leading-relaxed text-white/55">{c.blurb}</p>
+              <p className="relative z-10 mt-4 text-xs text-white/40">
                 from <span className="font-semibold text-white/70">{c.from}</span>
               </p>
             </Reveal>

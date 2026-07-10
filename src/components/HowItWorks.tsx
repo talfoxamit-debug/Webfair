@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Reveal from "./Reveal";
+import CardSpotlight from "./CardSpotlight";
 import { howItWorks } from "@/lib/content";
 
 /* ----------------------------------------------------- step mini-artifacts */
@@ -152,18 +153,19 @@ export default function HowItWorks() {
                   as="div"
                   key={s.n}
                   delay={i * 140}
-                  className="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6 transition-colors hover:border-lime/30"
+                  className="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-lime/30 hover:bg-white/[0.035] hover:shadow-[0_24px_60px_-34px_rgba(203,255,60,0.4)]"
                 >
+                  <CardSpotlight />
                   {/* ghost digit — kept fully inside the card so it reads as a
                       faint watermark instead of a cropped number at the edge */}
                   <span
                     aria-hidden="true"
-                    className="pointer-events-none absolute right-4 top-3 select-none font-display text-[5rem] leading-none text-white/[0.05] transition-colors duration-500 group-hover:text-lime/[0.08]"
+                    className="pointer-events-none absolute right-4 top-3 select-none font-display text-[5rem] leading-none text-white/[0.05] transition-all duration-500 group-hover:scale-110 group-hover:text-lime/[0.08]"
                   >
                     {s.n}
                   </span>
 
-                  <div className="relative">
+                  <div className="relative z-10">
                     <span className="font-display text-xl text-lime/60">{s.n}</span>
                     <h3 className="mt-2 font-display text-xl uppercase tracking-wide text-white">{s.title}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-white/60">{s.body}</p>

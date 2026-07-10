@@ -419,6 +419,16 @@ function BeforeAfterDemo() {
 
   return (
     <div className="p-5 sm:p-7">
+      {/* legend — makes it unmistakable which side is which */}
+      <div className="mb-3 flex items-center justify-between text-[0.7rem] font-bold uppercase tracking-wider">
+        <span className="flex items-center gap-1.5 text-white/45">
+          <span aria-hidden="true">◀</span> Before · dated
+        </span>
+        <span className="flex items-center gap-1.5 text-lime">
+          After · built to sell <span aria-hidden="true">▶</span>
+        </span>
+      </div>
+
       <div
         ref={frameRef}
         onPointerDown={onPointerDown}
@@ -521,48 +531,82 @@ function BeforeAfterDemo() {
             <div className="mt-2 rounded-md bg-lime py-1 text-center text-[0.52rem] font-bold uppercase text-ink">Confirm</div>
           </div>
         </div>
-        {/* BEFORE (dated) — clipped to pos%; fixed inner width so it never reflows */}
-        <div className="absolute inset-0 overflow-hidden bg-[#eceae4]" style={{ width: `${pos}%` }}>
-          <div className="h-full" style={{ width: 880 }}>
-            {/* old title bar */}
-            <div className="flex items-center justify-between border-b-2 border-[#b8b4a8] bg-[#d8d5cc] px-4 py-2">
-              <span className="font-serif text-sm font-bold text-[#4a4a55]">✦ Our Business Inc.</span>
-              <span className="font-serif text-[0.55rem] italic text-[#5a7]">est. 2003</span>
+        {/* BEFORE (dated) — a cluttered 2003 site; fixed inner width so it never reflows */}
+        <div className="absolute inset-0 overflow-hidden bg-[#d9d7cc]" style={{ width: `${pos}%` }}>
+          <div
+            className="h-full font-serif text-[#3a3a44]"
+            style={{
+              width: 880,
+              backgroundImage:
+                "repeating-linear-gradient(45deg, rgba(0,0,0,0.035) 0 9px, transparent 9px 18px)",
+            }}
+          >
+            {/* title bar */}
+            <div className="flex items-center justify-between border-b-2 border-[#8a8677] bg-gradient-to-b from-[#3b6ea5] to-[#26456f] px-4 py-1.5">
+              <span className="text-sm font-bold text-yellow-200 [text-shadow:1px_1px_0_#000]">★ Bob&rsquo;s Plumbing &amp; Sons ★</span>
+              <span className="text-[0.55rem] italic text-white/80">est. 2003</span>
             </div>
-            {/* nav links */}
-            <div className="flex gap-3 border-b border-[#c4c0b4] bg-[#c8c4b8] px-4 py-1 font-serif text-[0.55rem] text-[#2a3b8f] underline">
-              <span>Home</span><span>About Us</span><span>Services</span><span>Contact</span>
+            {/* welcome marquee */}
+            <div className="overflow-hidden border-b border-[#b8b4a8] bg-[#fff7c4] py-[3px]">
+              <div className="w-max animate-marquee whitespace-nowrap text-[0.6rem] font-bold text-[#a2331f]">
+                ◆ Welcome to our homepage! ◆ Best viewed in Internet Explorer 6 at 800×600 ◆ Sign our guestbook! ◆&nbsp;&nbsp;&nbsp;&nbsp;
+              </div>
             </div>
-            {/* body */}
-            <div className="px-4 py-3">
-              <span className="block font-serif text-lg font-bold text-[#333844]">Welcome to Our Business</span>
-              <span className="mt-0.5 block font-serif text-[0.7rem] italic text-[#667]">Quality service you can trust since 2003.</span>
-              <div className="mt-2 flex gap-2">
-                <div className="flex h-16 w-20 shrink-0 items-center justify-center border border-[#a8a498] bg-[#dcdad4] text-[0.5rem] text-[#889]">[ photo ]</div>
-                <span className="font-serif text-[0.6rem] leading-relaxed text-[#556]">We are a family-owned company providing the best service in town. Please call us during business hours, Mon–Fri 9–5.</span>
+            {/* nav */}
+            <div className="flex gap-3 border-b border-[#c4c0b4] bg-[#c8c4b8] px-4 py-1 text-[0.6rem] text-[#1a3b8f] underline">
+              <span>Home</span><span>About Us</span><span>Services</span><span>Guestbook</span><span>Contact</span>
+            </div>
+            {/* body: sidebar + main */}
+            <div className="flex gap-3 px-4 py-3">
+              <div className="w-24 shrink-0 space-y-1.5 text-center">
+                <div className="border-2 border-[#a8a498] bg-[#e8e6de] p-1">
+                  <div className="text-[0.5rem] font-bold text-[#556]">Visitors</div>
+                  <div className="mt-0.5 bg-black px-1 font-mono text-[0.6rem] font-bold text-[#33ff33]">0012427</div>
+                </div>
+                <div className="animate-pulse-glow text-[0.55rem] font-bold leading-tight text-[#c33]">★ Under<br />Construction ★</div>
+                <div className="border border-[#8888aa] bg-[#dde] px-1 py-0.5 text-[0.5rem] leading-tight text-[#2222aa]">Sign our<br />Guestbook!</div>
               </div>
-              <div className="mt-2 flex items-center gap-2">
-                <span className="border border-[#a8a498] bg-[#dcdad4] px-2 py-1 text-[0.55rem] text-[#556]">Submit »</span>
-                <span className="font-mono text-[0.5rem] text-[#889]">Visitors: 001242</span>
-                <span className="text-[0.5rem] font-bold text-[#c33]">★ Under Construction ★</span>
+              <div className="min-w-0 flex-1">
+                <span className="block text-lg font-bold text-[#2a2a3a]">Welcome To Our Business!!!</span>
+                <span className="mt-0.5 block text-[0.7rem] italic text-[#556677]">Quality plumbing you can trust since 2003.</span>
+                <div className="mt-2 flex gap-2">
+                  <div className="flex h-16 w-20 shrink-0 items-center justify-center border-2 border-[#a8a498] bg-[#e6e4dc] text-[0.5rem] text-[#8899aa]">[ photo.jpg ]</div>
+                  <span className="text-[0.6rem] leading-relaxed text-[#445566]">
+                    We are a family-owned company providing the BEST service in town! Call us during business
+                    hours Mon–Fri 9–5. We fix drains, pipes &amp; water heaters. Ask about our specials!
+                  </span>
+                </div>
+                <div className="mt-2 flex items-center gap-2">
+                  <span className="border border-[#888] bg-gradient-to-b from-[#f4f4f0] to-[#c8c4b8] px-2 py-0.5 text-[0.55rem] text-[#333]">Submit »</span>
+                  <span className="text-[0.5rem] text-[#8899aa]">✉ webmaster@aol.com</span>
+                </div>
               </div>
+            </div>
+            {/* footer */}
+            <div className="border-t border-[#c4c0b4] px-4 py-1 text-center text-[0.5rem] text-[#778899]">
+              © 2003 Bob&rsquo;s Plumbing &amp; Sons · This site is under construction · HTML 4.0
             </div>
           </div>
         </div>
         {/* Divider + grabbable handle (whole frame is draggable; handle is the affordance) */}
         <div className="pointer-events-none absolute inset-y-0" style={{ left: `${pos}%` }}>
-          <div className="h-full w-0.5 -translate-x-1/2 bg-lime" />
+          <div className="h-full w-0.5 -translate-x-1/2 bg-lime shadow-[0_0_12px_rgba(203,255,60,0.6)]" />
           <div
-            className={`absolute top-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-lime bg-ink text-sm text-lime shadow-[0_0_20px_-2px_rgba(203,255,60,0.7)] transition-transform ${
-              dragging ? "scale-110" : ""
+            className={`absolute top-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-lime bg-ink text-sm text-lime shadow-[0_0_20px_-2px_rgba(203,255,60,0.7)] transition-transform ${
+              dragging ? "scale-110" : "animate-pulse-glow"
             }`}
           >
             ↔
           </div>
+          {/* explicit drag hint above the handle */}
+          <span
+            className={`absolute left-1/2 top-2 -translate-x-1/2 rounded-full bg-lime px-2 py-0.5 text-[0.5rem] font-bold uppercase tracking-wider text-ink shadow transition-opacity ${
+              dragging ? "opacity-0" : "opacity-100"
+            }`}
+          >
+            Drag
+          </span>
         </div>
-        {/* Labels */}
-        <span className="pointer-events-none absolute left-3 top-3 rounded bg-black/50 px-2 py-0.5 text-[0.55rem] font-bold uppercase text-white/80">Before</span>
-        <span className="pointer-events-none absolute right-3 top-3 rounded bg-lime px-2 py-0.5 text-[0.55rem] font-bold uppercase text-ink">After</span>
       </div>
       <p className="mt-3 text-center text-xs text-white/45">
         Drag anywhere on the image — same business, redesigned to sell.
