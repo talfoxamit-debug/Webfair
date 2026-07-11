@@ -1,5 +1,4 @@
 import HeroMedia from "./HeroMedia";
-import HeroWaves from "./HeroWaves";
 import PointerVars from "./PointerVars";
 import ScrollParallax from "./ScrollParallax";
 import { ArrowRight, ArrowDown, Bolt, TrendUp, Phone } from "./icons";
@@ -39,12 +38,12 @@ const codeColor: Record<string, string> = {
 function CodeCard({ className = "" }: { className?: string }) {
   return (
     <div
-      className={`rounded-2xl border border-violet-400/40 bg-ink-800/55 p-5 font-mono text-[11px] leading-5 shadow-[0_0_36px_-8px_rgba(139,92,246,0.55)] backdrop-blur-xl sm:text-xs ${className}`}
+      className={`glass-panel rounded-2xl p-5 font-mono text-[11px] leading-5 sm:text-xs ${className}`}
     >
       <div className="mb-3 flex items-center gap-1.5">
-        <span className="h-2.5 w-2.5 rounded-full bg-flare-red/80" />
-        <span className="h-2.5 w-2.5 rounded-full bg-flare-orange/80" />
-        <span className="h-2.5 w-2.5 rounded-full bg-lime/80" />
+        <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+        <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+        <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
       </div>
       <pre className="overflow-x-auto">
         <code>
@@ -79,18 +78,15 @@ export default function Hero() {
       {/* Cursor-depth: exposes --mx/--my on this section for layer parallax */}
       <PointerVars />
 
-      {/* Backdrop: faint grid + deep radial atmosphere behind the fox */}
-      <div className="pointer-events-none absolute inset-0 grid-backdrop opacity-[0.16]" />
-      <ScrollParallax speed={0.18} className="pointer-events-none absolute -right-40 -top-32 h-[46rem] w-[46rem] rounded-full bg-[radial-gradient(circle,rgba(162,28,224,0.28),rgba(46,107,255,0.1)_55%,transparent_75%)] blur-2xl" />
-      <div className="pointer-events-none absolute -left-40 top-24 h-72 w-72 rounded-full bg-violet-600/15 blur-[80px]" />
-      <div className="pointer-events-none absolute bottom-[-10%] right-[10%] h-[26rem] w-[40rem] rounded-full bg-[radial-gradient(ellipse,rgba(255,45,155,0.14),rgba(46,107,255,0.1)_50%,transparent_75%)] blur-2xl" />
+      {/* Backdrop: faint grid + deep, restrained radial atmosphere. Toned down
+          so the scene reads calm and premium rather than electric. */}
+      <div className="pointer-events-none absolute inset-0 grid-backdrop opacity-[0.08]" />
+      <ScrollParallax speed={0.18} className="pointer-events-none absolute -right-40 -top-32 h-[46rem] w-[46rem] rounded-full bg-[radial-gradient(circle,rgba(162,28,224,0.13),rgba(46,107,255,0.05)_55%,transparent_75%)] blur-2xl" />
+      <div className="pointer-events-none absolute -left-40 top-24 h-72 w-72 rounded-full bg-violet-600/10 blur-[80px]" />
 
-      {/* Electric energy waves flowing from the lower-right */}
-      <HeroWaves />
-
-      {/* Warm energy field behind the fox so it emanates light and sits inside
-          the scene rather than reading as a flat sticker. */}
-      <div className="pointer-events-none absolute bottom-[8%] right-[8%] z-[1] hidden h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(circle,rgba(255,90,40,0.18),rgba(162,28,224,0.14)_44%,transparent_70%)] blur-3xl lg:block" />
+      {/* Warm energy field behind the fox so it sits inside the scene rather
+          than reading as a flat sticker — kept subtle. */}
+      <div className="pointer-events-none absolute bottom-[8%] right-[8%] z-[1] hidden h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(circle,rgba(255,90,40,0.11),rgba(162,28,224,0.08)_44%,transparent_70%)] blur-3xl lg:block" />
 
       {/* Fox — desktop: bleeds across the right side, nudged left + larger so it
           reads as one composition with the code card instead of floating far off.
@@ -107,30 +103,24 @@ export default function Hero() {
       <div className="container-content relative z-10 grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
         {/* Left: copy */}
         <div className="min-w-0">
-          <span className="inline-flex animate-fade-up items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-white/80">
-            <Bolt width={14} height={14} className="text-lime" />
+          <span className="inline-flex animate-rise items-center gap-2 rounded-full border border-white/12 bg-white/[0.03] px-4 py-1.5 text-[0.7rem] font-medium uppercase tracking-[0.28em] text-white/55">
+            <span className="h-1 w-1 rounded-full bg-lime/70" />
             {hero.eyebrow}
           </span>
 
           <h1
-            className="mt-6 animate-fade-up font-display text-5xl leading-[0.92] tracking-tight sm:text-6xl md:text-7xl lg:text-[4.1rem] xl:text-[5rem]"
-            style={{ animationDelay: "80ms" }}
+            className="mt-7 animate-rise font-display text-5xl leading-[0.95] tracking-tight sm:text-6xl md:text-7xl lg:text-[4.1rem] xl:text-[5rem]"
+            style={{ animationDelay: "90ms" }}
           >
-            <span className="block text-white lg:whitespace-nowrap">{hero.titleLines[0]}</span>
-            <span className="brush-word relative mt-1 inline-block text-accent-glow lg:whitespace-nowrap">
-              {hero.titleLines[1]}
-              <svg className="absolute -bottom-6 left-0 w-full" viewBox="0 0 300 20" fill="none" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M3 13 C 74 4, 150 4, 297 12" stroke="#CBFF3C" strokeWidth="4" strokeLinecap="round" />
-                <path d="M63 17 C 126 10, 208 9, 292 15" stroke="#CBFF3C" strokeWidth="2" strokeLinecap="round" opacity=".75" />
-              </svg>
-            </span>
+            <span className="block text-[#ECE9E2] lg:whitespace-nowrap">{hero.titleLines[0]}</span>
+            <span className="mt-1 block text-[rgba(236,233,226,0.42)] lg:whitespace-nowrap">{hero.titleLines[1]}</span>
           </h1>
 
-          <p className="mt-10 max-w-md animate-fade-up text-lg leading-relaxed text-white/80" style={{ animationDelay: "160ms" }}>
+          <p className="mt-8 max-w-md animate-rise text-lg leading-relaxed text-[#B7B2A8]" style={{ animationDelay: "180ms" }}>
             {hero.subtitle}
           </p>
 
-          <div className="mt-9 flex animate-fade-up flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4" style={{ animationDelay: "240ms" }}>
+          <div className="mt-9 flex animate-rise flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4" style={{ animationDelay: "270ms" }}>
             <a href="#about" className="btn-primary w-full !rounded-md sm:w-auto">
               {hero.primaryCta}
               <ArrowRight width={18} height={18} />
@@ -141,37 +131,24 @@ export default function Hero() {
             </a>
           </div>
 
-          {/* Built with — infinite marquee (pauses on hover, frozen by the
-              global reduced-motion rule) */}
-          <div className="mt-10 flex max-w-md animate-fade-up items-center gap-x-5" style={{ animationDelay: "320ms" }}>
-            <span className="shrink-0 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-white/40">
+          {/* Built with — a calm, static row (no marquee). */}
+          <div className="mt-10 flex max-w-md animate-rise flex-wrap items-center gap-x-5 gap-y-2" style={{ animationDelay: "360ms" }}>
+            <span className="shrink-0 text-[0.62rem] font-medium uppercase tracking-[0.28em] text-white/35">
               Built with
             </span>
-            <div
-              className="min-w-0 flex-1 overflow-hidden"
-              style={{
-                maskImage: "linear-gradient(to right, transparent, #000 10%, #000 90%, transparent)",
-                WebkitMaskImage: "linear-gradient(to right, transparent, #000 10%, #000 90%, transparent)",
-              }}
-            >
-              <ul className="flex w-max animate-marquee items-center text-white/70 hover:[animation-play-state:paused]">
-                {[0, 1].map((dup) => (
-                  <li key={dup} aria-hidden={dup === 1} className="flex items-center">
-                    <span className="flex items-center gap-1.5 pr-8 text-sm font-medium"><NextMark className="text-white" /> Next.js</span>
-                    <span className="flex items-center gap-1.5 pr-8 text-sm font-medium"><TypeScriptMark /> TypeScript</span>
-                    <span className="flex items-center gap-1.5 pr-8 text-sm font-medium"><TailwindMark /> Tailwind CSS</span>
-                    <span className="flex items-center gap-1.5 pr-8 text-sm font-medium"><SupabaseMark /> Supabase</span>
-                    <span className="flex items-center gap-1.5 pr-8 text-sm font-medium"><VercelMark className="text-white" /> Vercel</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <ul className="flex flex-wrap items-center gap-x-5 gap-y-2 text-white/55">
+              <li className="flex items-center gap-1.5 text-sm font-medium"><NextMark className="text-white/70" /> Next.js</li>
+              <li className="flex items-center gap-1.5 text-sm font-medium"><TypeScriptMark /> TypeScript</li>
+              <li className="flex items-center gap-1.5 text-sm font-medium"><TailwindMark /> Tailwind</li>
+              <li className="flex items-center gap-1.5 text-sm font-medium"><SupabaseMark /> Supabase</li>
+              <li className="flex items-center gap-1.5 text-sm font-medium"><VercelMark className="text-white/70" /> Vercel</li>
+            </ul>
           </div>
         </div>
 
         {/* Right column: code card overlaps the fox's chest at center-right on
             desktop; on mobile the fox panel + card stack in the normal flow */}
-        <div className="relative min-w-0 animate-fade-up lg:h-[26rem]" style={{ animationDelay: "200ms" }}>
+        <div className="relative min-w-0 animate-rise lg:h-[26rem]" style={{ animationDelay: "220ms" }}>
           <div className="flex flex-col items-center gap-6 lg:hidden">
             <HeroMedia />
             <CodeCard className="w-full max-w-sm" />
@@ -186,34 +163,22 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Strengths row — the reasons to pick me, as cards. The 2-week speed
-          strength is accented so it reads first. */}
-      <div id="stack" className="container-content relative z-10 mt-14">
+      {/* Strengths row — refined glass panels, quiet by default. */}
+      <div id="stack" className="container-content relative z-10 mt-16">
         <ul className="grid gap-4 sm:grid-cols-3">
           {hero.highlights.map((h, i) => {
             const Icon = highlightIcons[i];
-            const accent = i === 0;
             return (
               <li
                 key={h.title}
-                className={`group flex items-start gap-4 rounded-2xl border p-4 transition-all duration-300 hover:-translate-y-1 ${
-                  accent
-                    ? "border-lime/45 bg-lime/[0.06] shadow-[0_22px_55px_-30px_rgba(203,255,60,0.6)] hover:shadow-[0_26px_60px_-26px_rgba(203,255,60,0.75)]"
-                    : "border-white/[0.08] bg-white/[0.02] hover:border-lime/30 hover:bg-white/[0.035]"
-                }`}
+                className="glass-panel glass-panel-hover flex items-start gap-4 rounded-2xl p-5"
               >
-                <span
-                  className={`mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border text-lime transition-transform duration-300 group-hover:scale-110 ${
-                    accent
-                      ? "border-lime/60 bg-lime/10 shadow-[0_0_22px_-4px_rgba(203,255,60,0.7)]"
-                      : "border-lime/45 shadow-[0_0_18px_-6px_rgba(203,255,60,0.5)]"
-                  }`}
-                >
-                  <Icon width={20} height={20} />
+                <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-white/12 text-lime/80">
+                  <Icon width={18} height={18} />
                 </span>
                 <div>
-                  <p className="font-display text-lg uppercase tracking-wide text-white">{h.title}</p>
-                  <p className="text-sm text-white/55">{h.sub}</p>
+                  <p className="font-display text-lg uppercase tracking-wide text-[#ECE9E2]">{h.title}</p>
+                  <p className="mt-0.5 text-sm text-white/45">{h.sub}</p>
                 </div>
               </li>
             );
