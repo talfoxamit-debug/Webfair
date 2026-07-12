@@ -66,16 +66,29 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    name: "Apex Fence Co.",
+    tag: "The fence-contractor site, done right.",
+    blurb:
+      "A homeowner-facing fence company site — instant quote widget, reviews, financing and service-area pages, all built to turn searches into quote requests.",
+    features: ["Instant quote form + click-to-call", "Reviews, warranty & trust signals", "Financing + service-area pages"],
+    href: "/demos/apex-fence",
+    result: "This is the exact site I build for fence & exterior contractors — yours gets your name, your photos, your number.",
+    accent: "from-emerald-800 via-teal-900 to-ink-700",
+    image: "/shots/apexfence.webp",
+    badge: "Concept build",
+    tier: "featured",
+  },
+  {
     name: "Above Air",
     tag: "South-Florida HVAC contractor.",
     blurb:
       "A contractor site with an instant-estimate flow, live comfort slider, financing and bilingual support — built to book service calls.",
     features: ["Instant estimate flow", "Click-to-call + quote form", "English / Español"],
     href: "https://above-air-inc.vercel.app",
-    result: "Turns after-hours emergencies into booked service calls — the same lead-first playbook I build for fence & exterior pros.",
+    result: "Turns after-hours emergencies into booked service calls — the same lead-first playbook as your fence site.",
     accent: "from-emerald-800 via-teal-900 to-ink-700",
     image: "/shots/aboveair.webp",
-    tier: "featured",
+    tier: "main",
   },
   {
     name: "Marco's · FTL",
@@ -100,7 +113,7 @@ export const projects: Project[] = [
     result: "Fills the schedule from any phone, in 3 languages, with local SEO that actually shows up.",
     accent: "from-amber-800 via-rose-900 to-ink-700",
     image: "/shots/capoeira-aue.webp",
-    tier: "main",
+    tier: "more",
   },
   {
     name: "SeaTop Homes",

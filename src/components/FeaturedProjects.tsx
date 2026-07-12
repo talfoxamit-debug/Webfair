@@ -128,8 +128,8 @@ export default function FeaturedProjects() {
               <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden lg:block">
                 <div className="absolute right-5 top-14 w-40 animate-float rounded-xl border border-white/15 bg-[#0b0616]/85 p-3 shadow-2xl backdrop-blur-md">
                   <div className="flex items-center justify-between">
-                    <span className="text-[0.55rem] font-bold uppercase tracking-wide text-white/60">ROI calculator</span>
-                    <span className="font-display text-sm text-lime">8.4%</span>
+                    <span className="text-[0.55rem] font-bold uppercase tracking-wide text-white/60">Quote requests</span>
+                    <span className="font-display text-sm text-lime">3.2×</span>
                   </div>
                   <svg viewBox="0 0 130 30" className="mt-2 h-7 w-full" fill="none">
                     <path d="M2 26 C 30 24, 50 18, 72 13 S 112 4, 128 3" stroke="#CBFF3C" strokeWidth="2" strokeLinecap="round" opacity="0.85" />
@@ -139,7 +139,7 @@ export default function FeaturedProjects() {
                 <div className="absolute bottom-16 right-24 animate-float-slow rounded-lg border border-white/15 bg-[#0b0616]/85 px-3 py-2 shadow-xl backdrop-blur-md" style={{ animationDelay: "1.2s" }}>
                   <span className="flex items-center gap-2 text-[0.62rem] font-semibold text-white/80">
                     <span className="flex h-4 w-4 items-center justify-center rounded-full bg-lime text-[0.55rem] text-ink">✓</span>
-                    Flood-zone check · build ready
+                    New quote · Vinyl fence · Coral Springs
                   </span>
                 </div>
               </div>

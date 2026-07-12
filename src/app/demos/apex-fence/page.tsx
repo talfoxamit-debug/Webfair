@@ -102,14 +102,17 @@ export default function ApexFenceDemo() {
         </div>
       </header>
 
-      {/* HERO */}
+      {/* HERO — real photo: sunset over a fenced estate (CC-BY, credit in footer) */}
       <section className="relative min-h-[560px] overflow-hidden lg:min-h-[640px]">
-        {/* dusk sky */}
-        <div className="absolute inset-0" style={{ background: "linear-gradient(180deg,#123049 0%,#1c4b63 32%,#c8794a 82%,#e0a05c 100%)" }} />
-        <div className="absolute right-[12%] top-[14%] h-56 w-56 rounded-full opacity-70 blur-2xl" style={{ background: "radial-gradient(circle,#ffe6b3,rgba(255,230,179,0))" }} />
-        {/* fence occupies lower band */}
-        <div className="absolute inset-x-0 bottom-0 h-[46%]"><FenceBoards tone="wood" /></div>
-        <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(8,20,30,0.72) 0%, rgba(8,20,30,0.45) 45%, rgba(8,20,30,0.15) 100%)" }} />
+        {/* eslint-disable-next-line @next/next/no-img-element -- demo asset */}
+        <img
+          src="/demo/fence/hero.webp"
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ objectPosition: "center 62%" }}
+        />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(8,20,30,0.82) 0%, rgba(8,20,30,0.55) 48%, rgba(8,20,30,0.28) 100%)" }} />
+        <div className="absolute inset-x-0 bottom-0 h-24" style={{ background: "linear-gradient(180deg, rgba(8,20,30,0) 0%, rgba(8,20,30,0.35) 100%)" }} />
 
         <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 pb-16 pt-16 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:pb-20 lg:pt-20">
           <div className="text-white">
@@ -224,12 +227,16 @@ export default function ApexFenceDemo() {
         <div className="mx-auto max-w-xl text-center">
           <p className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: GREEN }}>Recent work</p>
           <h2 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl" style={{ color: NAVY }}>Fences we&rsquo;re proud of.</h2>
-          <p className="mt-2 text-sm text-slate-500">Swap these for your real project photos.</p>
+          <p className="mt-2 text-sm text-slate-500">Demo photos — on your site, these are your real projects.</p>
         </div>
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {[["Horizontal cedar privacy", "Fort Lauderdale", "wood"], ["White vinyl backyard", "Weston", "vinyl"], ["Black aluminum pool fence", "Coral Springs", "aluminum"], ["Custom driveway gate", "Plantation", "wood"], ["Ranch-style vinyl", "Davie", "vinyl"], ["Ornamental yard fence", "Hollywood", "aluminum"]].map(([t, c, tone]) => (
-            <div key={t} className="relative overflow-hidden rounded-2xl border border-black/[0.07] shadow-sm">
-              <div className="relative h-52"><FenceBoards tone={tone as "wood" | "vinyl" | "aluminum"} /><div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" /></div>
+          {[["Cedar fence & custom gate", "Fort Lauderdale", "g-gate"], ["Sideyard cedar privacy", "Plantation", "g-cedar"], ["White vinyl privacy", "Weston", "g-vinyl"], ["Modern composite screen", "Davie", "g-comp"], ["Estate ranch rail", "Southwest Ranches", "g-ranch"], ["Ranch rail on the water", "Parkland", "g-rail"]].map(([t, c, img]) => (
+            <div key={t} className="group relative overflow-hidden rounded-2xl border border-black/[0.07] shadow-sm">
+              <div className="relative h-52 overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element -- demo asset */}
+                <img src={`/demo/fence/${img}.webp`} alt={t} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+              </div>
               <div className="absolute inset-x-0 bottom-0 p-4 text-white">
                 <p className="text-sm font-bold">{t}</p>
                 <p className="text-xs text-white/75">{c}</p>
@@ -301,6 +308,9 @@ export default function ApexFenceDemo() {
           <div className="sm:text-right">
             <p className="font-semibold text-slate-700">Serving Broward &amp; Miami-Dade</p>
             <p className="mt-2 text-xs">© 2026 Apex Fence Co. · Demo site by Stackwrk</p>
+            <p className="mt-1 text-[0.65rem] text-slate-400">
+              Demo photos: nordique, okchomeseller, Field Outdoor Spaces, EliteBalustradeImages, Gareth1953 (Flickr, CC BY 2.0)
+            </p>
           </div>
         </div>
       </footer>
