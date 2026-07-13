@@ -5,7 +5,7 @@ import { site } from "@/lib/content";
 export default function robots(): MetadataRoute.Robots {
   const base = `https://${site.domain}`;
   return {
-    rules: [{ userAgent: "*", allow: "/", disallow: ["/crm", "/quote"] }],
+    rules: [{ userAgent: "*", allow: "/", disallow: ["/crm", "/quote", "/prospects"] }],
     sitemap: `${base}/sitemap.xml`,
     host: base,
   };

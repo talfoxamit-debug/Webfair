@@ -11,8 +11,10 @@ export default function Nav() {
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
   const lastY = useRef(0);
-  const pathname = usePathname();
+  const pathname = usePathname() || "/";
   const onHome = pathname === "/";
+  // Internal tools + standalone demo sites carry their own chrome — no marketing nav.
+  const bare = /^\/(crm|prospects|quote|demos)(\/|$)/.test(pathname);
   // In-page anchors only resolve on the home page; from any other route send
   // them to the home page first (e.g. "#plans" → "/#plans").
   const to = (href: string) => (href.startsWith("#") && !onHome ? `/${href}` : href);
@@ -31,6 +33,8 @@ export default function Nav() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  if (bare) return null;
 
   return (
     <header
