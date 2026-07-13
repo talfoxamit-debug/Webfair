@@ -34,4 +34,8 @@ next-env.d.ts
 # editor
 .idea
 .vscode
+
+# private lead data — never commit real prospect emails/phones
 /leads-fence-southfl.csv
+/instantly-fence-leads.csv
+/scratchpad/
