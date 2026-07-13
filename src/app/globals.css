@@ -116,6 +116,20 @@
     @apply mx-auto w-full max-w-content px-5 sm:px-8;
   }
 
+  /* CRM theme tokens — light (day) by default, dark (night) under a `.dark` root.
+     Keeps the /prospects tool readable as a work surface in either mode. */
+  .crm-page   { @apply bg-slate-100 text-slate-800 dark:bg-[#0b0f14] dark:text-slate-100; }
+  .crm-card   { @apply border border-slate-200 bg-white dark:border-white/10 dark:bg-[#11161d]; }
+  .crm-stat   { @apply border border-slate-200 bg-white dark:border-white/10 dark:bg-white/[0.03]; }
+  .crm-drawer { @apply border-slate-200 bg-white dark:border-white/10 dark:bg-[#0e141b]; }
+  .crm-col    { @apply bg-slate-200/50 dark:bg-white/[0.02]; }
+  .crm-input  { @apply border border-slate-300 bg-white text-slate-800 outline-none placeholder:text-slate-400 focus:border-emerald-500 dark:border-white/10 dark:bg-white/[0.04] dark:text-white dark:placeholder:text-slate-500 dark:focus:border-lime/50; }
+  .crm-btn    { @apply border border-slate-300 text-slate-600 hover:bg-slate-100 dark:border-white/15 dark:text-slate-300 dark:hover:bg-white/5; }
+  .crm-muted  { @apply text-slate-500 dark:text-slate-400; }
+  .crm-subtle { @apply text-slate-400 dark:text-slate-500; }
+  .crm-strong { @apply text-slate-900 dark:text-white; }
+  .crm-accent { @apply text-emerald-600 dark:text-lime; }
+
   .eyebrow {
     @apply text-xs font-semibold uppercase tracking-[0.25em] text-violet-400;
   }

@@ -21,9 +21,9 @@ export const STAGE_LABEL: Record<ProspectStage, string> = Object.fromEntries(
 export type ProspectTier = "call" | "verify" | "skip";
 
 export const TIER_META: Record<ProspectTier, { label: string; short: string; cls: string; hint: string }> = {
-  call: { label: "Call first", short: "CALL", cls: "bg-lime/20 text-lime", hint: "Real, local, established — dial these first." },
-  verify: { label: "Verify", short: "VERIFY", cls: "bg-amber-500/20 text-amber-300", hint: "Thin listing or out-of-area number — 30-sec Google check first." },
-  skip: { label: "Skip", short: "SKIP", cls: "bg-rose-500/20 text-rose-300", hint: "Likely a lead-gen fake or wrong category — don't waste dials." },
+  call: { label: "Call first", short: "CALL", cls: "bg-emerald-100 text-emerald-700 dark:bg-lime/20 dark:text-lime", hint: "Real, local, established — dial these first." },
+  verify: { label: "Verify", short: "VERIFY", cls: "bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300", hint: "Thin listing or out-of-area number — 30-sec Google check first." },
+  skip: { label: "Skip", short: "SKIP", cls: "bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-300", hint: "Likely a lead-gen fake or wrong category — don't waste dials." },
 };
 
 export type Prospect = {

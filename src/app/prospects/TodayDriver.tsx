@@ -56,9 +56,9 @@ export default function TodayDriver({
     <button
       onClick={onClick}
       className={`rounded-md px-2.5 py-1.5 text-[0.7rem] font-bold ${
-        tone === "lime" ? "border border-lime/40 bg-lime/10 text-lime"
-          : tone === "rose" ? "border border-white/10 text-rose-400/80 hover:bg-white/5"
-          : "border border-white/12 text-slate-300 hover:bg-white/5"
+        tone === "lime" ? "border border-emerald-300 bg-emerald-50 text-emerald-700 dark:border-lime/40 dark:bg-lime/10 dark:text-lime"
+          : tone === "rose" ? "border border-slate-300 text-rose-500/80 hover:bg-slate-100 dark:border-white/10 dark:text-rose-400/80 dark:hover:bg-white/5"
+          : "crm-btn"
       }`}
     >
       {children}
@@ -66,11 +66,11 @@ export default function TodayDriver({
   );
 
   const Card = ({ p, sub }: { p: Prospect; sub?: string }) => (
-    <div className="rounded-xl border border-white/10 bg-[#11161d] p-3">
+    <div className="rounded-xl p-3 crm-card">
       <div className="flex items-start justify-between gap-2">
         <button onClick={() => onOpen(p)} className="text-left">
-          <span className="text-sm font-semibold text-white hover:text-lime">{p.name}</span>
-          <span className="block text-[0.7rem] text-slate-400">{p.city}{sub ? ` · ${sub}` : ""}</span>
+          <span className="text-sm font-semibold crm-strong hover:text-emerald-600 dark:hover:text-lime">{p.name}</span>
+          <span className="block text-[0.7rem] crm-muted">{p.city}{sub ? ` · ${sub}` : ""}</span>
         </button>
         {p.tier && <span className={`shrink-0 rounded px-1 text-[0.55rem] font-bold ${TIER_META[p.tier].cls}`}>{TIER_META[p.tier].short}</span>}
       </div>
@@ -88,12 +88,12 @@ export default function TodayDriver({
       {/* daily progress */}
       <div className="grid grid-cols-3 gap-2 sm:max-w-lg">
         {[
-          ["Dials today", `${dialsToday}/${DIAL_GOAL}`, dialsToday >= DIAL_GOAL ? "text-lime" : "text-white"],
-          ["Follow-ups due", `${followUps.length}`, followUps.length ? "text-amber-400" : "text-slate-500"],
-          ["Calls booked", `${booked}`, "text-lime"],
+          ["Dials today", `${dialsToday}/${DIAL_GOAL}`, dialsToday >= DIAL_GOAL ? "text-emerald-600 dark:text-lime" : "crm-strong"],
+          ["Follow-ups due", `${followUps.length}`, followUps.length ? "text-amber-600 dark:text-amber-400" : "crm-subtle"],
+          ["Calls booked", `${booked}`, "text-emerald-600 dark:text-lime"],
         ].map(([l, v, c]) => (
-          <div key={l} className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
-            <p className="text-[0.6rem] uppercase tracking-wide text-slate-500">{l}</p>
+          <div key={l} className="rounded-xl px-4 py-3 crm-stat">
+            <p className="text-[0.6rem] uppercase tracking-wide crm-muted">{l}</p>
             <p className={`text-xl font-extrabold ${c}`}>{v}</p>
           </div>
         ))}
@@ -102,22 +102,22 @@ export default function TodayDriver({
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
         {/* Follow-ups */}
         <div>
-          <h2 className="mb-3 flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-amber-400">
-            ⏰ Follow-ups due <span className="text-slate-500">({followUps.length})</span>
+          <h2 className="mb-3 flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-amber-600 dark:text-amber-400">
+            ⏰ Follow-ups due <span className="crm-subtle">({followUps.length})</span>
           </h2>
           {followUps.length === 0 ? (
-            <p className="rounded-xl border border-white/10 bg-white/[0.02] p-4 text-sm text-slate-500">Nothing due today. Nice — go make fresh calls. →</p>
+            <p className="rounded-xl p-4 text-sm crm-card crm-muted">Nothing due today. Nice — go make fresh calls. →</p>
           ) : (
             <div className="space-y-2">
               {followUps.map((p) => (
-                <div key={p.id} className="rounded-xl border border-amber-500/20 bg-amber-500/[0.04] p-3">
+                <div key={p.id} className="rounded-xl border border-amber-300 bg-amber-50 p-3 dark:border-amber-500/20 dark:bg-amber-500/[0.04]">
                   <div className="flex items-start justify-between gap-2">
                     <button onClick={() => onOpen(p)} className="text-left">
-                      <span className="text-sm font-semibold text-white hover:text-lime">{p.name}</span>
-                      <span className="block text-[0.7rem] text-slate-400">{p.city} · due {p.nextFollowUp}</span>
+                      <span className="text-sm font-semibold crm-strong hover:text-emerald-600 dark:hover:text-lime">{p.name}</span>
+                      <span className="block text-[0.7rem] crm-muted">{p.city} · due {p.nextFollowUp}</span>
                     </button>
                   </div>
-                  {p.notes && <p className="mt-1 line-clamp-2 text-[0.7rem] text-slate-500">{p.notes}</p>}
+                  {p.notes && <p className="mt-1 line-clamp-2 text-[0.7rem] crm-subtle">{p.notes}</p>}
                   <div className="mt-2 flex flex-wrap items-center gap-1.5">
                     {p.phone && <a href={tel(p.phone)} className="rounded-md bg-lime px-2.5 py-1.5 text-[0.7rem] font-bold text-ink">📞 {p.phone}</a>}
                     <Btn onClick={() => logCall(p)}>Log touch</Btn>
@@ -133,12 +133,12 @@ export default function TodayDriver({
 
         {/* Fresh dials */}
         <div>
-          <h2 className="mb-3 flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-lime">
-            🟢 Today&rsquo;s dials <span className="text-slate-500">(next {dialQueue.length})</span>
+          <h2 className="mb-3 flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-emerald-600 dark:text-lime">
+            🟢 Today&rsquo;s dials <span className="crm-subtle">(next {dialQueue.length})</span>
           </h2>
           {dialQueue.length === 0 ? (
-            <p className="rounded-xl border border-white/10 bg-white/[0.02] p-4 text-sm text-slate-500">
-              No fresh CALL-tier leads left. Load the starter list, or switch to the email campaign for the rest.
+            <p className="rounded-xl p-4 text-sm crm-card crm-muted">
+              No fresh CALL-tier leads left. Import more, or switch to the email campaign for the rest.
             </p>
           ) : (
             <div className="space-y-2">
