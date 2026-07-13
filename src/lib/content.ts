@@ -212,24 +212,25 @@ export const howItWorks = {
   ],
 };
 
-// TODO(Tal): replace these SAMPLE testimonials with real client quotes before
-// running campaigns. Keep them short, specific, and outcome-focused.
+// Real client testimonials. DRAFT WORDING — confirm the exact quote with each
+// client and that they're OK being named publicly, then finalize here.
 export const testimonials = [
   {
     quote:
-      "He didn't just make it pretty — he built tools our buyers actually use. Leads come in warmer and more qualified now.",
-    name: "Client",
-    role: "Real estate · South Florida",
+      "Tal built us a clean, fast site and made the whole process painless. It makes us look legit and it's easy for customers to reach us.",
+    name: "Brian",
+    role: "Above Air A/C",
   },
   {
     quote:
-      "Real-time booking changed our business. No more back-and-forth — customers just reserve and pay while we sleep.",
-    name: "Client",
-    role: "Rental marketplace · Fort Lauderdale",
+      "The online booking he set up saves us the constant back-and-forth — customers just reserve online. Exactly what we needed.",
+    name: "Saar",
+    role: "Fort Lauderdale Dock Rental",
   },
   {
+    // TODO(Tal): add a third real client quote here.
     quote:
-      "Fast, on time, and it works on every phone. Sign-ups went up the week we launched.",
+      "Fast, on time, and it works on every phone. Would recommend to anyone who needs a real website.",
     name: "Client",
     role: "Local service business",
   },

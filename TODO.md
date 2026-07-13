@@ -8,6 +8,16 @@ _Last updated: 2026-07-12_
 
 ---
 
+## 💳 Payments — Stripe (do this to actually collect deposits)
+- [ ] **You can wire Stripe now without the EIN** — onboard as a sole proprietor with
+      your SSN; switch it to the LLC once the EIN arrives.
+- [ ] Create Stripe **Payment Links**: a 50% deposit link per package (Launch/Growth/
+      Market Leader) + the recurring care-plan subscriptions ($99 / $249 / $499/mo).
+- [ ] Paste the deposit link into the CRM agreement generator (`payLink`) so the signed
+      agreement shows a **Pay deposit** button — one link closes + collects.
+- [ ] _(Claude)_ Wire the Stripe links into `src/lib/pricing.ts` + the agreement `payLink`.
+- [ ] Meanwhile: take deposits by **Zelle/Venmo** so a "yes" tomorrow never stalls.
+
 ## 🔒 Decisions to lock (you)
 - [ ] Confirm niche: **fencing first → siding later**
 - [ ] Pick the **target metro** (for lead lists + naming local competitors)

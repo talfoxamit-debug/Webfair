@@ -14,7 +14,7 @@ export default function Nav() {
   const pathname = usePathname() || "/";
   const onHome = pathname === "/";
   // Internal tools + standalone demo sites carry their own chrome — no marketing nav.
-  const bare = /^\/(crm|prospects|quote|demos|mockup)(\/|$)/.test(pathname);
+  const bare = /^\/(crm|prospects|quote|demos|mockup|agreement)(\/|$)/.test(pathname);
   // In-page anchors only resolve on the home page; from any other route send
   // them to the home page first (e.g. "#plans" → "/#plans").
   const to = (href: string) => (href.startsWith("#") && !onHome ? `/${href}` : href);

@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { PROSPECT_STAGES, TEMPLATES, TIER_META, type Prospect, type ProspectStage, type ProspectTier } from "@/lib/prospects";
 import TodayDriver from "./TodayDriver";
 import { useTheme } from "./useTheme";
+import { encodeAgreement, type AgreementConfig } from "@/lib/agreement";
 
 const todayISO = () => new Date().toISOString().slice(0, 10);
 const uid = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
@@ -70,6 +71,9 @@ export default function Board({ user }: { user: string }) {
   const [showImport, setShowImport] = useState(false);
   const [csv, setCsv] = useState("");
   const [toast, setToast] = useState("");
+  const [agrPkg, setAgrPkg] = useState<AgreementConfig["pkg"]>("Growth");
+  const [agrFee, setAgrFee] = useState(3900);
+  const [agrCare, setAgrCare] = useState(249);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Load the shared team pipeline (page is already gated server-side).
@@ -100,6 +104,17 @@ export default function Board({ user }: { user: string }) {
   }
   const patch = (id: string, d: Partial<Prospect>) => setItems((xs) => xs.map((x) => (x.id === id ? { ...x, ...d } : x)));
   const copy = (t: string) => { navigator.clipboard?.writeText(t); flash("Copied"); };
+
+  function copyAgreementLink(p: Prospect) {
+    const pages = agrPkg === "Launch" ? 5 : agrPkg === "Growth" ? 7 : 10;
+    const d = encodeAgreement({
+      clientName: p.name, contact: p.owner, email: p.email, phone: p.phone,
+      pkg: agrPkg, pages, projectFee: agrFee, careName: agrPkg, careMonthly: agrCare, date: todayISO(),
+    });
+    const url = `${window.location.origin}/agreement?d=${d}`;
+    navigator.clipboard?.writeText(url);
+    flash("Agreement link copied — send it to the client");
+  }
 
   const filtered = useMemo(() => {
     const s = q.trim().toLowerCase();
@@ -271,6 +286,20 @@ export default function Board({ user }: { user: string }) {
               <label className="mt-4 block text-xs font-semibold crm-muted">Notes
                 <textarea value={p.notes} onChange={(e) => patch(p.id, { notes: e.target.value })} rows={3} className="mt-1 w-full rounded-lg px-3 py-2 text-sm crm-input" placeholder="Call notes, objections, next steps…" />
               </label>
+
+              {/* client agreement — generate a personalized e-sign link */}
+              <div className="mt-5 rounded-lg p-3 crm-stat">
+                <p className="text-xs font-bold uppercase tracking-wide crm-muted">Client agreement</p>
+                <div className="mt-2 grid grid-cols-3 gap-2">
+                  <select value={agrPkg} onChange={(e) => setAgrPkg(e.target.value as AgreementConfig["pkg"])} className="rounded-lg px-2 py-1.5 text-xs crm-input">
+                    <option>Launch</option><option>Growth</option><option>Market Leader</option>
+                  </select>
+                  <input type="number" value={agrFee} onChange={(e) => setAgrFee(Number(e.target.value))} className="rounded-lg px-2 py-1.5 text-xs crm-input" title="Project fee" />
+                  <input type="number" value={agrCare} onChange={(e) => setAgrCare(Number(e.target.value))} className="rounded-lg px-2 py-1.5 text-xs crm-input" title="Care $/mo" />
+                </div>
+                <button onClick={() => copyAgreementLink(p)} className="mt-2 w-full rounded-lg bg-lime px-3 py-2 text-xs font-bold text-ink">📄 Copy e-sign agreement link</button>
+                <p className="mt-1 text-[0.6rem] crm-subtle">Fee · care/mo. Send the link after they say yes — they review &amp; sign online.</p>
+              </div>
 
               {/* templates */}
               <div className="mt-5">

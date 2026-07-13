@@ -26,7 +26,7 @@ export default function Testimonials() {
                 ))}
               </div>
               <p className="mt-3 flex-1 text-[0.82rem] leading-relaxed text-white/70">&ldquo;{t.quote}&rdquo;</p>
-              <p className="mt-4 text-xs text-white/40">{t.role}</p>
+              <p className="mt-4 text-xs"><span className="font-semibold text-white/80">{t.name}</span> <span className="text-white/40">· {t.role}</span></p>
             </Reveal>
           ))}
         </div>
