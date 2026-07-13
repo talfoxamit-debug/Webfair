@@ -41,3 +41,4 @@ next-env.d.ts
 /scratchpad/
 /guessed-emails-to-verify.csv
 /enrich-domains-apollo.csv
+/no-website-qualified.csv
