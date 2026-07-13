@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { PROSPECT_STAGES, STAGE_LABEL, TEMPLATES, type Prospect, type ProspectStage } from "@/lib/prospects";
 
 const LS_KEY = "stackwrk_prospects_v1";
@@ -72,11 +72,60 @@ export default function ProspectsPage() {
   const [showImport, setShowImport] = useState(false);
   const [csv, setCsv] = useState("");
   const [toast, setToast] = useState("");
+  const [user, setUser] = useState<string | null>(null); // team mode when set
+  const [showLogin, setShowLogin] = useState(false);
+  const [loginErr, setLoginErr] = useState("");
+  const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => { setItems(load()); setReady(true); }, []);
-  useEffect(() => { if (ready) save(items); }, [items, ready]);
+  // Boot: if a team session exists, load the SHARED list; else fall back to this browser.
+  useEffect(() => {
+    (async () => {
+      try {
+        const who = await fetch("/api/team-login").then((r) => r.json());
+        if (who.ok && who.username) {
+          const res = await fetch("/api/team").then((r) => r.json());
+          if (res.ok) { setUser(who.username); setItems(res.data || []); setReady(true); return; }
+        }
+      } catch { /* offline / not configured → solo */ }
+      setItems(load());
+      setReady(true);
+    })();
+  }, []);
+
+  // Persist: team → debounced save to the shared DB; solo → this browser.
+  useEffect(() => {
+    if (!ready) return;
+    if (user) {
+      if (saveTimer.current) clearTimeout(saveTimer.current);
+      saveTimer.current = setTimeout(() => {
+        fetch("/api/team", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ data: items }) }).catch(() => {});
+      }, 800);
+    } else {
+      save(items);
+    }
+  }, [items, ready, user]);
 
   const flash = (m: string) => { setToast(m); setTimeout(() => setToast(""), 1600); };
+
+  async function doLogin(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setLoginErr("");
+    const fd = new FormData(e.currentTarget);
+    const r = await fetch("/api/team-login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ username: fd.get("username"), password: fd.get("password") }) });
+    const j = await r.json().catch(() => ({}));
+    if (j.ok) {
+      setUser(j.username); setShowLogin(false);
+      const res = await fetch("/api/team").then((x) => x.json()).catch(() => ({}));
+      if (res.ok) setItems(res.data || []);
+      flash(`Signed in as ${j.username} — team mode`);
+    } else {
+      setLoginErr(j.error === "not_configured" ? "Team mode isn't set up yet (needs the DB migration + CRM_USERS env var)." : "Wrong username or password.");
+    }
+  }
+  async function logout() {
+    await fetch("/api/team-login", { method: "DELETE" }).catch(() => {});
+    setUser(null); setItems(load()); flash("Signed out (back to this browser)");
+  }
   const patch = (id: string, d: Partial<Prospect>) => setItems((xs) => xs.map((x) => (x.id === id ? { ...x, ...d } : x)));
   const copy = (t: string) => { navigator.clipboard?.writeText(t); flash("Copied"); };
 
@@ -126,12 +175,19 @@ export default function ProspectsPage() {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <h1 className="text-xl font-extrabold tracking-tight">Prospects <span className="text-slate-500">· Stackwrk CRM</span></h1>
-            <p className="text-xs text-slate-500">Saved in this browser. Export regularly to keep a backup.</p>
+            <p className="text-xs text-slate-500">
+              {user
+                ? <>👥 Team mode — shared with your team. Signed in as <b className="text-lime">{user}</b>.</>
+                : <>Saved in this browser. Export regularly to back up.</>}
+            </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <button onClick={loadStarter} className="rounded-lg bg-lime px-3 py-2 text-xs font-bold text-ink">Load starter list (254)</button>
             <button onClick={() => setShowImport(true)} className="rounded-lg border border-white/15 px-3 py-2 text-xs font-semibold text-slate-200 hover:bg-white/5">Import CSV</button>
             <button onClick={exportCSV} className="rounded-lg border border-white/15 px-3 py-2 text-xs font-semibold text-slate-200 hover:bg-white/5">Export</button>
+            {user
+              ? <button onClick={logout} className="rounded-lg border border-white/15 px-3 py-2 text-xs font-semibold text-slate-400 hover:bg-white/5">Sign out</button>
+              : <button onClick={() => setShowLogin(true)} className="rounded-lg border border-lime/30 px-3 py-2 text-xs font-semibold text-lime hover:bg-lime/10">Team login</button>}
           </div>
         </div>
 
@@ -267,6 +323,23 @@ export default function ProspectsPage() {
               <button onClick={doImport} className="rounded-lg bg-lime px-4 py-2 text-sm font-bold text-ink">Import</button>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* team login modal */}
+      {showLogin && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4" onClick={() => setShowLogin(false)}>
+          <form onSubmit={doLogin} className="w-full max-w-sm rounded-2xl border border-white/10 bg-[#0e141b] p-5" onClick={(e) => e.stopPropagation()}>
+            <h2 className="text-lg font-bold text-white">Team login</h2>
+            <p className="mt-1 text-xs text-slate-400">Sign in to share this pipeline with your team across any device.</p>
+            <input name="username" autoFocus placeholder="Username" autoCapitalize="off" className="mt-4 w-full rounded-lg border border-white/12 bg-white/[0.04] px-3 py-2 text-sm text-white outline-none focus:border-lime/50" />
+            <input name="password" type="password" placeholder="Password" className="mt-2 w-full rounded-lg border border-white/12 bg-white/[0.04] px-3 py-2 text-sm text-white outline-none focus:border-lime/50" />
+            {loginErr && <p className="mt-2 text-xs text-rose-400">{loginErr}</p>}
+            <div className="mt-4 flex justify-end gap-2">
+              <button type="button" onClick={() => setShowLogin(false)} className="rounded-lg border border-white/15 px-4 py-2 text-sm">Cancel</button>
+              <button type="submit" className="rounded-lg bg-lime px-4 py-2 text-sm font-bold text-ink">Sign in</button>
+            </div>
+          </form>
         </div>
       )}
 
