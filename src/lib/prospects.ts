@@ -17,6 +17,15 @@ export const STAGE_LABEL: Record<ProspectStage, string> = Object.fromEntries(
   PROSPECT_STAGES.map((s) => [s.key, s.label]),
 ) as Record<ProspectStage, string>;
 
+/** Qualification tier for phone-only (no-website) leads. See playbook/08. */
+export type ProspectTier = "call" | "verify" | "skip";
+
+export const TIER_META: Record<ProspectTier, { label: string; short: string; cls: string; hint: string }> = {
+  call: { label: "Call first", short: "CALL", cls: "bg-lime/20 text-lime", hint: "Real, local, established — dial these first." },
+  verify: { label: "Verify", short: "VERIFY", cls: "bg-amber-500/20 text-amber-300", hint: "Thin listing or out-of-area number — 30-sec Google check first." },
+  skip: { label: "Skip", short: "SKIP", cls: "bg-rose-500/20 text-rose-300", hint: "Likely a lead-gen fake or wrong category — don't waste dials." },
+};
+
 export type Prospect = {
   id: string;
   name: string; // business name
@@ -32,6 +41,7 @@ export type Prospect = {
   lastContacted: string; // ISO date or ""
   notes: string;
   createdAt: number;
+  tier?: ProspectTier; // qualification tier for no-website leads
 };
 
 /** Message templates surfaced in the CRM with one-click copy + {{merge}} fields. */

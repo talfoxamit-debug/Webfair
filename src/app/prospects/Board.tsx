@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { PROSPECT_STAGES, TEMPLATES, type Prospect, type ProspectStage } from "@/lib/prospects";
+import { PROSPECT_STAGES, TEMPLATES, TIER_META, type Prospect, type ProspectStage, type ProspectTier } from "@/lib/prospects";
 
 const todayISO = () => new Date().toISOString().slice(0, 10);
 const uid = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
@@ -61,6 +61,7 @@ export default function Board({ user }: { user: string }) {
   const [ready, setReady] = useState(false);
   const [q, setQ] = useState("");
   const [hotOnly, setHotOnly] = useState(false);
+  const [tierFilter, setTierFilter] = useState<ProspectTier | "">("");
   const [sel, setSel] = useState<Prospect | null>(null);
   const [showImport, setShowImport] = useState(false);
   const [csv, setCsv] = useState("");
@@ -98,12 +99,17 @@ export default function Board({ user }: { user: string }) {
 
   const filtered = useMemo(() => {
     const s = q.trim().toLowerCase();
-    return items.filter((p) => (!hotOnly || !p.hasSite) && (!s || (p.name + p.city + p.phone + p.owner).toLowerCase().includes(s)));
-  }, [items, q, hotOnly]);
+    return items.filter((p) =>
+      (!hotOnly || !p.hasSite) &&
+      (!tierFilter || p.tier === tierFilter) &&
+      (!s || (p.name + p.city + p.phone + p.owner).toLowerCase().includes(s)));
+  }, [items, q, hotOnly, tierFilter]);
 
   const dueToday = items.filter((p) => p.nextFollowUp && p.nextFollowUp <= todayISO() && p.stage !== "won" && p.stage !== "lost").length;
   const hot = items.filter((p) => !p.hasSite).length;
   const won = items.filter((p) => p.stage === "won").length;
+  const tierCounts = { call: 0, verify: 0, skip: 0 } as Record<ProspectTier, number>;
+  items.forEach((p) => { if (p.tier) tierCounts[p.tier]++; });
 
   async function loadStarter() {
     try {
@@ -167,6 +173,17 @@ export default function Board({ user }: { user: string }) {
         <div className="mt-4 flex flex-wrap items-center gap-2">
           <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search name, city, phone…" className="w-56 rounded-lg border border-white/12 bg-white/[0.04] px-3 py-2 text-sm outline-none focus:border-lime/50" />
           <button onClick={() => setHotOnly((v) => !v)} className={`rounded-lg px-3 py-2 text-xs font-semibold ${hotOnly ? "bg-rose-500/20 text-rose-300 ring-1 ring-rose-500/40" : "border border-white/12 text-slate-300"}`}>🔥 No-website only</button>
+          {/* qualification tier filters (phone-only leads) */}
+          {(["call", "verify", "skip"] as ProspectTier[]).map((t) => tierCounts[t] > 0 && (
+            <button
+              key={t}
+              onClick={() => setTierFilter((v) => (v === t ? "" : t))}
+              className={`rounded-lg px-3 py-2 text-xs font-bold ${tierFilter === t ? `${TIER_META[t].cls} ring-1 ring-white/20` : "border border-white/12 text-slate-400"}`}
+              title={TIER_META[t].hint}
+            >
+              {t === "call" ? "🟢" : t === "verify" ? "🟡" : "🔴"} {TIER_META[t].short} {tierCounts[t]}
+            </button>
+          ))}
           {ready && !items.length && <span className="text-sm text-slate-500">Empty — click <b className="text-lime">Load starter list</b> to pull in your 254 fence leads.</span>}
         </div>
 
@@ -186,7 +203,9 @@ export default function Board({ user }: { user: string }) {
                       <button key={p.id} onClick={() => setSel(p)} className="block w-full rounded-lg border border-white/10 bg-[#11161d] p-2.5 text-left transition-colors hover:border-lime/40">
                         <div className="flex items-start justify-between gap-1">
                           <span className="truncate text-[0.8rem] font-semibold text-white">{p.name}</span>
-                          {!p.hasSite && <span className="shrink-0 rounded bg-rose-500/20 px-1 text-[0.55rem] font-bold text-rose-300">NO SITE</span>}
+                          {p.tier
+                            ? <span className={`shrink-0 rounded px-1 text-[0.55rem] font-bold ${TIER_META[p.tier].cls}`}>{TIER_META[p.tier].short}</span>
+                            : !p.hasSite && <span className="shrink-0 rounded bg-rose-500/20 px-1 text-[0.55rem] font-bold text-rose-300">NO SITE</span>}
                         </div>
                         <div className="mt-0.5 truncate text-[0.68rem] text-slate-400">{p.city}</div>
                         {p.phone && <div className="mt-1 text-[0.68rem] text-slate-300">{p.phone}</div>}
@@ -216,7 +235,9 @@ export default function Board({ user }: { user: string }) {
                 <button onClick={() => setSel(null)} className="rounded-md px-2 py-1 text-slate-400 hover:bg-white/5">✕</button>
               </div>
 
-              {!p.hasSite && <div className="mt-3 rounded-lg bg-rose-500/15 px-3 py-2 text-xs font-semibold text-rose-300">🔥 No website — top prospect. Call first.</div>}
+              {p.tier
+                ? <div className={`mt-3 rounded-lg px-3 py-2 text-xs font-semibold ${TIER_META[p.tier].cls}`}>{p.tier === "call" ? "🟢" : p.tier === "verify" ? "🟡" : "🔴"} {TIER_META[p.tier].label} — {TIER_META[p.tier].hint}</div>
+                : !p.hasSite && <div className="mt-3 rounded-lg bg-rose-500/15 px-3 py-2 text-xs font-semibold text-rose-300">🔥 No website — top prospect. Call first.</div>}
 
               {/* contact quick actions */}
               <div className="mt-4 grid grid-cols-2 gap-2">
