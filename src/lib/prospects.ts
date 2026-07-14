@@ -42,6 +42,8 @@ export type Prospect = {
   notes: string;
   createdAt: number;
   tier?: ProspectTier; // qualification tier for no-website leads
+  source?: "audit" | "manual" | "import"; // where the lead came from
+  auditScore?: number; // score if they ran the site audit
 };
 
 /** Message templates surfaced in the CRM with one-click copy + {{merge}} fields. */

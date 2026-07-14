@@ -65,6 +65,7 @@ export default function Board({ user }: { user: string }) {
   const [ready, setReady] = useState(false);
   const [q, setQ] = useState("");
   const [hotOnly, setHotOnly] = useState(false);
+  const [auditOnly, setAuditOnly] = useState(false);
   const [tierFilter, setTierFilter] = useState<ProspectTier | "">("");
   const [view, setView] = useState<"today" | "board">("today");
   const [sel, setSel] = useState<Prospect | null>(null);
@@ -76,13 +77,35 @@ export default function Board({ user }: { user: string }) {
   const [agrCare, setAgrCare] = useState(249);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Load the shared team pipeline (page is already gated server-side).
+  // Load the shared team pipeline + merge in inbound audited sites (page is
+  // already gated server-side). Anyone who runs the site audit shows up here as
+  // a warm lead, even if they never entered contact info.
   useEffect(() => {
     (async () => {
+      let base: Prospect[] = [];
       try {
         const res = await fetch("/api/team").then((r) => r.json());
-        if (res.ok) setItems(res.data || []);
+        if (res.ok) base = res.data || [];
       } catch { /* transient */ }
+      try {
+        const au = await fetch("/api/team/audits").then((r) => r.json());
+        if (au.ok && Array.isArray(au.data)) {
+          const dom = (u: string) => { try { return new URL(u.startsWith("http") ? u : "https://" + u).hostname.replace(/^www\./, "").toLowerCase(); } catch { return ""; } };
+          const have = new Set(base.map((p) => dom(p.website || "")).filter(Boolean));
+          const fresh: Prospect[] = au.data
+            .filter((a: { domain: string }) => a.domain && !have.has(a.domain))
+            .map((a: { domain: string; url: string; score: number | null; created_at: string }) => ({
+              id: uid(), name: a.domain, phone: "", email: "", website: a.url, hasSite: true,
+              city: "", street: "", owner: "", stage: "new" as ProspectStage,
+              nextFollowUp: "", lastContacted: "",
+              notes: a.score != null ? `Ran your site audit — scored ${a.score}/100.` : "Ran your site audit.",
+              createdAt: new Date(a.created_at).getTime() || Date.now(),
+              source: "audit" as const, auditScore: a.score ?? undefined,
+            }));
+          base = [...fresh, ...base]; // newest inbound at the top of New
+        }
+      } catch { /* audits optional */ }
+      setItems(base);
       setReady(true);
     })();
   }, []);
@@ -120,12 +143,14 @@ export default function Board({ user }: { user: string }) {
     const s = q.trim().toLowerCase();
     return items.filter((p) =>
       (!hotOnly || !p.hasSite) &&
+      (!auditOnly || p.source === "audit") &&
       (!tierFilter || p.tier === tierFilter) &&
       (!s || (p.name + p.city + p.phone + p.owner).toLowerCase().includes(s)));
-  }, [items, q, hotOnly, tierFilter]);
+  }, [items, q, hotOnly, auditOnly, tierFilter]);
 
   const dueToday = items.filter((p) => p.nextFollowUp && p.nextFollowUp <= todayISO() && p.stage !== "won" && p.stage !== "lost").length;
   const hot = items.filter((p) => !p.hasSite).length;
+  const auditCount = items.filter((p) => p.source === "audit").length;
   const won = items.filter((p) => p.stage === "won").length;
   const tierCounts = { call: 0, verify: 0, skip: 0 } as Record<ProspectTier, number>;
   items.forEach((p) => { if (p.tier) tierCounts[p.tier]++; });
@@ -188,6 +213,9 @@ export default function Board({ user }: { user: string }) {
         <div className="mt-4 flex flex-wrap items-center gap-2">
           <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search name, city, phone…" className="w-56 rounded-lg px-3 py-2 text-sm crm-input" />
           <button onClick={() => setHotOnly((v) => !v)} className={`rounded-lg px-3 py-2 text-xs font-semibold ${hotOnly ? "bg-rose-100 text-rose-700 ring-1 ring-rose-300 dark:bg-rose-500/20 dark:text-rose-300 dark:ring-rose-500/40" : "crm-btn"}`}>🔥 No-website only</button>
+          {auditCount > 0 && (
+            <button onClick={() => setAuditOnly((v) => !v)} className={`rounded-lg px-3 py-2 text-xs font-bold ${auditOnly ? "bg-sky-100 text-sky-700 ring-1 ring-sky-300 dark:bg-sky-500/20 dark:text-sky-300 dark:ring-sky-500/40" : "crm-btn"}`} title="People who ran your site audit — warm inbound leads">🔎 Audited {auditCount}</button>
+          )}
           {/* qualification tier filters (phone-only leads) */}
           {(["call", "verify", "skip"] as ProspectTier[]).map((t) => tierCounts[t] > 0 && (
             <button
@@ -220,6 +248,8 @@ export default function Board({ user }: { user: string }) {
                           <span className="truncate text-[0.8rem] font-semibold crm-strong">{p.name}</span>
                           {p.tier
                             ? <span className={`shrink-0 rounded px-1 text-[0.55rem] font-bold ${TIER_META[p.tier].cls}`}>{TIER_META[p.tier].short}</span>
+                            : p.source === "audit"
+                            ? <span className="shrink-0 rounded bg-sky-100 px-1 text-[0.55rem] font-bold text-sky-700 dark:bg-sky-500/20 dark:text-sky-300">🔎 AUDIT{p.auditScore != null ? ` ${p.auditScore}` : ""}</span>
                             : !p.hasSite && <span className="shrink-0 rounded bg-rose-100 px-1 text-[0.55rem] font-bold text-rose-700 dark:bg-rose-500/20 dark:text-rose-300">NO SITE</span>}
                         </div>
                         <div className="mt-0.5 truncate text-[0.68rem] crm-muted">{p.city}</div>
@@ -253,6 +283,8 @@ export default function Board({ user }: { user: string }) {
 
               {p.tier
                 ? <div className={`mt-3 rounded-lg px-3 py-2 text-xs font-semibold ${TIER_META[p.tier].cls}`}>{p.tier === "call" ? "🟢" : p.tier === "verify" ? "🟡" : "🔴"} {TIER_META[p.tier].label} — {TIER_META[p.tier].hint}</div>
+                : p.source === "audit"
+                ? <div className="mt-3 rounded-lg bg-sky-100 px-3 py-2 text-xs font-semibold text-sky-700 dark:bg-sky-500/15 dark:text-sky-300">🔎 Inbound — ran your site audit{p.auditScore != null ? ` (scored ${p.auditScore}/100)` : ""}. Warm lead, reach out fast.</div>
                 : !p.hasSite && <div className="mt-3 rounded-lg bg-rose-100 px-3 py-2 text-xs font-semibold text-rose-700 dark:bg-rose-500/15 dark:text-rose-300">🔥 No website — top prospect. Call first.</div>}
 
               {/* contact quick actions */}
