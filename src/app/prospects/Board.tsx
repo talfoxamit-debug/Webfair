@@ -3,8 +3,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { PROSPECT_STAGES, TEMPLATES, TIER_META, QUICK_TAGS, tagStyle, type Prospect, type ProspectStage, type ProspectTier } from "@/lib/prospects";
 import TodayDriver from "./TodayDriver";
+import LeadAudit from "./LeadAudit";
+import AgreementGen from "./AgreementGen";
 import { useTheme } from "./useTheme";
-import { encodeAgreement, type AgreementConfig } from "@/lib/agreement";
 
 const todayISO = () => new Date().toISOString().slice(0, 10);
 const uid = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
@@ -72,9 +73,6 @@ export default function Board({ user }: { user: string }) {
   const [showImport, setShowImport] = useState(false);
   const [csv, setCsv] = useState("");
   const [toast, setToast] = useState("");
-  const [agrPkg, setAgrPkg] = useState<AgreementConfig["pkg"]>("Growth");
-  const [agrFee, setAgrFee] = useState(3900);
-  const [agrCare, setAgrCare] = useState(249);
   const [tagDraft, setTagDraft] = useState("");
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -138,17 +136,8 @@ export default function Board({ user }: { user: string }) {
       : kind === "fb" ? `https://www.facebook.com/search/top?q=${q}`
       : `https://www.google.com/search?q=${q}`;
   };
-
-  function copyAgreementLink(p: Prospect) {
-    const pages = agrPkg === "Launch" ? 5 : agrPkg === "Growth" ? 7 : 10;
-    const d = encodeAgreement({
-      clientName: p.name, contact: p.owner, email: p.email, phone: p.phone,
-      pkg: agrPkg, pages, projectFee: agrFee, careName: agrPkg, careMonthly: agrCare, date: todayISO(),
-    });
-    const url = `${window.location.origin}/agreement?d=${d}`;
-    navigator.clipboard?.writeText(url);
-    flash("Agreement link copied — send it to the client");
-  }
+  const prettyUrl = (u: string) => u.replace(/^https?:\/\//, "").replace(/\/+$/, "");
+  const href = (u: string) => (/^https?:\/\//i.test(u) ? u : `https://${u}`);
 
   const filtered = useMemo(() => {
     const s = q.trim().toLowerCase();
@@ -311,17 +300,52 @@ export default function Board({ user }: { user: string }) {
                 {p.email && <button onClick={() => copy(p.email)} className="rounded-lg px-3 py-2 text-sm font-semibold crm-btn">Copy email</button>}
               </div>
 
-              {/* recon — look them up before you call */}
-              <div className="mt-3">
-                <p className="text-[0.7rem] font-bold uppercase tracking-wide crm-subtle">Look them up before you call</p>
-                <div className="mt-1.5 flex flex-wrap gap-1.5">
-                  {p.website
-                    ? <a href={p.website} target="_blank" rel="noopener noreferrer" className="rounded-lg px-3 py-1.5 text-xs font-semibold crm-btn">🌐 Their website ↗</a>
-                    : <span className="rounded-lg bg-rose-100 px-3 py-1.5 text-xs font-semibold text-rose-700 dark:bg-rose-500/15 dark:text-rose-300">🚫 No website</span>}
-                  <a href={lookup(p, "maps")} target="_blank" rel="noopener noreferrer" className="rounded-lg px-3 py-1.5 text-xs font-semibold crm-btn">📍 Google reviews ↗</a>
-                  <a href={lookup(p, "google")} target="_blank" rel="noopener noreferrer" className="rounded-lg px-3 py-1.5 text-xs font-semibold crm-btn">🔍 Google ↗</a>
-                  <a href={lookup(p, "fb")} target="_blank" rel="noopener noreferrer" className="rounded-lg px-3 py-1.5 text-xs font-semibold crm-btn">📘 Facebook ↗</a>
+              {/* contact on file — confirm it's really them before you dial */}
+              <div className="mt-4 rounded-lg p-3 crm-stat">
+                <p className="text-[0.7rem] font-bold uppercase tracking-wide crm-subtle">Contact on file</p>
+                <div className="mt-1.5 space-y-1 text-xs">
+                  <div className="flex items-center gap-2">
+                    <span className="crm-subtle">📞</span>
+                    {p.phone
+                      ? <a href={`tel:${p.phone.replace(/[^0-9]/g, "")}`} className="font-semibold crm-strong">{p.phone}</a>
+                      : <span className="crm-subtle">No phone on file</span>}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="crm-subtle">🌐</span>
+                    {p.website
+                      ? <a href={href(p.website)} target="_blank" rel="noopener noreferrer" className="truncate font-semibold text-emerald-700 underline underline-offset-2 dark:text-lime">{prettyUrl(p.website)} ↗</a>
+                      : <span className="crm-subtle">No website on file — that&rsquo;s your pitch.</span>}
+                  </div>
                 </div>
+                {p.website
+                  ? <p className="mt-2 text-[0.66rem] crm-subtle">⚠️ Confirm it&rsquo;s them: the phone on the site should match the number above. If it doesn&rsquo;t, it may be a different business or a directory listing — verify before you pitch.</p>
+                  : <p className="mt-2 text-[0.66rem] crm-subtle">Tip: if you find a site on Google, check its phone matches the number above before assuming it&rsquo;s theirs — namesakes and Yelp/BBB listings are common.</p>}
+                <div className="mt-2 flex flex-wrap gap-1.5">
+                  <a href={lookup(p, "maps")} target="_blank" rel="noopener noreferrer" className="rounded-lg px-2.5 py-1.5 text-xs font-semibold crm-btn">📍 Reviews ↗</a>
+                  <a href={lookup(p, "google")} target="_blank" rel="noopener noreferrer" className="rounded-lg px-2.5 py-1.5 text-xs font-semibold crm-btn">🔍 Google ↗</a>
+                  <a href={lookup(p, "fb")} target="_blank" rel="noopener noreferrer" className="rounded-lg px-2.5 py-1.5 text-xs font-semibold crm-btn">📘 Facebook ↗</a>
+                </div>
+              </div>
+
+              {/* run the audit on their live site, if they have one */}
+              {p.website && <LeadAudit key={p.website} url={href(p.website)} />}
+
+              {/* call script — exactly what to say, filled in for this lead */}
+              <div className="mt-5 rounded-lg border border-emerald-200 bg-emerald-50/60 p-3 dark:border-lime/25 dark:bg-lime/[0.06]">
+                <p className="text-xs font-bold uppercase tracking-wide text-emerald-700 dark:text-lime">📞 Call script — {p.owner || "them"}</p>
+                {["call_open", "call_vm"].map((key) => {
+                  const t = TEMPLATES.find((x) => x.key === key);
+                  if (!t) return null;
+                  return (
+                    <div key={key} className="mt-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[0.68rem] font-bold crm-strong">{t.label}</span>
+                        <button onClick={() => copy(fill(t.body, p))} className="rounded bg-slate-100 px-2 py-0.5 text-[0.62rem] font-bold text-slate-700 hover:bg-slate-200 dark:bg-white/10 dark:text-slate-200 dark:hover:bg-white/20">Copy</button>
+                      </div>
+                      <p className="mt-1 whitespace-pre-wrap text-[0.72rem] leading-relaxed crm-muted">{fill(t.body, p)}</p>
+                    </div>
+                  );
+                })}
               </div>
 
               {/* tags */}
@@ -375,19 +399,8 @@ export default function Board({ user }: { user: string }) {
                 <textarea value={p.notes} onChange={(e) => patch(p.id, { notes: e.target.value })} rows={3} className="mt-1 w-full rounded-lg px-3 py-2 text-sm crm-input" placeholder="Call notes, objections, next steps…" />
               </label>
 
-              {/* client agreement — generate a personalized e-sign link */}
-              <div className="mt-5 rounded-lg p-3 crm-stat">
-                <p className="text-xs font-bold uppercase tracking-wide crm-muted">Client agreement</p>
-                <div className="mt-2 grid grid-cols-3 gap-2">
-                  <select value={agrPkg} onChange={(e) => setAgrPkg(e.target.value as AgreementConfig["pkg"])} className="rounded-lg px-2 py-1.5 text-xs crm-input">
-                    <option>Launch</option><option>Growth</option><option>Market Leader</option>
-                  </select>
-                  <input type="number" value={agrFee} onChange={(e) => setAgrFee(Number(e.target.value))} className="rounded-lg px-2 py-1.5 text-xs crm-input" title="Project fee" />
-                  <input type="number" value={agrCare} onChange={(e) => setAgrCare(Number(e.target.value))} className="rounded-lg px-2 py-1.5 text-xs crm-input" title="Care $/mo" />
-                </div>
-                <button onClick={() => copyAgreementLink(p)} className="mt-2 w-full rounded-lg bg-lime px-3 py-2 text-xs font-bold text-ink">📄 Copy e-sign agreement link</button>
-                <p className="mt-1 text-[0.6rem] crm-subtle">Fee · care/mo. Send the link after they say yes — they review &amp; sign online.</p>
-              </div>
+              {/* client agreement — generate a personalized e-sign link with a shown discount */}
+              <AgreementGen key={p.id} prospect={p} onCopy={flash} />
 
               {/* templates */}
               <div className="mt-5">

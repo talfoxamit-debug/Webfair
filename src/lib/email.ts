@@ -12,8 +12,34 @@
 
 type SendResult = { sent: boolean; reason?: string };
 
+const DEFAULT_FROM = "Stackwrk <onboarding@resend.dev>";
+const EMAIL_RE = /[^\s<>@]+@[^\s<>@]+\.[^\s<>@]+/;
+
+/**
+ * Resolve a Resend-valid `from` header. Resend accepts ONLY `email@domain` or
+ * `Name <email@domain>` and returns a 422 on anything else — the single most
+ * common cause of "emails silently never send" is a REPORT_FROM_EMAIL typo
+ * (missing angle brackets, wrapping quotes, a name with no email). Rather than
+ * let one typo 422 every message, we auto-heal the common mistakes and fall
+ * back to the known-good default when the value is unusable.
+ */
 export function reportFromEmail(): string {
-  return process.env.REPORT_FROM_EMAIL || "Stackwrk <onboarding@resend.dev>";
+  const raw = (process.env.REPORT_FROM_EMAIL || "").trim();
+  if (!raw) return DEFAULT_FROM;
+  const m = raw.match(EMAIL_RE);
+  if (!m) return DEFAULT_FROM; // no usable email address → safe default
+  const email = m[0];
+  // Always rebuild from the parsed email so we emit exactly `email` or
+  // `Name <email>`. Everything that isn't the email becomes the display name,
+  // with brackets/quotes/trailing punctuation stripped — this heals the common
+  // typos (missing brackets, wrapping or RFC display-name quotes) uniformly.
+  const name = raw
+    .replace(EMAIL_RE, "")
+    .replace(/["'<>]/g, "")
+    .replace(/\s+/g, " ")
+    .replace(/[\s,;:]+$/, "")
+    .trim();
+  return name ? `${name} <${email}>` : email;
 }
 
 export function notifyEmail(): string | null {

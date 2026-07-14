@@ -7,19 +7,35 @@
  * Not legal advice — have a Florida attorney review the template once.
  */
 
+export type AgreementPkg = "Launch" | "Growth" | "Market Leader";
+
 export type AgreementConfig = {
   clientName: string;   // client's legal / business name
   contact: string;      // contact person
   email: string;
   phone: string;
-  pkg: "Launch" | "Growth" | "Market Leader";
+  pkg: AgreementPkg;
   pages: number;
-  projectFee: number;   // one-time build fee
+  projectFee: number;   // one-time build fee (the price the client actually pays)
+  listFee?: number;     // pre-discount "list" price; if > projectFee, shown struck-through
   depositPct: number;   // % due to start
   careName: string;     // care plan name
   careMonthly: number;  // care plan $/mo
   date?: string;        // ISO; defaults to today at render
   payLink?: string;     // Stripe deposit link (optional until EIN/Stripe live)
+};
+
+/**
+ * Plan presets — the one place the agreement generator reads default pricing
+ * from. `listFee` is the standard rate (shown struck-through) and `fee` is the
+ * founding-client rate the client actually pays, so the built-in "founding
+ * discount" appears automatically. These mirror the founding/standard ladder in
+ * pricing.ts. Tal can still override fee, care, and discount per client.
+ */
+export const PLAN_PRESETS: Record<AgreementPkg, { pages: number; listFee: number; fee: number; careName: string; careMonthly: number }> = {
+  Launch:          { pages: 5,  listFee: 3000,  fee: 2000, careName: "Essential", careMonthly: 99 },
+  Growth:          { pages: 8,  listFee: 6500,  fee: 4500, careName: "Growth",    careMonthly: 249 },
+  "Market Leader": { pages: 12, listFee: 12000, fee: 8000, careName: "Partner",   careMonthly: 499 },
 };
 
 export const DEFAULT_AGREEMENT: AgreementConfig = {
@@ -28,8 +44,9 @@ export const DEFAULT_AGREEMENT: AgreementConfig = {
   email: "",
   phone: "",
   pkg: "Growth",
-  pages: 6,
-  projectFee: 3900,
+  pages: 8,
+  projectFee: 4500,
+  listFee: 6500,
   depositPct: 50,
   careName: "Growth",
   careMonthly: 249,
@@ -46,6 +63,13 @@ const money = (n: number) => "$" + n.toLocaleString("en-US");
 export function buildAgreement(cfg: AgreementConfig) {
   const deposit = Math.round((cfg.projectFee * cfg.depositPct) / 100);
   const balance = cfg.projectFee - deposit;
+  // Discount: only when a higher list price is set. Savings + rounded percent.
+  const listFee = cfg.listFee && cfg.listFee > cfg.projectFee ? cfg.listFee : 0;
+  const savings = listFee ? listFee - cfg.projectFee : 0;
+  const discountPct = listFee ? Math.round((savings / listFee) * 100) : 0;
+  const feeLine = listFee
+    ? `Project fee: ${money(cfg.projectFee)} — a founding-client rate (list price ${money(listFee)}; you save ${money(savings)}, ${discountPct}% off). A ${cfg.depositPct}% deposit (${money(deposit)}) to start, and the ${money(balance)} balance due when the site launches.`
+    : `Project fee: ${money(cfg.projectFee)} — a ${cfg.depositPct}% deposit (${money(deposit)}) to start, and the ${money(balance)} balance due when the site launches.`;
   const clauses: { h: string; body: string[] }[] = [
     {
       h: "1. Services & Deliverables",
@@ -62,7 +86,7 @@ export function buildAgreement(cfg: AgreementConfig) {
     {
       h: "2. Price & Payment",
       body: [
-        `Project fee: ${money(cfg.projectFee)} — a ${cfg.depositPct}% deposit (${money(deposit)}) to start, and the ${money(balance)} balance due when the site launches.`,
+        feeLine,
         `Care plan (${cfg.careName}): ${money(cfg.careMonthly)}/month, billed monthly starting at launch — covers hosting, updates, security, backups, monitoring, and the plan's included changes. Cancel any time with 30 days' notice.`,
         `Third-party costs (domain name, premium plugins/licenses, paid stock photos, etc.) are passed through to Client at cost and only with Client's approval.`,
         `Balances more than 10 days late accrue 1.5% monthly interest, and Developer may pause the site until paid.`,
@@ -120,7 +144,7 @@ export function buildAgreement(cfg: AgreementConfig) {
       ],
     },
   ];
-  return { deposit, balance, clauses, money };
+  return { deposit, balance, clauses, money, listFee, savings, discountPct };
 }
 
 // ---- URL-safe encode/decode (browser + Node) ----

@@ -71,6 +71,7 @@ export default function SignBlock({ config, depositLabel, depositAmount }: { con
         <h3 className="mt-3 text-xl font-extrabold" style={{ color: NAVY }}>Agreement signed</h3>
         <p className="mt-1 text-sm text-slate-600">Signed by <b>{signer}</b> on {record.when}.</p>
         {record.ip && <p className="mt-0.5 text-xs text-slate-400">Recorded electronically{record.ip ? ` · IP ${record.ip}` : ""} — legally binding.</p>}
+        {config.email && <p className="mt-0.5 text-xs text-slate-400">A copy has been emailed to {config.email}.</p>}
         <div className="mt-5">
           {config.payLink ? (
             <a href={config.payLink} target="_blank" rel="noopener noreferrer" className="inline-flex rounded-xl px-7 py-4 text-base font-bold text-white shadow-md" style={{ background: GREEN }}>Pay {depositLabel} deposit to start →</a>
@@ -102,8 +103,8 @@ export default function SignBlock({ config, depositLabel, depositAmount }: { con
         <div className="flex items-center justify-between">
           <span className="text-xs font-semibold text-slate-600">Signature</span>
           <div className="inline-flex rounded-lg border border-slate-300 p-0.5 text-xs">
-            <button onClick={() => setMode("typed")} className={`rounded px-3 py-1 font-bold ${mode === "typed" ? "bg-emerald-600 text-white" : "text-slate-500"}`}>Type</button>
-            <button onClick={() => setMode("drawn")} className={`rounded px-3 py-1 font-bold ${mode === "drawn" ? "bg-emerald-600 text-white" : "text-slate-500"}`}>Draw</button>
+            <button onClick={() => { setMode("typed"); setHasInk(false); }} className={`rounded px-3 py-1 font-bold ${mode === "typed" ? "bg-emerald-600 text-white" : "text-slate-500"}`}>Type</button>
+            <button onClick={() => { setMode("drawn"); setHasInk(false); }} className={`rounded px-3 py-1 font-bold ${mode === "drawn" ? "bg-emerald-600 text-white" : "text-slate-500"}`}>Draw</button>
           </div>
         </div>
         {mode === "typed" ? (

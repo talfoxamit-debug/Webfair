@@ -14,7 +14,7 @@ const GREEN = "#18894C";
 export default async function AgreementPage({ searchParams }: { searchParams: Promise<{ d?: string }> }) {
   const raw = (await searchParams).d;
   const cfg = resolveAgreement(raw ? decodeAgreement(raw) || {} : {});
-  const { deposit, clauses, money } = buildAgreement(cfg);
+  const { deposit, clauses, money, listFee, savings, discountPct } = buildAgreement(cfg);
   const dateStr = cfg.date
     ? new Date(cfg.date).toLocaleDateString("en-US", { dateStyle: "long" } as Intl.DateTimeFormatOptions)
     : new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
@@ -64,11 +64,34 @@ export default async function AgreementPage({ searchParams }: { searchParams: Pr
 
           {/* project summary */}
           <div className="mt-5 rounded-xl border p-5" style={{ borderColor: "#cfe9d8", background: "#f2faf5" }}>
-            <p className="text-xs font-bold uppercase tracking-wide" style={{ color: GREEN }}>Project summary</p>
+            <div className="flex items-center justify-between">
+              <p className="text-xs font-bold uppercase tracking-wide" style={{ color: GREEN }}>Project summary</p>
+              {savings > 0 && (
+                <span className="rounded-full px-2.5 py-0.5 text-[0.75rem] font-bold text-white" style={{ background: GREEN }}>
+                  You save {money(savings)} · {discountPct}% off
+                </span>
+              )}
+            </div>
             <div className="mt-3 grid grid-cols-2 gap-4 sm:grid-cols-4">
-              {[["Package", cfg.pkg], ["Project fee", money(cfg.projectFee)], ["Deposit to start", money(deposit)], ["Care plan", `${money(cfg.careMonthly)}/mo`]].map(([l, v]) => (
-                <div key={l}><p className="text-[0.75rem] uppercase tracking-wide text-slate-400">{l}</p><p className="text-sm font-extrabold" style={{ color: NAVY }}>{v}</p></div>
-              ))}
+              <div>
+                <p className="text-[0.75rem] uppercase tracking-wide text-slate-400">Package</p>
+                <p className="text-sm font-extrabold" style={{ color: NAVY }}>{cfg.pkg}</p>
+              </div>
+              <div>
+                <p className="text-[0.75rem] uppercase tracking-wide text-slate-400">Project fee</p>
+                <p className="text-sm font-extrabold" style={{ color: NAVY }}>
+                  {savings > 0 && <span className="mr-1.5 font-semibold text-slate-400 line-through">{money(listFee)}</span>}
+                  {money(cfg.projectFee)}
+                </p>
+              </div>
+              <div>
+                <p className="text-[0.75rem] uppercase tracking-wide text-slate-400">Deposit to start</p>
+                <p className="text-sm font-extrabold" style={{ color: NAVY }}>{money(deposit)}</p>
+              </div>
+              <div>
+                <p className="text-[0.75rem] uppercase tracking-wide text-slate-400">Care plan</p>
+                <p className="text-sm font-extrabold" style={{ color: NAVY }}>{money(cfg.careMonthly)}/mo</p>
+              </div>
             </div>
           </div>
 
