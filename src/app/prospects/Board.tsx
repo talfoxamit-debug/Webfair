@@ -98,6 +98,7 @@ export default function Board({ user }: { user: string }) {
   const [csv, setCsv] = useState("");
   const [toast, setToast] = useState("");
   const [tagDraft, setTagDraft] = useState("");
+  const [emailHunt, setEmailHunt] = useState<{ done: number; total: number; found: number } | null>(null);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Load the shared team pipeline + merge in inbound audited sites (page is
@@ -201,6 +202,7 @@ export default function Board({ user }: { user: string }) {
 
   const dueToday = items.filter((p) => p.nextFollowUp && p.nextFollowUp <= todayISO() && p.stage !== "won" && p.stage !== "lost").length;
   const hot = items.filter((p) => !p.hasSite).length;
+  const noEmailWithSite = items.filter((p) => !p.email?.trim() && p.website?.trim()).length;
   const auditCount = items.filter((p) => p.source === "audit").length;
   const won = items.filter((p) => p.stage === "won").length;
   const tierCounts = { call: 0, verify: 0, skip: 0 } as Record<ProspectTier, number>;
@@ -298,6 +300,38 @@ export default function Board({ user }: { user: string }) {
     flash(`Exported ${rows.length} unique · ${dupes} duplicate emails skipped · ${items.length - withEmail.length} had no email`);
   }
 
+  // Checks each lead's own website for a published contact email (mailto:
+  // link or plain text, homepage then one contact-page hop) — never guesses,
+  // only fills in what's actually published. Runs a handful of sites at once
+  // client-side rather than one big server request, since checking 100+
+  // external sites can take a few minutes.
+  async function findMissingEmails() {
+    if (emailHunt) return; // already running
+    const targets = items.filter((p) => !p.email?.trim() && p.website?.trim());
+    if (!targets.length) return;
+    if (!confirm(`Check ${targets.length} lead websites for a published contact email? This runs in the background and can take a few minutes.`)) return;
+
+    setEmailHunt({ done: 0, total: targets.length, found: 0 });
+    let idx = 0, done = 0, found = 0;
+    const CONCURRENCY = 5;
+    async function worker() {
+      while (idx < targets.length) {
+        const p = targets[idx++];
+        try {
+          const r = await fetch("/api/leads/find-email", {
+            method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ url: p.website }),
+          }).then((res) => res.json());
+          if (r.ok && r.email) { patch(p.id, { email: r.email }); found++; }
+        } catch { /* skip — site unreachable or blocked, leave email blank */ }
+        done++;
+        setEmailHunt({ done, total: targets.length, found });
+      }
+    }
+    await Promise.all(Array.from({ length: CONCURRENCY }, worker));
+    setEmailHunt(null);
+    flash(`Found ${found} email${found === 1 ? "" : "s"} on ${targets.length} sites checked`);
+  }
+
   return (
     <main className="crm-page min-h-screen">
       <div className="mx-auto max-w-[1500px] px-4 py-6 sm:px-6">
@@ -312,6 +346,11 @@ export default function Board({ user }: { user: string }) {
             <button onClick={() => { setDraft(emptyLead()); setShowAdd(true); }} className="rounded-lg bg-lime px-3 py-2 text-xs font-bold text-ink">+ Add lead</button>
             <button onClick={() => setShowImport(true)} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn">Import CSV</button>
             <button onClick={exportCSV} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn">Export</button>
+            {(noEmailWithSite > 0 || emailHunt) && (
+              <button onClick={findMissingEmails} disabled={!!emailHunt} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn disabled:opacity-60">
+                {emailHunt ? `🔍 Checking ${emailHunt.done}/${emailHunt.total} · ${emailHunt.found} found` : `🔍 Find emails (${noEmailWithSite})`}
+              </button>
+            )}
             <button onClick={exportInstantlyCSV} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn">✉️ Export for Instantly</button>
             <button onClick={logout} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn">Sign out</button>
           </div>
