@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { TIER_META, type Prospect, type ProspectStage } from "@/lib/prospects";
+import { TIER_META, phoneCheck, type Prospect, type ProspectStage } from "@/lib/prospects";
 
 const todayISO = () => new Date().toISOString().slice(0, 10);
 const plusDays = (n: number) => new Date(Date.now() + n * 864e5).toISOString().slice(0, 10);
@@ -34,9 +34,14 @@ export default function TodayDriver({
     [items, today],
   );
 
-  // Fresh dials: real, local CALL-tier leads not yet contacted.
+  // Fresh dials: real, local CALL-tier leads not yet contacted — and skip
+  // numbers that won't reach the owner (toll-free / invalid / missing).
   const dialQueue = useMemo(
-    () => items.filter((p) => p.tier === "call" && p.stage === "new" && !p.lastContacted).slice(0, DIAL_GOAL),
+    () => items.filter((p) => {
+      if (p.tier !== "call" || p.stage !== "new" || p.lastContacted) return false;
+      const f = phoneCheck(p.phone).flag;
+      return f !== "tollfree" && f !== "invalid" && f !== "empty";
+    }).slice(0, DIAL_GOAL),
     [items],
   );
 
@@ -53,11 +58,17 @@ export default function TodayDriver({
   const lose = (p: Prospect) => patch(p.id, { stage: "lost", lastContacted: today });
   const snooze = (p: Prospect) => patch(p.id, { nextFollowUp: plusDays(3) });
 
-  const tel = (phone: string) => `tel:${phone.replace(/[^0-9]/g, "")}`;
-  const copyNum = (phone: string) => { navigator.clipboard?.writeText(phone); onCopy("Number copied — paste into Quo to call"); };
-  const CopyNum = ({ phone }: { phone: string }) => (
-    <button onClick={() => copyNum(phone)} className="rounded-md bg-lime px-2.5 py-1.5 text-[0.7rem] font-bold text-ink">📋 {phone}</button>
-  );
+  const tel = (phone: string) => `tel:${phoneCheck(phone).dial || phone.replace(/[^0-9]/g, "")}`;
+  const copyNum = (phone: string) => { navigator.clipboard?.writeText(phoneCheck(phone).pretty || phone); onCopy("Number copied — paste into Quo to call"); };
+  const CopyNum = ({ phone }: { phone: string }) => {
+    const pc = phoneCheck(phone);
+    return (
+      <span className="inline-flex items-center gap-1">
+        <button onClick={() => copyNum(phone)} className="rounded-md bg-lime px-2.5 py-1.5 text-[0.7rem] font-bold text-ink">📋 {pc.pretty || phone}</button>
+        {pc.flag !== "ok" && <span className="rounded bg-amber-100 px-1 text-[0.55rem] font-bold text-amber-700 dark:bg-amber-500/20 dark:text-amber-300" title={pc.label}>⚠</span>}
+      </span>
+    );
+  };
   const Btn = ({ onClick, children, tone = "ghost" }: { onClick: () => void; children: React.ReactNode; tone?: "ghost" | "lime" | "rose" }) => (
     <button
       onClick={onClick}

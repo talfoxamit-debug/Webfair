@@ -66,6 +66,44 @@ export const CALL_OUTCOMES = [
 /** Best time to reach them, captured on a call. */
 export const BEST_TIMES = ["Morning", "Afternoon", "Evening", "Weekend"] as const;
 
+// ---- Phone-number quality ------------------------------------------------
+// South-Florida area codes we actually sell into. A local fence contractor
+// has a local number; toll-free / out-of-area numbers are usually a chain,
+// aggregator, or answering service — not the owner you want on the phone.
+export const SOFLA_AREA_CODES = new Set(["954", "754", "561", "786", "305", "472", "645"]);
+const TOLLFREE_CODES = new Set(["800", "888", "877", "866", "855", "844", "833"]);
+
+export type PhoneFlag = "ok" | "tollfree" | "outarea" | "invalid" | "empty";
+
+/** Strip a raw phone to NANP digits (drops a leading country-code 1). */
+export function phoneDigits(raw: string): string {
+  let d = (raw || "").replace(/\D/g, "");
+  if (d.length === 11 && d[0] === "1") d = d.slice(1);
+  return d;
+}
+
+/** Classify a phone number so the CRM can flag junk before you dial it. */
+export function phoneCheck(raw: string): { flag: PhoneFlag; label: string; dial: string; pretty: string } {
+  const trimmed = (raw || "").trim();
+  if (!trimmed) return { flag: "empty", label: "No number on file", dial: "", pretty: "" };
+  const d = phoneDigits(trimmed);
+  if (d.length !== 10) return { flag: "invalid", label: `Not a valid 10-digit number (${d.length} digits)`, dial: d, pretty: trimmed };
+  const area = d.slice(0, 3), exch = d.slice(3, 6);
+  const pretty = `(${area}) ${exch}-${d.slice(6)}`;
+  if (/^[01]/.test(area) || /^[01]/.test(exch)) return { flag: "invalid", label: "Invalid area/exchange code", dial: d, pretty };
+  if (TOLLFREE_CODES.has(area)) return { flag: "tollfree", label: "Toll-free — likely a chain/aggregator, not the local owner", dial: d, pretty };
+  if (!SOFLA_AREA_CODES.has(area)) return { flag: "outarea", label: `Out-of-area (${area}) — verify it's the local business`, dial: d, pretty };
+  return { flag: "ok", label: "", dial: d, pretty };
+}
+
+/** Meta for the phone flag chips shown in the CRM. */
+export const PHONE_FLAG_META: Record<Exclude<PhoneFlag, "ok">, { short: string; cls: string }> = {
+  tollfree: { short: "TOLL-FREE", cls: "bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300" },
+  outarea: { short: "OUT-OF-AREA", cls: "bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300" },
+  invalid: { short: "BAD #", cls: "bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-300" },
+  empty: { short: "NO #", cls: "bg-slate-200 text-slate-600 dark:bg-white/10 dark:text-slate-300" },
+};
+
 /** One-tap tags to set before/after a call. Stored on prospect.tags. */
 export const QUICK_TAGS = [
   "Hot", "Warm", "Cold", "Many reviews", "Few reviews",

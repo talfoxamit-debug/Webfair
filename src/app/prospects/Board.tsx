@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { PROSPECT_STAGES, TEMPLATES, TEMPLATE_FLOWS, TIER_META, QUICK_TAGS, CALL_OUTCOMES, BEST_TIMES, tagStyle, type Prospect, type ProspectStage, type ProspectTier } from "@/lib/prospects";
+import { PROSPECT_STAGES, TEMPLATES, TEMPLATE_FLOWS, TIER_META, QUICK_TAGS, CALL_OUTCOMES, BEST_TIMES, phoneCheck, phoneDigits, PHONE_FLAG_META, tagStyle, type Prospect, type ProspectStage, type ProspectTier } from "@/lib/prospects";
 import TodayDriver from "./TodayDriver";
 import LeadAudit from "./LeadAudit";
 import AgreementGen from "./AgreementGen";
@@ -67,6 +67,7 @@ export default function Board({ user }: { user: string }) {
   const [q, setQ] = useState("");
   const [hotOnly, setHotOnly] = useState(false);
   const [auditOnly, setAuditOnly] = useState(false);
+  const [badPhoneOnly, setBadPhoneOnly] = useState(false);
   const [tierFilter, setTierFilter] = useState<ProspectTier | "">("");
   const [view, setView] = useState<"today" | "board">("today");
   const [sel, setSel] = useState<Prospect | null>(null);
@@ -139,14 +140,24 @@ export default function Board({ user }: { user: string }) {
   const prettyUrl = (u: string) => u.replace(/^https?:\/\//, "").replace(/\/+$/, "");
   const href = (u: string) => (/^https?:\/\//i.test(u) ? u : `https://${u}`);
 
+  // Phone quality: numbers that appear on 2+ leads (duplicate / aggregator).
+  const dialCounts = useMemo(() => {
+    const m = new Map<string, number>();
+    items.forEach((p) => { const d = phoneDigits(p.phone); if (d.length === 10) m.set(d, (m.get(d) || 0) + 1); });
+    return m;
+  }, [items]);
+  const isDupePhone = (p: Prospect) => { const d = phoneDigits(p.phone); return d.length === 10 && (dialCounts.get(d) || 0) > 1; };
+  const flaggedPhone = (p: Prospect) => phoneCheck(p.phone).flag !== "ok" || isDupePhone(p);
+
   const filtered = useMemo(() => {
     const s = q.trim().toLowerCase();
     return items.filter((p) =>
       (!hotOnly || !p.hasSite) &&
       (!auditOnly || p.source === "audit") &&
+      (!badPhoneOnly || flaggedPhone(p)) &&
       (!tierFilter || p.tier === tierFilter) &&
       (!s || (p.name + p.city + p.phone + p.owner).toLowerCase().includes(s)));
-  }, [items, q, hotOnly, auditOnly, tierFilter]);
+  }, [items, q, hotOnly, auditOnly, badPhoneOnly, tierFilter, dialCounts]);
 
   const dueToday = items.filter((p) => p.nextFollowUp && p.nextFollowUp <= todayISO() && p.stage !== "won" && p.stage !== "lost").length;
   const hot = items.filter((p) => !p.hasSite).length;
@@ -154,6 +165,7 @@ export default function Board({ user }: { user: string }) {
   const won = items.filter((p) => p.stage === "won").length;
   const tierCounts = { call: 0, verify: 0, skip: 0 } as Record<ProspectTier, number>;
   items.forEach((p) => { if (p.tier) tierCounts[p.tier]++; });
+  const badPhoneCount = items.filter((p) => phoneCheck(p.phone).flag !== "ok" || isDupePhone(p)).length;
 
   function doImport() {
     const parsed = rowsToProspects(parseCSV(csv));
@@ -162,6 +174,15 @@ export default function Board({ user }: { user: string }) {
     setItems((xs) => [...xs, ...fresh]);
     setShowImport(false); setCsv("");
     flash(`Imported ${fresh.length} new (${parsed.length - fresh.length} dupes skipped)`);
+  }
+
+  function skipBadNumbers() {
+    const flagged = items.filter(flaggedPhone);
+    if (!flagged.length) return;
+    if (!confirm(`Move ${flagged.length} leads with toll-free / out-of-area / duplicate / missing numbers to the Skip tier? You can change them back anytime.`)) return;
+    setItems((xs) => xs.map((x) => (flaggedPhone(x) ? { ...x, tier: "skip" as ProspectTier } : x)));
+    setBadPhoneOnly(false);
+    flash(`${flagged.length} flagged leads moved to Skip`);
   }
 
   function exportCSV() {
@@ -215,6 +236,12 @@ export default function Board({ user }: { user: string }) {
           <button onClick={() => setHotOnly((v) => !v)} className={`rounded-lg px-3 py-2 text-xs font-semibold ${hotOnly ? "bg-rose-100 text-rose-700 ring-1 ring-rose-300 dark:bg-rose-500/20 dark:text-rose-300 dark:ring-rose-500/40" : "crm-btn"}`}>🔥 No-website only</button>
           {auditCount > 0 && (
             <button onClick={() => setAuditOnly((v) => !v)} className={`rounded-lg px-3 py-2 text-xs font-bold ${auditOnly ? "bg-sky-100 text-sky-700 ring-1 ring-sky-300 dark:bg-sky-500/20 dark:text-sky-300 dark:ring-sky-500/40" : "crm-btn"}`} title="People who ran your site audit — warm inbound leads">🔎 Audited {auditCount}</button>
+          )}
+          {badPhoneCount > 0 && (
+            <button onClick={() => setBadPhoneOnly((v) => !v)} className={`rounded-lg px-3 py-2 text-xs font-bold ${badPhoneOnly ? "bg-amber-100 text-amber-700 ring-1 ring-amber-300 dark:bg-amber-500/20 dark:text-amber-300 dark:ring-amber-500/40" : "crm-btn"}`} title="Toll-free, out-of-area, duplicate or missing numbers — these usually won't reach the local owner">⚠ Check numbers {badPhoneCount}</button>
+          )}
+          {badPhoneOnly && badPhoneCount > 0 && (
+            <button onClick={skipBadNumbers} className="rounded-lg bg-rose-500/90 px-3 py-2 text-xs font-bold text-white hover:bg-rose-600">Move {badPhoneCount} → Skip tier</button>
           )}
           {/* qualification tier filters (phone-only leads) */}
           {(["call", "verify", "skip"] as ProspectTier[]).map((t) => tierCounts[t] > 0 && (
@@ -295,12 +322,23 @@ export default function Board({ user }: { user: string }) {
                 : !p.hasSite && <div className="mt-3 rounded-lg bg-rose-100 px-3 py-2 text-xs font-semibold text-rose-700 dark:bg-rose-500/15 dark:text-rose-300">🔥 No website — top prospect. Call first.</div>}
 
               {/* contact quick actions */}
-              {p.phone && (
-                <div className="mt-4 grid grid-cols-2 gap-2">
-                  <button onClick={() => { navigator.clipboard?.writeText(p.phone); flash("Number copied — paste into Quo to call"); }} className="rounded-lg bg-lime px-3 py-2 text-center text-sm font-bold text-ink">📋 Copy {p.phone}</button>
-                  <a href={`tel:${p.phone.replace(/[^0-9]/g, "")}`} className="rounded-lg px-3 py-2 text-center text-sm font-semibold crm-btn">📞 Dial (tel:)</a>
-                </div>
-              )}
+              {p.phone && (() => {
+                const pc = phoneCheck(p.phone);
+                const dupe = isDupePhone(p);
+                return (
+                  <>
+                    <div className="mt-4 grid grid-cols-2 gap-2">
+                      <button onClick={() => { navigator.clipboard?.writeText(pc.pretty || p.phone); flash("Number copied — paste into Quo to call"); }} className="rounded-lg bg-lime px-3 py-2 text-center text-sm font-bold text-ink">📋 Copy {pc.pretty || p.phone}</button>
+                      <a href={`tel:${pc.dial || p.phone.replace(/[^0-9]/g, "")}`} className="rounded-lg px-3 py-2 text-center text-sm font-semibold crm-btn">📞 Dial (tel:)</a>
+                    </div>
+                    {(pc.flag !== "ok" || dupe) && (
+                      <div className="mt-2 rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-[0.7rem] font-semibold text-amber-700 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-300">
+                        ⚠ {dupe ? "Duplicate number — the same number is on another lead (double listing or aggregator). Skip the twin." : pc.label}
+                      </div>
+                    )}
+                  </>
+                );
+              })()}
               {p.email && <button onClick={() => copy(p.email)} className="mt-2 w-full rounded-lg px-3 py-2 text-sm font-semibold crm-btn">Copy email</button>}
 
               {/* contact on file — confirm it's really them before you dial */}
