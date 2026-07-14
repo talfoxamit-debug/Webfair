@@ -5,24 +5,28 @@ import { fetchCallHistory } from "@/lib/quo";
 
 export const runtime = "nodejs";
 
-type CallRow = {
+type ActivityRow = {
   id: string;
+  kind: "call" | "message";
   direction: string | null;
   status: string | null;
   duration_seconds: number | null;
+  body: string | null;
   transcript: string | null;
   summary: string | null;
   occurred_at: string;
 };
 
 /**
- * GET → call history synced from Quo (see /api/quo/webhook).
- *   ?phone=<any format>  → one lead's call log for the drawer. Merges what
+ * GET → calls + texts synced from Quo (see /api/quo/webhook).
+ *   ?phone=<any format>  → one lead's activity for the drawer: merges what
  *                          the webhook has captured (incl. transcripts) with
- *                          a live Quo lookup, so history shows up even for
- *                          calls made before the webhook was connected.
- *   (no query)            → most recent call per number, for surfacing
- *                          numbers you called that aren't in the CRM yet.
+ *                          a live Quo call lookup, so call history shows up
+ *                          even for calls made before the webhook connected.
+ *   (no query)            → most recent activity per number, for surfacing
+ *                          numbers you've called or texted that aren't in
+ *                          the CRM yet. Names come from quo_contacts when
+ *                          Quo already knows one.
  * Team login required.
  */
 export async function GET(req: Request) {
@@ -35,37 +39,51 @@ export async function GET(req: Request) {
   const phone = (searchParams.get("phone") || "").replace(/\D/g, "").slice(-10);
 
   if (phone) {
-    const byId = new Map<string, CallRow>();
+    const byId = new Map<string, ActivityRow>();
     if (sb) {
-      const { data } = await sb
-        .from("quo_calls")
-        .select("id, direction, status, duration_seconds, transcript, summary, occurred_at")
-        .eq("phone_digits", phone)
-        .order("occurred_at", { ascending: false })
-        .limit(50);
-      (data ?? []).forEach((r) => byId.set(r.id, r as CallRow));
+      const [{ data: calls }, { data: texts }] = await Promise.all([
+        sb.from("quo_calls").select("id, direction, status, duration_seconds, transcript, summary, occurred_at").eq("phone_digits", phone).order("occurred_at", { ascending: false }).limit(50),
+        sb.from("quo_messages").select("id, direction, status, body, occurred_at").eq("phone_digits", phone).order("occurred_at", { ascending: false }).limit(50),
+      ]);
+      (calls ?? []).forEach((r) => byId.set(`call:${r.id}`, {
+        id: r.id, kind: "call", direction: r.direction, status: r.status,
+        duration_seconds: r.duration_seconds, body: null, transcript: r.transcript, summary: r.summary, occurred_at: r.occurred_at,
+      }));
+      (texts ?? []).forEach((r) => byId.set(`msg:${r.id}`, {
+        id: r.id, kind: "message", direction: r.direction, status: r.status,
+        duration_seconds: null, body: r.body, transcript: null, summary: null, occurred_at: r.occurred_at,
+      }));
     }
     const live = await fetchCallHistory(phone).catch(() => []);
     for (const c of live) {
-      if (byId.has(c.id)) continue; // DB copy already has richer data (transcript/summary)
-      byId.set(c.id, { id: c.id, direction: c.direction, status: c.status, duration_seconds: c.durationSeconds, transcript: null, summary: null, occurred_at: c.createdAt || new Date().toISOString() });
+      const key = `call:${c.id}`;
+      if (byId.has(key)) continue; // DB copy already has richer data (transcript/summary)
+      byId.set(key, { id: c.id, kind: "call", direction: c.direction, status: c.status, duration_seconds: c.durationSeconds, body: null, transcript: null, summary: null, occurred_at: c.createdAt || new Date().toISOString() });
     }
     const merged = [...byId.values()].sort((a, b) => b.occurred_at.localeCompare(a.occurred_at));
     return NextResponse.json({ ok: true, data: merged });
   }
 
   if (!sb) return NextResponse.json({ ok: true, data: [] });
-  const { data, error } = await sb.from("quo_calls").select("phone_digits, phone_pretty, contact_name, occurred_at").order("occurred_at", { ascending: false }).limit(1000);
-  if (error) return NextResponse.json({ ok: false, error: "query_failed" }, { status: 500 });
-
-  const counts = new Map<string, number>();
-  for (const r of data ?? []) counts.set(r.phone_digits, (counts.get(r.phone_digits) || 0) + 1);
-  const seen = new Set<string>();
-  const out: { phone_digits: string; phone_pretty: string; contact_name: string | null; last_call: string; call_count: number }[] = [];
-  for (const r of data ?? []) {
-    if (seen.has(r.phone_digits)) continue;
-    seen.add(r.phone_digits);
-    out.push({ phone_digits: r.phone_digits, phone_pretty: r.phone_pretty, contact_name: r.contact_name, last_call: r.occurred_at, call_count: counts.get(r.phone_digits) || 1 });
+  const [{ data: calls }, { data: texts }, { data: contacts }] = await Promise.all([
+    sb.from("quo_calls").select("phone_digits, phone_pretty, occurred_at"),
+    sb.from("quo_messages").select("phone_digits, phone_pretty, occurred_at"),
+    sb.from("quo_contacts").select("phone_digits, name"),
+  ]);
+  const names = new Map((contacts ?? []).map((c) => [c.phone_digits, c.name] as const));
+  const agg = new Map<string, { phone_digits: string; phone_pretty: string; last: string; calls: number; texts: number }>();
+  for (const r of calls ?? []) {
+    const e = agg.get(r.phone_digits) || { phone_digits: r.phone_digits, phone_pretty: r.phone_pretty, last: r.occurred_at, calls: 0, texts: 0 };
+    e.calls++; if (r.occurred_at > e.last) e.last = r.occurred_at;
+    agg.set(r.phone_digits, e);
   }
+  for (const r of texts ?? []) {
+    const e = agg.get(r.phone_digits) || { phone_digits: r.phone_digits, phone_pretty: r.phone_pretty, last: r.occurred_at, calls: 0, texts: 0 };
+    e.texts++; if (r.occurred_at > e.last) e.last = r.occurred_at;
+    agg.set(r.phone_digits, e);
+  }
+  const out = [...agg.values()]
+    .sort((a, b) => b.last.localeCompare(a.last))
+    .map((e) => ({ phone_digits: e.phone_digits, phone_pretty: e.phone_pretty, contact_name: names.get(e.phone_digits) || null, last_call: e.last, call_count: e.calls, message_count: e.texts }));
   return NextResponse.json({ ok: true, data: out });
 }

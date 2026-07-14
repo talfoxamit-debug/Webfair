@@ -17,12 +17,16 @@ export function getQuoKey(): string | null {
   return process.env.QUO_API_KEY || null;
 }
 
-async function quoFetch(path: string): Promise<Response | null> {
+async function quoFetch(path: string, init?: RequestInit): Promise<Response | null> {
   const key = getQuoKey();
   if (!key) return null;
   try {
     // Quo's API key goes directly in Authorization — no "Bearer" prefix.
-    return await fetch(`${API_BASE}${path}`, { headers: { Authorization: key }, cache: "no-store" });
+    return await fetch(`${API_BASE}${path}`, {
+      ...init,
+      headers: { Authorization: key, ...(init?.body ? { "Content-Type": "application/json" } : {}), ...init?.headers },
+      cache: "no-store",
+    });
   } catch {
     return null;
   }
@@ -135,4 +139,39 @@ export function verifyQuoWebhook(rawBody: string, headers: Headers): boolean {
     return Boolean(secret && verifyLegacy(rawBody, legacySig, secret));
   }
   return false;
+}
+
+// ---- Contact push (CRM → Quo) ---------------------------------------------
+// So a lead's name shows up in Quo's own call/text UI, not just a raw number.
+// Keyed by our own lead id as Quo's externalId. POST always creates a new
+// contact (it doesn't upsert), so we look one up by externalId first and
+// PATCH it if found. Best-effort throughout — the write schema below is
+// reconstructed from Quo's docs, not a verified example, so failures
+// degrade to "wasn't pushed" rather than a broken-looking error in the CRM.
+
+export type QuoContactInput = { id: string; name?: string; company?: string; email?: string; phone?: string };
+const CONTACT_SOURCE = "stackwrk-crm";
+
+export async function upsertQuoContact(input: QuoContactInput): Promise<boolean> {
+  const digits = phoneDigits(input.phone || "");
+  if (digits.length !== 10) return false;
+
+  const [firstName, ...rest] = (input.name || "").trim().split(/\s+/).filter(Boolean);
+  const defaultFields: Record<string, unknown> = {
+    ...(firstName ? { firstName } : {}),
+    ...(rest.length ? { lastName: rest.join(" ") } : {}),
+    ...(input.company ? { company: input.company } : {}),
+    phoneNumbers: [{ name: "primary", value: `+1${digits}` }],
+    ...(input.email ? { emails: [{ name: "primary", value: input.email }] } : {}),
+  };
+  if (!firstName && !input.company) return false; // nothing worth naming the contact
+
+  const existingRes = await quoFetch(`/contacts?externalIds=${encodeURIComponent(input.id)}&sources=${CONTACT_SOURCE}`);
+  const existingJson = existingRes && existingRes.ok ? await existingRes.json().catch(() => null) : null;
+  const existingId = existingJson?.data?.[0]?.id as string | undefined;
+
+  const res = existingId
+    ? await quoFetch(`/contacts/${existingId}`, { method: "PATCH", body: JSON.stringify({ defaultFields }) })
+    : await quoFetch("/contacts", { method: "POST", body: JSON.stringify({ defaultFields, externalId: input.id, source: CONTACT_SOURCE }) });
+  return Boolean(res && res.ok);
 }

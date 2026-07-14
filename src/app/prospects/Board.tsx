@@ -50,6 +50,23 @@ function rowsToProspects(rows: string[][]): Prospect[] {
   }).filter((p) => p.name);
 }
 
+function quoActivityNote(calls: number, texts: number): string {
+  const bits: string[] = [];
+  if (calls) bits.push(`${calls} call${calls === 1 ? "" : "s"}`);
+  if (texts) bits.push(`${texts} text${texts === 1 ? "" : "s"}`);
+  return `${bits.join(" + ") || "Contact"} via Quo — not yet added to the CRM.`;
+}
+
+/** Push a lead's name/company/email into Quo as a contact — best-effort,
+ *  never blocks the CRM save. See /api/quo/contacts. */
+async function syncLeadToQuo(p: Prospect): Promise<boolean> {
+  if (!p.phone) return false;
+  return fetch("/api/quo/contacts", {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id: p.id, name: p.owner, company: p.name, email: p.email, phone: p.phone }),
+  }).then((r) => r.json()).then((j) => Boolean(j.ok)).catch(() => false);
+}
+
 function gapFor(p: Prospect | null): string {
   return p?.hasSite
     ? "your website could be doing a lot more to turn visitors into quote requests"
@@ -117,15 +134,15 @@ export default function Board({ user }: { user: string }) {
           const have = new Set(base.map((p) => phoneDigits(p.phone)).filter((d) => d.length === 10));
           const fresh: Prospect[] = qc.data
             .filter((c: { phone_digits: string }) => c.phone_digits && !have.has(c.phone_digits))
-            .map((c: { phone_digits: string; phone_pretty: string; contact_name: string | null; last_call: string; call_count: number }) => ({
+            .map((c: { phone_digits: string; phone_pretty: string; contact_name: string | null; last_call: string; call_count: number; message_count: number }) => ({
               id: uid(), name: c.contact_name || c.phone_pretty, phone: c.phone_pretty, email: "", website: "", hasSite: false,
               city: "", street: "", owner: c.contact_name || "", stage: "contacted" as ProspectStage,
               nextFollowUp: "", lastContacted: new Date(c.last_call).toISOString().slice(0, 10),
-              notes: `Called via Quo — ${c.call_count} call${c.call_count === 1 ? "" : "s"} logged, not yet added to the CRM.`,
+              notes: quoActivityNote(c.call_count, c.message_count),
               createdAt: new Date(c.last_call).getTime() || Date.now(),
               source: "quo" as const,
             }));
-          base = [...base, ...fresh]; // append — these already had a call, not fresh inbound
+          base = [...base, ...fresh]; // append — these already had activity, not fresh inbound
         }
       } catch { /* quo sync optional */ }
       setItems(base);
@@ -230,6 +247,7 @@ export default function Board({ user }: { user: string }) {
     };
     setItems((xs) => [lead, ...xs]);
     setShowAdd(false); setDraft(emptyLead());
+    syncLeadToQuo(lead); // a lead added because you just called/dealt with them directly — worth naming in Quo right away
     flash(`Added ${name}`);
   }
 
@@ -444,6 +462,15 @@ export default function Board({ user }: { user: string }) {
                   <a href={lookup(p, "maps")} target="_blank" rel="noopener noreferrer" className="rounded-lg px-2.5 py-1.5 text-xs font-semibold crm-btn">📍 Reviews ↗</a>
                   <a href={lookup(p, "google")} target="_blank" rel="noopener noreferrer" className="rounded-lg px-2.5 py-1.5 text-xs font-semibold crm-btn">🔍 Google ↗</a>
                   <a href={lookup(p, "fb")} target="_blank" rel="noopener noreferrer" className="rounded-lg px-2.5 py-1.5 text-xs font-semibold crm-btn">📘 Facebook ↗</a>
+                  {p.phone && (
+                    <button
+                      onClick={async () => flash((await syncLeadToQuo(p)) ? "Synced to Quo" : "Couldn't sync to Quo — check it's connected")}
+                      className="rounded-lg px-2.5 py-1.5 text-xs font-semibold crm-btn"
+                      title="Push this name into Quo as a contact"
+                    >
+                      🔄 Sync to Quo
+                    </button>
+                  )}
                 </div>
               </div>
 
