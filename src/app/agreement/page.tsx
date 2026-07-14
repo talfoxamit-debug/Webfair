@@ -20,20 +20,33 @@ export default async function AgreementPage({ searchParams }: { searchParams: Pr
     : new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 
   return (
-    <div className="min-h-screen bg-slate-100 py-8 text-slate-800 sm:py-12">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6">
-        {/* brand header */}
-        <div className="flex items-center justify-between">
-          <span className="text-lg font-extrabold tracking-tight" style={{ color: NAVY }}>
-            Stack<span style={{ color: GREEN }}>wrk</span>
+    <div className="min-h-screen bg-slate-100 text-slate-800">
+      {/* branded top bar */}
+      <div className="text-white" style={{ background: `linear-gradient(100deg, ${NAVY}, #123a52)` }}>
+        <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-3 sm:px-6">
+          <span className="text-lg font-extrabold tracking-tight">
+            Stack<span className="text-lime">wrk</span>
           </span>
-          <span className="text-xs text-slate-400">Fox Solutions LLC, d/b/a Stackwrk</span>
+          <span className="text-xs text-white/60">Website Agreement</span>
         </div>
+      </div>
 
+      <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-10">
         {/* document */}
-        <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-9">
+        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          {/* accent header */}
+          <div className="h-1.5" style={{ background: `linear-gradient(90deg, ${GREEN}, #1FA85E)` }} />
+          <div className="p-6 sm:p-9">
           <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl" style={{ color: NAVY }}>Website Design &amp; Development Agreement</h1>
-          <p className="mt-1 text-sm text-slate-500">Dated {dateStr}</p>
+          <p className="mt-1 text-sm text-slate-500">Fox Solutions LLC, d/b/a Stackwrk · Dated {dateStr}</p>
+
+          {/* guarantee callout */}
+          <div className="mt-5 flex items-start gap-3 rounded-xl border p-4" style={{ borderColor: "#cfe9d8", background: "#f2faf5" }}>
+            <span className="text-lg">🛡️</span>
+            <p className="text-sm leading-relaxed text-slate-700">
+              <b style={{ color: NAVY }}>Zero-risk:</b> you approve the design before I build. Not thrilled? Full refund of your deposit — you walk away owing nothing.
+            </p>
+          </div>
 
           {/* parties */}
           <div className="mt-6 grid gap-4 rounded-xl bg-slate-50 p-5 sm:grid-cols-2">
@@ -76,6 +89,7 @@ export default async function AgreementPage({ searchParams }: { searchParams: Pr
           <p className="mt-8 text-xs leading-relaxed text-slate-400">
             By signing below, both parties agree to the terms above. This agreement is governed by the laws of the State of Florida.
           </p>
+          </div>
         </div>
 
         {/* sign */}
@@ -83,7 +97,13 @@ export default async function AgreementPage({ searchParams }: { searchParams: Pr
           <SignBlock config={cfg} depositLabel={money(deposit)} depositAmount={deposit} />
         </div>
 
-        <p className="mt-4 text-center text-xs text-slate-400">Questions? Reply to Tal or email hello@stackwrk.com.</p>
+        {/* trust badges */}
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-xs text-slate-400">
+          <span>🔒 Secure</span>
+          <span>✍️ Legally binding e-signature</span>
+          <span>💳 Payments by Stripe</span>
+        </div>
+        <p className="mt-3 text-center text-xs text-slate-400">Questions? Reply to Tal or email hello@stackwrk.com · (754) 551-2828</p>
       </div>
     </div>
   );

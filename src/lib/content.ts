@@ -239,8 +239,8 @@ export const testimonials = [
 // NOTE(Tal): confirm these guarantee terms reflect what you actually offer.
 export const guarantee = {
   eyebrow: "Zero-risk",
-  heading: "You don’t pay until you love it.",
-  body: "Start with a free audit. As we build, if you're not thrilled with the design before launch, you walk away owing nothing.",
+  heading: "Love it, or your money back.",
+  body: "You approve the design before I build the full site. If you're not thrilled, I refund your deposit — you walk away owing nothing.",
   points: [
     "Free audit — no obligation",
     "Fixed price, no surprise invoices",

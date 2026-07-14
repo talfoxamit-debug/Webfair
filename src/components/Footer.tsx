@@ -17,11 +17,13 @@ export default function Footer() {
           <span className="text-xs text-white/40">{footer.copyright}</span>
         </div>
 
-        <nav className="flex items-center gap-5 text-xs text-white/50">
+        <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-white/50">
           <a href="/tools" className="transition-colors hover:text-lime">Free tools</a>
           <a href={site.calendlyUrl} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-lime">
             Book a call
           </a>
+          <a href="/privacy" className="transition-colors hover:text-lime">Privacy</a>
+          <a href="/terms" className="transition-colors hover:text-lime">Terms</a>
         </nav>
 
         <p className="order-last text-xs text-white/40 sm:order-none">{footer.tagline}</p>

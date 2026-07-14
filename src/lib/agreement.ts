@@ -55,61 +55,68 @@ export function buildAgreement(cfg: AgreementConfig) {
         `• Lead capture: quote form + click-to-call, plus package-appropriate tools (booking, financing, service-area pages).`,
         `• On-page SEO basics, Google Business Profile setup assistance, and analytics.`,
         `• One (1) round of revisions at the design stage and one (1) round before launch.`,
-        `• Target launch: within 10 business days of receiving all Client content (Section 4).`,
+        `• Target launch: within 14 business days after Developer receives everything needed from Client (Section 4).`,
         `Anything not listed above is out of scope and quoted separately.`,
       ],
     },
     {
       h: "2. Price & Payment",
       body: [
-        `Project fee: ${money(cfg.projectFee)}, payable ${cfg.depositPct}% deposit (${money(deposit)}) to start and the ${money(balance)} balance on launch.`,
+        `Project fee: ${money(cfg.projectFee)} — a ${cfg.depositPct}% deposit (${money(deposit)}) to start, and the ${money(balance)} balance due when the site launches.`,
         `Care plan (${cfg.careName}): ${money(cfg.careMonthly)}/month, billed monthly starting at launch — covers hosting, updates, security, backups, monitoring, and the plan's included changes. Cancel any time with 30 days' notice.`,
-        `Late balances over 10 days may pause the site.`,
+        `Third-party costs (domain name, premium plugins/licenses, paid stock photos, etc.) are passed through to Client at cost and only with Client's approval.`,
+        `Balances more than 10 days late accrue 1.5% monthly interest, and Developer may pause the site until paid.`,
       ],
     },
     {
-      h: "3. Guarantee",
+      h: "3. Our Guarantee (Zero-Risk)",
       body: [
-        `Launch guarantee: if the site isn't live within 10 business days of receiving all content, Client's first care-plan month is free.`,
-        `30-day money-back: within 30 days of launch, if Client isn't satisfied and Developer can't make it right, Client may cancel for a refund of the project fee (site is taken down; care-plan fees are non-refundable).`,
+        `Love-the-design guarantee: Client approves the design before Developer builds the full site. If Client is not thrilled with the initial design and Developer cannot make it right, Developer refunds the deposit in full — Client walks away owing nothing.`,
+        `On-time launch guarantee: If the site is not live within 14 business days after Developer has received everything needed from Client (Section 4), Client's first month of the care plan is free.`,
+        `30-day money-back: Within 30 days of launch, if Client is not satisfied and Developer cannot make it right, Client may cancel for a full refund of the project fee (the site is taken down; care-plan fees already used are non-refundable).`,
       ],
     },
     {
       h: "4. Client Responsibilities",
       body: [
-        `Client will provide, within 7 days of the deposit: business info, logo, project photos, service list, service area, reviews, and any copy edits. Delays extend the launch date. Client confirms it owns or has rights to all materials it provides.`,
+        `Within 7 days of the deposit, Client will provide: business info, logo, project photos, service list, service area, reviews, and any copy edits. Delays here extend the launch date and pause the on-time guarantee.`,
+        `Client confirms it owns or has the rights to all materials it provides, and will indemnify Developer against any claim arising from Client-provided content.`,
       ],
     },
     {
-      h: "5. Ownership & Intellectual Property",
+      h: "5. Ownership — It's Yours to Keep",
       body: [
-        `Upon full payment of the project fee, Developer assigns to Client all rights to the final delivered website design and content created for Client.`,
-        `Developer retains rights to underlying code frameworks, tools, and generic components, and may show the finished site in its portfolio. While on a care plan, hosting and licensed third-party services remain Developer-managed.`,
+        `Upon full payment of the project fee, the final website — its design, content, and the custom code built for Client — belongs to Client. It's yours to keep.`,
+        `Developer retains only its own general-purpose frameworks, tools, and reusable components (nothing unique to Client), and may show the finished site in its portfolio.`,
+        `While Client is on a care plan, Developer hosts and manages the site. If Client cancels the care plan, Developer will hand over an export of the site files so Client can host it anywhere — no lock-in.`,
       ],
     },
     {
       h: "6. Warranty",
       body: [
-        `Developer warrants the site will function as described for 90 days after launch and will fix defects at no charge. This excludes issues from Client edits, third-party outages, or content changes.`,
+        `Developer warrants the site will function as described for 90 days after launch and will fix defects at no charge. This excludes issues caused by Client edits, third-party outages, or content changes.`,
       ],
     },
     {
       h: "7. Cancellation",
       body: [
-        `Before launch: Client may cancel; the deposit is non-refundable (it covers work performed), and Client owes for any work completed beyond the deposit.`,
+        `Before Client approves the design: either party may cancel and Developer refunds the deposit in full.`,
+        `After design approval / during build: Client may cancel and pays only for work completed to that point (the deposit covers it; any excess is invoiced or refunded).`,
         `Care plan: either party may cancel with 30 days' written notice.`,
       ],
     },
     {
       h: "8. Limitation of Liability",
       body: [
-        `Developer's total liability under this Agreement will not exceed the fees paid by Client in the prior 3 months. Developer is not liable for indirect or consequential damages or lost profits.`,
+        `Developer's total liability under this Agreement will not exceed the fees Client paid in the prior 3 months. Developer is not liable for indirect or consequential damages, or for lost profits.`,
+        `Force majeure: neither party is liable for delays or failures caused by events beyond its reasonable control (outages, acts of God, etc.).`,
       ],
     },
     {
-      h: "9. General",
+      h: "9. Electronic Signature & General",
       body: [
-        `Developer is an independent contractor. This Agreement is governed by the laws of the State of Florida, is the entire agreement between the parties, and may be changed only in writing. If any part is unenforceable, the rest remains in effect.`,
+        `Electronic signature: By typing or drawing their name and clicking to sign below, Client agrees this is a legally binding electronic signature under the U.S. E-SIGN Act, and consents to conduct this transaction electronically.`,
+        `Developer is an independent contractor. This Agreement is governed by the laws of the State of Florida, with venue in Broward County. It is the entire agreement between the parties and may be changed only in writing. If any part is unenforceable, the rest remains in effect.`,
       ],
     },
   ];

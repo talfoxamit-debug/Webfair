@@ -6,7 +6,7 @@ export const runtime = "nodejs";
 
 /** POST { config, signer } → record an e-signature. Public (clients sign without login). */
 export async function POST(req: Request) {
-  let body: { config?: unknown; signer?: string };
+  let body: { config?: unknown; signer?: string; method?: string; drawing?: string };
   try { body = await req.json(); } catch { return NextResponse.json({ ok: false, error: "bad" }, { status: 400 }); }
   const signer = (body.signer || "").toString().trim();
   if (signer.length < 2 || !body.config) {
@@ -14,20 +14,31 @@ export async function POST(req: Request) {
   }
   const cfg = body.config as { clientName?: string };
   const id = Math.random().toString(36).slice(2, 12) + Date.now().toString(36);
+  const signedAt = new Date().toISOString();
+  // Capture signing evidence for a defensible e-signature record.
+  const ip = (req.headers.get("x-forwarded-for") || "").split(",")[0].trim()
+    || req.headers.get("x-real-ip") || req.headers.get("cf-connecting-ip") || "";
+  const userAgent = req.headers.get("user-agent") || "";
+  const method = body.method === "drawn" ? "drawn" : "typed";
+  // Store the config plus signing evidence in the jsonb column (no schema change).
+  const record = {
+    ...(body.config as object),
+    _signature: { ip, userAgent, method, signedAt, drawing: body.drawing?.slice(0, 60000) || null },
+  };
   const sb = getSupabaseAdmin();
   if (sb) {
     const { error } = await sb.from("signatures").insert({
       id,
       business: cfg.clientName || "",
       signer,
-      data: body.config,
-      signed_at: new Date().toISOString(),
-      user_agent: req.headers.get("user-agent") || "",
+      data: record,
+      signed_at: signedAt,
+      user_agent: userAgent,
     });
     if (error) return NextResponse.json({ ok: false, error: "save_failed" }, { status: 500 });
   }
   // If Supabase isn't configured we still confirm — the signature intent is captured client-side.
-  return NextResponse.json({ ok: true, id });
+  return NextResponse.json({ ok: true, id, ip, signedAt });
 }
 
 /** GET → recent signatures (team login required). Lets the CRM show what's signed. */

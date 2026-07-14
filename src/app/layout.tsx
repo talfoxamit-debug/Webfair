@@ -45,10 +45,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
+        <a href="#main" className="skip-link">Skip to content</a>
         <ScrollProgress />
         <CustomCursor />
         <Nav />
-        <main>{children}</main>
+        <main id="main">{children}</main>
       </body>
     </html>
   );
