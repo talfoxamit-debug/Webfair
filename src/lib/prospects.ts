@@ -142,17 +142,19 @@ export const TEMPLATES: { key: string; label: string; channel: "email" | "call" 
     flow: "phone",
     body: `[TONALITY: say it relaxed and a little bored — like a peer calling back, NOT a chipper telemarketer. That tone is 80% of why it lands.]
 
+[THE "NO" TRICK: a "yes" question asks them to commit something (time, attention) — guard goes up. A "no" question just asks them not to reject you — feels safe, costs nothing, but works as the same green light. Frame the two asks below so "no" is the answer that keeps you going.]
+
 [PATTERN INTERRUPT — reference something REAL about them so it doesn't sound like a mass call. Run their site in the "Run audit" button above FIRST, so "I'm looking at it right now" is true, not a line — that's your version of "holding it in my hand."]
-"Hey, is this {{owner}}? ... {{owner}}, it's just Tal — I'm actually looking at your website right now and noticed {{gap}}. That's the only reason I called. Got a quick second?"
+"Hey, is this {{owner}}? ... {{owner}}, it's just Tal — I'm actually looking at your website right now and noticed {{gap}}. That's the only reason I called — is now a terrible time?"
 
 [No website? Even stronger — a hole they can't see:]
-"Hey {{owner}}, it's just Tal — I was searching fence companies in {{city}} and noticed you don't really come up anywhere. Figured you'd want to know. Quick second?"
+"Hey {{owner}}, it's just Tal — I was searching fence companies in {{city}} and noticed you don't really come up anywhere. Figured you'd want to know — is this a bad time?"
 
-[If yes — go straight to the GIVE, not a pitch:]
-"So I actually put together a rough concept of what {{business}}'s site could look like. Can I text you the link so you can check it whenever?"
+[They'll say "no, go ahead" — that's your green light. Go straight to the GIVE, not a pitch:]
+"So I actually put together a rough concept of what {{business}}'s site could look like. Would it be crazy for me to just text you the link so you can look whenever?"
 
-[Goal of the call = get the YES to the text, NOT to close:]
-"Perfect, what's the best cell? ... Sending it now. No pressure at all — take a look, and if you like it we'll talk. Sound good?"`,
+[They'll say "no, not crazy" — that's a yes. Get the number and get off the phone:]
+"Perfect, what's the best cell? ... Sending it now. No pressure at all, take a look and if you like it we'll talk."`,
   },
   {
     key: "call_gatekeeper",
@@ -168,9 +170,9 @@ BEST CASE — you know the owner's name. Just ask, warm and confident, no explan
 IF SHE ASKS "what's this about?" — frame THEIR problem, never your product:
 "Sure — I'm honestly not sure who I should be talking to. I'm trying to reach whoever's responsible for how {{business}} shows up when a homeowner Googles a fence company in {{city}} — because there could be quote requests slipping to competitors every month that nobody there even sees. Who would that be?"
 
-IF SHE HESITATES to transfer — shrink the ask, assume the yes:
-"No worries — could you just put me through to his voicemail so I can leave the details, and he can call back if he wants? Takes 20 seconds."
-(Asking for a voicemail is easy to say yes to — and it often rings him live anyway, or drops you into his personal cell VM where you leave the mockup pitch.)
+IF SHE HESITATES to transfer — shrink the ask AND flip it to a "no" question:
+"No worries — would it be a problem if I just left a quick voicemail for him? Takes 20 seconds, he can call back if he wants."
+("No, not a problem" costs her nothing to say — and it often rings him live anyway, or drops you into his personal cell VM where you leave the mockup pitch.)
 
 IF IT'S AN ANSWERING SERVICE (only takes messages, can't transfer) — don't pitch, get the asset:
 "No problem — what's the best cell or email to reach {{owner}} directly? I've got something to send over for him."
