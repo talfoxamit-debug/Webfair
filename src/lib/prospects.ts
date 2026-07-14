@@ -150,6 +150,26 @@ export const TEMPLATES: { key: string; label: string; channel: "email" | "call" 
 "Perfect, what's the best cell? ... Sending it now. No pressure at all — take a look, and if you like it we'll talk. Sound good?"`,
   },
   {
+    key: "call_gatekeeper",
+    label: "1a. Get past a receptionist / answering service",
+    channel: "call",
+    flow: "phone",
+    body: `[Goal: get routed to {{owner}} — NOT to pitch her. Sound casual and a little humble, like you're just trying to find the right person.]
+
+BEST CASE — you know the owner's name. Just ask, warm and confident, no explanation:
+"Hey, is {{owner}} around?"
+(Explaining yourself = 'salesperson' = blocked. Most gatekeepers just transfer.)
+
+IF SHE ASKS "what's this about?" — frame THEIR problem, never your product:
+"Sure — I'm honestly not sure who I should be talking to. I'm trying to reach whoever's responsible for how {{business}} shows up when a homeowner Googles a fence company in {{city}} — because there could be quote requests slipping to competitors every month that nobody there even sees. Who would that be?"
+
+IF IT'S AN ANSWERING SERVICE (only takes messages, can't transfer) — don't pitch, get the asset:
+"No problem — what's the best cell or email to reach {{owner}} directly? I've got something to send over for him."
+Then move him to the text/email mockup channel.
+
+Once you're actually on with {{owner}}, drop the routing talk and go direct — use the opener above.`,
+  },
+  {
     key: "call_vm",
     label: "1b. Voicemail (no answer)",
     channel: "call",

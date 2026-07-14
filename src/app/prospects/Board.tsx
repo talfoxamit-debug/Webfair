@@ -411,7 +411,7 @@ export default function Board({ user }: { user: string }) {
               {/* call script — exactly what to say, filled in for this lead */}
               <div className="mt-5 rounded-lg border border-emerald-200 bg-emerald-50/60 p-3 dark:border-lime/25 dark:bg-lime/[0.06]">
                 <p className="text-xs font-bold uppercase tracking-wide text-emerald-700 dark:text-lime">📞 Call script — {p.owner || "them"}</p>
-                {["call_open", "call_vm", "call_objections"].map((key) => {
+                {["call_open", "call_gatekeeper", "call_vm", "call_objections"].map((key) => {
                   const t = TEMPLATES.find((x) => x.key === key);
                   if (!t) return null;
                   return (
