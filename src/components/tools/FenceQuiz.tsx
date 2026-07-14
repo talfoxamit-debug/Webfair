@@ -18,7 +18,7 @@ const QUESTIONS: Q[] = [
     { label: "No", scores: { wood: 1, vinyl: 1, chain: 1 } },
   ] },
   { q: "Do you have pets or kids to contain?", opts: [
-    { label: "Yes — keep them in", scores: { chain: 2, vinyl: 1, aluminum: 1 } },
+    { label: "Yes, keep them in", scores: { chain: 2, vinyl: 1, aluminum: 1 } },
     { label: "No", scores: { wood: 1 } },
   ] },
   { q: "Your budget vibe?", opts: [

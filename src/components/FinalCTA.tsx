@@ -7,7 +7,7 @@ const deliverables = [
   {
     icon: Mail,
     title: "Your full audit report",
-    sub: "Every issue found, scored and explained — in your inbox.",
+    sub: "Every issue found, scored and explained. In your inbox.",
   },
   {
     icon: TrendUp,
@@ -16,7 +16,7 @@ const deliverables = [
   },
   {
     icon: Calendar,
-    title: "A 30-min call — no obligation",
+    title: "A 30-min call, no obligation",
     sub: "We walk through it together. Keep the plan either way.",
   },
 ];

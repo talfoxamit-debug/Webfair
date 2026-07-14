@@ -18,7 +18,7 @@ export type Material = {
 };
 
 export const MATERIALS: Material[] = [
-  { key: "wood", name: "Wood", costLow: 28, costHigh: 45, cost: "$28–45/ft", maintenance: "Medium — seal every 2–3 yrs", lifespan: "10–15 yrs", privacy: "Full", storm: "Good", bestFor: "Classic privacy on a budget" },
+  { key: "wood", name: "Wood", costLow: 28, costHigh: 45, cost: "$28–45/ft", maintenance: "Medium: seal every 2–3 yrs", lifespan: "10–15 yrs", privacy: "Full", storm: "Good", bestFor: "Classic privacy on a budget" },
   { key: "vinyl", name: "Vinyl", costLow: 32, costHigh: 55, cost: "$32–55/ft", maintenance: "None", lifespan: "25–30 yrs", privacy: "Full", storm: "Excellent", bestFor: "Set-and-forget privacy" },
   { key: "aluminum", name: "Aluminum", costLow: 35, costHigh: 60, cost: "$35–60/ft", maintenance: "None", lifespan: "30+ yrs", privacy: "Open (none)", storm: "Excellent", bestFor: "Pools & curb appeal" },
   { key: "chain", name: "Chain-Link", costLow: 15, costHigh: 26, cost: "$15–26/ft", maintenance: "Low", lifespan: "15–20 yrs", privacy: "Open (none)", storm: "Good", bestFor: "Pets & perimeters, lowest cost" },

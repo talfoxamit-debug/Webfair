@@ -36,7 +36,7 @@ export async function POST(req: Request) {
           quantity: 1,
           price_data: {
             currency: "usd",
-            product_data: { name: `Stackwrk Care Plan — ${b.plan || "Growth"}` },
+            product_data: { name: `Stackwrk Care Plan: ${b.plan || "Growth"}` },
             unit_amount: monthly * 100,
             recurring: { interval: "month" },
           },
@@ -55,11 +55,11 @@ export async function POST(req: Request) {
           quantity: 1,
           price_data: {
             currency: "usd",
-            product_data: { name: `Deposit — ${b.label || "Website project"}${b.client ? ` (${b.client})` : ""}` },
+            product_data: { name: `Deposit: ${b.label || "Website project"}${b.client ? ` (${b.client})` : ""}` },
             unit_amount: amount * 100,
           },
         }],
-        payment_intent_data: { description: `Website deposit${b.client ? ` — ${b.client}` : ""}` },
+        payment_intent_data: { description: `Website deposit${b.client ? ` for ${b.client}` : ""}` },
         success_url: `${origin}/agreement/paid?type=deposit`,
         cancel_url: `${origin}/agreement`,
       });

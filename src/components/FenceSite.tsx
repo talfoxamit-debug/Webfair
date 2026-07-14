@@ -40,7 +40,7 @@ const tel = (p: string) => `tel:${p.replace(/[^0-9]/g, "")}`;
 /** Services showcase — each card maps to one of our real project photos, so the
  *  labels and imagery always match (no stock-photo mismatch). */
 const services = [
-  { t: "Wood Privacy Fences", d: "Cedar & pine privacy fencing — warm, classic, built for South-Florida yards.", img: "/demo/fence/g-cedar.webp" },
+  { t: "Wood Privacy Fences", d: "Cedar & pine privacy fencing, warm, classic, built for South-Florida yards.", img: "/demo/fence/g-cedar.webp" },
   { t: "Vinyl Fences", d: "Low-maintenance, storm-rated vinyl in white, tan & more. Zero upkeep.", img: "/demo/fence/g-vinyl.webp" },
   { t: "Custom Gates & Access", d: "Matching walk gates, double drive gates, keypads & automation.", img: "/demo/fence/g-gate.webp" },
   { t: "Modern Composite Screens", d: "Sleek horizontal-slat privacy screens for a contemporary look.", img: "/demo/fence/g-comp.webp" },
@@ -49,10 +49,10 @@ const services = [
 ];
 
 const faqs = [
-  { q: "Do I need a permit for a fence in South Florida?", a: "Almost always, yes. Most Broward and Miami-Dade cities require a permit, and we pull it for you — plus the survey and inspection — so your install passes the first time." },
+  { q: "Do I need a permit for a fence in South Florida?", a: "Almost always, yes. Most Broward and Miami-Dade cities require a permit, and we pull it for you (plus the survey and inspection) so your install passes the first time." },
   { q: "How long does installation take?", a: "Most residential fences are installed in 1–3 days once materials arrive and the permit clears. We give you a firm timeline in writing before we start." },
   { q: "What does a new fence cost?", a: "Most projects land between $3,000 and $12,000 depending on material, height and length. Use our instant estimator above for a ballpark, then we confirm it free on-site." },
-  { q: "Do you offer financing?", a: "Yes — $0-down plans spread over 12 to 60 months, so you can start now and pay monthly. Ask us to check your rate; it won't affect your credit." },
+  { q: "Do you offer financing?", a: "Yes, $0-down plans spread over 12 to 60 months, so you can start now and pay monthly. Ask us to check your rate; it won't affect your credit." },
   { q: "Is your work warrantied?", a: "Every install is backed by a 5-year workmanship warranty on top of the manufacturer's material warranty. If anything shifts or fails, we make it right." },
   { q: "What about my HOA?", a: "We build to HOA-approved materials, colors and heights, and can provide the spec sheets your architectural committee needs for approval." },
 ];
@@ -76,7 +76,7 @@ export default function FenceSite({ config, demo = false }: { config?: Partial<F
           <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-1.5 px-5 py-2 text-center sm:flex-row sm:px-8 sm:text-left">
             <p className="text-xs font-semibold sm:text-sm">
               <span className="mr-2 rounded bg-white/15 px-1.5 py-0.5 text-[0.75rem] font-bold uppercase tracking-wide">Demo</span>
-              This is a sample fencing website built by Stackwrk — not a real company.
+              This is a sample fencing website built by Stackwrk, not a real company.
             </p>
             <Link href="/" className="shrink-0 text-xs font-bold text-emerald-300 hover:text-emerald-200 sm:text-sm">Want one like this for your business? →</Link>
           </div>
@@ -118,7 +118,7 @@ export default function FenceSite({ config, demo = false }: { config?: Partial<F
               <span className="text-white/90">{c.rating} · {c.reviewCount} Google reviews</span>
             </div>
             <h1 className="text-4xl font-extrabold leading-[1.05] tracking-tight drop-shadow sm:text-5xl lg:text-[3.4rem]">{c.tagline}</h1>
-            <p className="mt-4 max-w-md text-lg leading-relaxed text-white/85">Wood, vinyl &amp; aluminum fences installed fast and built to last — backed by a 5-year workmanship warranty.</p>
+            <p className="mt-4 max-w-md text-lg leading-relaxed text-white/85">Wood, vinyl &amp; aluminum fences installed fast and built to last, backed by a 5-year workmanship warranty.</p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:gap-4">
               <a href="#quote" className="inline-flex items-center justify-center gap-2 rounded-lg px-7 py-4 text-base font-bold text-white shadow-lg transition-transform hover:-translate-y-0.5" style={{ background: GREEN_BRIGHT, boxShadow: `0 14px 30px -10px ${GREEN_BRIGHT}` }}>Get a Free Quote <ArrowRight width={18} height={18} /></a>
               <a href={tel(c.phone)} className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/40 bg-white/10 px-7 py-4 text-base font-bold text-white backdrop-blur-sm transition-colors hover:bg-white/20"><Phone width={17} height={17} /> {c.phone}</a>
@@ -182,13 +182,13 @@ export default function FenceSite({ config, demo = false }: { config?: Partial<F
           <div className="mx-auto max-w-xl text-center">
             <p className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: GREEN }}>Instant estimate</p>
             <h2 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl" style={{ color: NAVY }}>What will my fence cost?</h2>
-            <p className="mt-3 text-slate-600">Move the sliders for a real ballpark in seconds — no email required.</p>
+            <p className="mt-3 text-slate-600">Move the sliders for a real ballpark in seconds. No email required.</p>
           </div>
           <div className="mt-10"><FenceEstimator phone={c.phone} /></div>
           {demo && (
             <p className="mt-6 text-center text-sm">
               <Link href="/demos/apex-fence/tools" className="font-bold" style={{ color: GREEN }}>
-                Explore all 7 free fence tools — comparison, permits, financing &amp; more →
+                Explore all 7 free fence tools: comparison, permits, financing &amp; more →
               </Link>
             </p>
           )}
@@ -202,7 +202,7 @@ export default function FenceSite({ config, demo = false }: { config?: Partial<F
             <p className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: GREEN }}>Why us</p>
             <h2 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl" style={{ color: NAVY }}>The fence company neighbors recommend.</h2>
             <div className="mt-6 space-y-4">
-              {[["Written, upfront pricing", "No surprises — you get a clear quote in writing before we start."], ["Clean, on-time crews", "Uniformed installers who respect your yard and finish when we say."], ["Permits & code handled", "We pull permits and pass inspection so you don't have to think about it."], ["5-year workmanship warranty", "If anything shifts or fails, we come back and make it right."]].map(([t, d]) => (
+              {[["Written, upfront pricing", "No surprises. You get a clear quote in writing before we start."], ["Clean, on-time crews", "Uniformed installers who respect your yard and finish when we say."], ["Permits & code handled", "We pull permits and pass inspection so you don't have to think about it."], ["5-year workmanship warranty", "If anything shifts or fails, we come back and make it right."]].map(([t, d]) => (
                 <div key={t} className="flex gap-3"><span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-white" style={{ background: GREEN }}><Check width={14} height={14} /></span><div><p className="font-bold" style={{ color: NAVY }}>{t}</p><p className="text-sm text-slate-600">{d}</p></div></div>
               ))}
             </div>
@@ -211,8 +211,8 @@ export default function FenceSite({ config, demo = false }: { config?: Partial<F
             <p className="text-sm font-bold uppercase tracking-wide text-slate-500">How it works</p>
             <div className="mt-5 space-y-5">
               <Step icon={Calendar} n={1} t="Free on-site estimate" d="We measure, talk options, and hand you a written quote." />
-              <Step icon={Shield} n={2} t="We build it" d="Permits pulled, materials delivered, installed in days — not weeks." />
-              <Step icon={TrendUp} n={3} t="Enjoy — and it's warrantied" d="Backed for 5 years. Refer a neighbor, get $100." />
+              <Step icon={Shield} n={2} t="We build it" d="Permits pulled, materials delivered, installed in days, not weeks." />
+              <Step icon={TrendUp} n={3} t="Enjoy, and it's warrantied" d="Backed for 5 years. Refer a neighbor, get $100." />
             </div>
           </div>
         </div>
@@ -230,7 +230,7 @@ export default function FenceSite({ config, demo = false }: { config?: Partial<F
           <div className="p-7 sm:p-9">
             <p className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: GREEN }}>The crew</p>
             <h2 className="mt-2 text-3xl font-extrabold tracking-tight" style={{ color: NAVY }}>Owner-run, from quote to cleanup.</h2>
-            <p className="mt-3 text-slate-600">The same local crew handles your job start to finish — no subcontractors, no surprises. Uniformed, background-checked, and we haul off every scrap before we leave.</p>
+            <p className="mt-3 text-slate-600">The same local crew handles your job start to finish, no subcontractors, no surprises. Uniformed, background-checked, and we haul off every scrap before we leave.</p>
             <div className="mt-5 flex items-center gap-4">
               <div className="flex -space-x-3">
                 {["from-emerald-500 to-teal-600", "from-sky-500 to-indigo-600", "from-amber-500 to-orange-600", "from-rose-500 to-pink-600"].map((g, i) => (
@@ -329,7 +329,7 @@ export default function FenceSite({ config, demo = false }: { config?: Partial<F
       {/* FINANCING */}
       <section className="px-5 py-6 sm:px-8">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 rounded-2xl px-7 py-6 text-white sm:flex-row" style={{ background: `linear-gradient(100deg,${NAVY},#123a52)` }}>
-          <p className="text-center text-lg font-bold sm:text-left">$0-down financing available — spread it over 12–60 months.</p>
+          <p className="text-center text-lg font-bold sm:text-left">$0-down financing available. Spread it over 12–60 months.</p>
           <a href="#quote" className="shrink-0 rounded-lg px-6 py-3 text-sm font-bold text-white" style={{ background: GREEN_BRIGHT }}>Check my rate</a>
         </div>
       </section>
@@ -343,14 +343,14 @@ export default function FenceSite({ config, demo = false }: { config?: Partial<F
             ? <Link key={a} href={`/demos/apex-fence/areas/${citySlug(a)}`} className="rounded-full border border-black/10 bg-white px-4 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:border-emerald-500 hover:text-slate-900">{a}</Link>
             : <span key={a} className="rounded-full border border-black/10 bg-white px-4 py-1.5 text-sm font-medium text-slate-600">{a}</span>)}
         </div>
-        {demo && <p className="mt-4 text-xs text-slate-400">Each city links to its own local page — great for ranking in every town you serve.</p>}
+        {demo && <p className="mt-4 text-xs text-slate-400">Each city links to its own local page, great for ranking in every town you serve.</p>}
       </section>
 
       {/* QUOTE CTA */}
       <section id="quote" className="px-5 pb-16 sm:px-8">
         <div className="mx-auto max-w-3xl rounded-3xl border border-black/[0.07] bg-white p-8 text-center shadow-lg sm:p-10">
           <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl" style={{ color: NAVY }}>Get your free fence quote today.</h2>
-          <p className="mx-auto mt-2 max-w-md text-slate-600">Tell us about your project and we&rsquo;ll get you a written quote — usually the same day.</p>
+          <p className="mx-auto mt-2 max-w-md text-slate-600">Tell us about your project and we&rsquo;ll get you a written quote, usually the same day.</p>
           <div className="mx-auto mt-7 grid max-w-lg gap-3 sm:grid-cols-2">
             <input placeholder="Full name" className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-emerald-500" />
             <input placeholder="Phone" className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-emerald-500" />

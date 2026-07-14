@@ -26,7 +26,7 @@ const orgJsonLd = [
     "@id": `https://${site.domain}/#business`,
     name: "Stackwrk",
     description:
-      "Stackwrk builds fast, conversion-focused websites and web apps for small businesses — engineered to turn visitors into bookings, leads, and revenue.",
+      "Stackwrk builds fast, conversion-focused websites and web apps for small businesses, engineered to turn visitors into bookings, leads, and revenue.",
     url: `https://${site.domain}`,
     email: site.email,
     legalName: site.legalEntity,

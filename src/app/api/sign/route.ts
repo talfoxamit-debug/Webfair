@@ -73,7 +73,7 @@ export async function POST(req: Request) {
     const clientEmail = (cfg as { email?: string }).email?.trim();
     const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (clientEmail && emailRe.test(clientEmail)) {
-      await sendEmail({ to: clientEmail, subject: "Your signed agreement — Stackwrk", html, replyTo: "hello@stackwrk.com" });
+      await sendEmail({ to: clientEmail, subject: "Your signed agreement from Stackwrk", html, replyTo: "hello@stackwrk.com" });
     }
     const notify = notifyEmail();
     if (notify) {

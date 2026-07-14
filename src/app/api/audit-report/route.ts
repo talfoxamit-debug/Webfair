@@ -116,7 +116,7 @@ export async function POST(req: Request) {
   });
   const send = await sendEmail({
     to: email,
-    subject: `Your website audit — ${result.score}/100`,
+    subject: `Your website audit: ${result.score}/100`,
     html,
     replyTo: site.email,
   });

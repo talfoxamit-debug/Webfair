@@ -12,7 +12,7 @@ export default function AuditSection() {
             How does your site <span className="text-accent-glow">really</span> perform?
           </h2>
           <p className="mt-4 text-base leading-relaxed text-white/60">
-            Drop in your website for an instant scorecard — speed, mobile, SEO and the
+            Drop in your website for an instant scorecard: speed, mobile, SEO and the
             conversion gaps quietly costing you customers.
           </p>
         </Reveal>

@@ -115,10 +115,10 @@ export const TEMPLATES: { key: string; label: string; channel: "email" | "call" 
   },
   {
     key: "post_call_offer",
-    label: "2. After the call — what we offer (email)",
+    label: "2. After the call: what we offer (email)",
     channel: "email",
     flow: "phone",
-    subject: "Stackwrk — what I can build for {{business}}",
+    subject: "Stackwrk: what I can build for {{business}}",
     body: `Hi {{owner}},
 
 Great talking with you just now. As promised, here's exactly what I do for fence companies like {{business}}:
@@ -126,20 +126,20 @@ Great talking with you just now. As promised, here's exactly what I do for fence
 • A fast, mobile-first website built to turn "fence company near me" searches into quote requests
 • Instant quote form + click-to-call so a homeowner reaches you in one tap
 • Reviews, financing, warranty and service-area pages that build trust and rank on Google
-• Live in about 2 weeks — and you own 100% of it, no lock-in
+• Live in about 2 weeks, and you own 100% of it, no lock-in
 
 Here's the exact kind of site I build (yours gets your name, photos and number):
 stackwrk.com/demos/apex-fence
 
 Simple, fixed pricing:
-• Launch — $2,000 (5-page lead-capture site)
-• Growth — $4,500 (8 pages + custom tools like an instant quote/estimator)
-• Optional care plan from $99/mo — hosting, updates, backups and edits handled for you
+• Launch: $2,000 (5-page lead-capture site)
+• Growth: $4,500 (8 pages + custom tools like an instant quote/estimator)
+• Optional care plan from $99/mo, covering hosting, updates, backups and edits
 
-No-risk next step: I'll build you a FREE homepage mockup from your own project photos — no cost, no obligation. If you love it, we go live; if not, no hard feelings. Want me to start on it?
+No-risk next step: I'll build you a FREE homepage mockup from your own project photos, no cost, no obligation. If you love it, we go live; if not, no hard feelings. Want me to start on it?
 
 Thanks,
-Tal — Stackwrk
+Tal, Stackwrk
 stackwrk.com · (754) 551-2828 · hello@stackwrk.com`,
   },
   {
@@ -147,23 +147,23 @@ stackwrk.com · (754) 551-2828 · hello@stackwrk.com`,
     label: "2b. Text after a call/VM",
     channel: "sms",
     flow: "phone",
-    body: `Hi {{owner}}, Tal from Stackwrk here — here's that fence-website concept I mentioned: stackwrk.com/demos/apex-fence. Happy to build you a free mockup with your own photos. Worth a quick call?`,
+    body: `Hi {{owner}}, Tal from Stackwrk here. Here's that fence-website concept I mentioned: stackwrk.com/demos/apex-fence. Happy to build you a free mockup with your own photos. Worth a quick call?`,
   },
 
   // ---------- EMAIL-FIRST pipeline ----------
   {
     key: "email_1",
-    label: "1. Cold email — mockup offer",
+    label: "1. Cold email: mockup offer",
     channel: "email",
     flow: "email",
     subject: "quick idea for {{business}}'s website",
-    body: `Hi {{owner}} — I build websites for fence companies here in {{city}}.
+    body: `Hi {{owner}}, I build websites for fence companies here in {{city}}.
 
 I saw {{business}} on Google and noticed {{gap}}. Homeowners comparing fence contractors almost always check the website first, so that's real jobs slipping to whoever looks most legit.
 
-I put together a quick concept of what your homepage could look like — takes 30 seconds to look at. Want me to send the link?
+I put together a quick concept of what your homepage could look like, and it takes 30 seconds to look at. Want me to send the link?
 
-— Tal
+Tal
 Stackwrk · stackwrk.com · (754) 551-2828`,
   },
   {
@@ -172,13 +172,13 @@ Stackwrk · stackwrk.com · (754) 551-2828`,
     channel: "email",
     flow: "email",
     subject: "re: quick idea for {{business}}'s website",
-    body: `Hi {{owner}} — following up on the fence-website concept I mentioned.
+    body: `Hi {{owner}}, following up on the fence-website concept I mentioned.
 
-Here's a live example of the kind of site I build for fence pros: stackwrk.com/demos/apex-fence — instant quote form, reviews, financing, the works. Yours would have your name, your photos, your number.
+Here's a live example of the kind of site I build for fence pros: stackwrk.com/demos/apex-fence, with an instant quote form, reviews, financing, the works. Yours would have your name, your photos, your number.
 
 Worth a 10-minute call this week?
 
-— Tal`,
+Tal`,
   },
   {
     key: "email_3",
@@ -186,11 +186,11 @@ Worth a 10-minute call this week?
     channel: "email",
     flow: "email",
     subject: "should I close your file?",
-    body: `Hi {{owner}} — I don't want to be a pest. If a better website isn't a priority right now, no problem and I'll stop reaching out.
+    body: `Hi {{owner}}, I don't want to be a pest. If a better website isn't a priority right now, no problem and I'll stop reaching out.
 
-If it is, I'll build you a free homepage mockup from your own project photos — no cost, no obligation. Just reply "mockup" and I'll get started.
+If it is, I'll build you a free homepage mockup from your own project photos, no cost, no obligation. Just reply "mockup" and I'll get started.
 
-— Tal`,
+Tal`,
   },
 
   // ---------- DELIVERY (either pipeline) ----------
@@ -199,11 +199,11 @@ If it is, I'll build you a free homepage mockup from your own project photos —
     label: "Mockup delivery",
     channel: "email",
     flow: "both",
-    subject: "your new homepage — {{business}}",
-    body: `Hi {{owner}} — here's the mockup I built for {{business}}: [link].
+    subject: "your new homepage for {{business}}",
+    body: `Hi {{owner}}, here's the mockup I built for {{business}}: [link].
 
 I rebuilt your homepage around your best work with an instant-quote form front and center. If you like it, I can have the full site live in about 10 business days. Want to hop on a quick call to walk through it?
 
-— Tal`,
+Tal`,
   },
 ];

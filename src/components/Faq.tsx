@@ -9,7 +9,7 @@ import Reveal from "./Reveal";
 const FAQS: { q: string; a: string }[] = [
   {
     q: "How much does a website cost?",
-    a: "Most Stackwrk projects start around $2,000 and scale with scope. You get a fixed, written quote before any work begins — no surprise invoices.",
+    a: "Most Stackwrk projects start around $2,000 and scale with scope. You get a fixed, written quote before any work begins. No surprise invoices.",
   },
   {
     q: "How long does it take to build?",
@@ -17,7 +17,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "What do I actually get?",
-    a: "A fast, custom, mobile-first website designed to convert — with the tools you need (booking, calculators, AI chat, CRM), SEO fundamentals, analytics, and a build that's yours to keep.",
+    a: "A fast, custom, mobile-first website designed to convert, with the tools you need (booking, calculators, AI chat, CRM), SEO fundamentals, analytics, and a build that's yours to keep.",
   },
   {
     q: "Do you offer ongoing support after launch?",
@@ -29,7 +29,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Will my site rank on Google?",
-    a: "SEO fundamentals — fast load times, clean semantic markup, metadata, mobile-friendliness, and structured data — are built into every Stackwrk site so search engines and AI answer engines can find and cite you.",
+    a: "SEO fundamentals (fast load times, clean semantic markup, metadata, mobile-friendliness, and structured data) are built into every Stackwrk site so search engines and AI answer engines can find and cite you.",
   },
 ];
 

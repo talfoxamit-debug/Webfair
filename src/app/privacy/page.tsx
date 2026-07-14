@@ -15,11 +15,11 @@ const blocks: LegalBlock[] = [
   },
   {
     h: "Information you give us",
-    p: "When you submit a form on this site, request a free mockup, or book a call, we collect the details you choose to send — typically your name, email address, phone number, business name, and your current website or social page. If you sign an agreement or pay a deposit, we also collect your signature and billing details.",
+    p: "When you submit a form on this site, request a free mockup, or book a call, we collect the details you choose to send, typically your name, email address, phone number, business name, and your current website or social page. If you sign an agreement or pay a deposit, we also collect your signature and billing details.",
   },
   {
     h: "Information we collect automatically",
-    p: "Like most websites, we collect basic technical information when you visit — your IP address, browser type, device, referring page, and the pages you view. When you sign an agreement electronically, we record your IP address, browser, and a timestamp as part of the signature record so it is legally defensible.",
+    p: "Like most websites, we collect basic technical information when you visit: your IP address, browser type, device, referring page, and the pages you view. When you sign an agreement electronically, we record your IP address, browser, and a timestamp as part of the signature record so it is legally defensible.",
   },
   {
     h: "How we use your information",
@@ -32,21 +32,21 @@ const blocks: LegalBlock[] = [
   },
   {
     h: "Cold outreach",
-    p: "Some businesses we contact by email did not fill out a form — we reached out because your business looked like a good fit for what we build. Every one of those emails includes a way to opt out, and if you reply “stop” or ask us not to contact you again, we won’t. You can also email hello@stackwrk.com to be removed from our list at any time.",
+    p: "Some businesses we contact by email did not fill out a form. We reached out because your business looked like a good fit for what we build. Every one of those emails includes a way to opt out, and if you reply “stop” or ask us not to contact you again, we won’t. You can also email hello@stackwrk.com to be removed from our list at any time.",
   },
   {
     h: "Who we share it with",
     p: "We don’t sell your personal information. We share it only with the service providers that help us run the business, and only as needed to do their job:",
     li: [
-      "Vercel — website hosting and delivery.",
-      "Supabase — database that stores form submissions, agreements, and signatures.",
-      "Stripe — payment processing (Stripe handles your card details directly; we never see your full card number).",
-      "Resend — sending transactional email such as receipts and replies.",
+      "Vercel: website hosting and delivery.",
+      "Supabase: database that stores form submissions, agreements, and signatures.",
+      "Stripe: payment processing (Stripe handles your card details directly; we never see your full card number).",
+      "Resend: sending transactional email such as receipts and replies.",
     ],
   },
   {
     h: "Cookies",
-    p: "This site uses only the cookies required for it to work and to keep it secure — for example, the login session for our private client tools. We do not run third-party advertising or cross-site tracking cookies. You can block or delete cookies in your browser settings, though some features may stop working.",
+    p: "This site uses only the cookies required for it to work and to keep it secure (for example, the login session for our private client tools). We do not run third-party advertising or cross-site tracking cookies. You can block or delete cookies in your browser settings, though some features may stop working.",
   },
   {
     h: "How long we keep it",
@@ -58,7 +58,7 @@ const blocks: LegalBlock[] = [
       "Ask for a copy of the personal information we hold about you.",
       "Ask us to correct or delete it.",
       "Opt out of any marketing or outreach email.",
-      "Withdraw consent where we rely on it — this won’t affect work already done.",
+      "Withdraw consent where we rely on it. This won’t affect work already done.",
     ],
   },
   {

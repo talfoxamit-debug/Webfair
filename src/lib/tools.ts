@@ -36,15 +36,15 @@ export const freeTools: FreeTool[] = [
     name: "Instant Website Audit",
     short: "Score your site in seconds",
     blurb:
-      "A free, Lighthouse-style scorecard for any website — speed, mobile, SEO and the conversion gaps quietly costing you customers.",
+      "A free, Lighthouse-style scorecard for any website: speed, mobile, SEO and the conversion gaps quietly costing you customers.",
     icon: "bolt",
     h1: "Free Instant Website Audit",
     intro:
-      "Drop in any website and get a 0–100 scorecard in seconds — load speed, mobile-friendliness, SEO basics and the conversion gaps that lose you customers. No signup to see your score.",
+      "Drop in any website and get a 0–100 scorecard in seconds: load speed, mobile-friendliness, SEO basics and the conversion gaps that lose you customers. No signup to see your score.",
     cta: "Audit my website",
-    metaTitle: "Free Instant Website Audit — Speed, SEO & Mobile Score | Stackwrk",
+    metaTitle: "Free Instant Website Audit: Speed, SEO & Mobile Score | Stackwrk",
     metaDescription:
-      "Run a free instant website audit. Get a 0–100 score for speed, mobile-friendliness, SEO and conversion in seconds — no signup. See exactly what's costing you customers.",
+      "Run a free instant website audit. Get a 0–100 score for speed, mobile-friendliness, SEO and conversion in seconds, no signup. See exactly what's costing you customers.",
     keywords: [
       "free website audit",
       "website speed test",
@@ -60,7 +60,7 @@ export const freeTools: FreeTool[] = [
       },
       {
         q: "What does the audit check?",
-        a: "It checks load speed, page weight, mobile-friendliness, core SEO signals (title, meta description, headings, indexability), HTTPS security and common conversion gaps — the same categories a Lighthouse audit weighs.",
+        a: "It checks load speed, page weight, mobile-friendliness, core SEO signals (title, meta description, headings, indexability), HTTPS security and common conversion gaps, the same categories a Lighthouse audit weighs.",
       },
       {
         q: "How is the score calculated?",
@@ -77,13 +77,13 @@ export const freeTools: FreeTool[] = [
     name: "Website ROI Calculator",
     short: "See what a better site is worth",
     blurb:
-      "Estimate the monthly revenue a faster, higher-converting website could recover — based on your real traffic and average sale value.",
+      "Estimate the monthly revenue a faster, higher-converting website could recover, based on your real traffic and average sale value.",
     icon: "trend",
     h1: "Website ROI Calculator",
     intro:
       "See the revenue a better website is actually worth. Enter your monthly visitors and average sale value, and we'll estimate the extra revenue a higher-converting site could recover every month.",
     cta: "Calculate my ROI",
-    metaTitle: "Website ROI Calculator — What a Better Site Is Worth | Stackwrk",
+    metaTitle: "Website ROI Calculator: What a Better Site Is Worth | Stackwrk",
     metaDescription:
       "Free website ROI calculator. Enter your monthly visitors and average sale value to estimate the revenue a higher-converting website could recover every month.",
     keywords: [
@@ -100,7 +100,7 @@ export const freeTools: FreeTool[] = [
       },
       {
         q: "Where do the conversion rates come from?",
-        a: "The defaults are conservative industry benchmarks — around 1–2% for a dated or slow site and 4–5% for a fast, conversion-focused one. Your real numbers depend on your traffic quality and offer, so treat the result as an illustrative estimate.",
+        a: "The defaults are conservative industry benchmarks: around 1–2% for a dated or slow site and 4–5% for a fast, conversion-focused one. Your real numbers depend on your traffic quality and offer, so treat the result as an illustrative estimate.",
       },
       {
         q: "Is a better website really worth it?",
@@ -113,11 +113,11 @@ export const freeTools: FreeTool[] = [
     name: "Meta Tag & Social Preview Generator",
     short: "Preview & generate your SEO tags",
     blurb:
-      "See exactly how your page looks in Google, X/Twitter and Facebook — then copy ready-made meta and Open Graph tags.",
+      "See exactly how your page looks in Google, X/Twitter and Facebook, then copy ready-made meta and Open Graph tags.",
     icon: "target",
     h1: "Meta Tag & Social Preview Generator",
     intro:
-      "Type your title, description, URL and image, and see live previews of how your page appears in Google search, on X/Twitter, and on Facebook — then copy production-ready meta + Open Graph tags. No signup.",
+      "Type your title, description, URL and image, and see live previews of how your page appears in Google search, on X/Twitter, and on Facebook, then copy production-ready meta + Open Graph tags. No signup.",
     cta: "Generate my tags",
     metaTitle: "Free Meta Tag & Open Graph Preview Generator | Stackwrk",
     metaDescription:
@@ -133,7 +133,7 @@ export const freeTools: FreeTool[] = [
     faq: [
       {
         q: "What are meta tags and why do they matter?",
-        a: "Meta tags are snippets of HTML that tell search engines and social networks what your page is about — its title, description, and preview image. They shape how your page looks in Google results and when shared on social media, which directly affects click-through rate.",
+        a: "Meta tags are snippets of HTML that tell search engines and social networks what your page is about: its title, description, and preview image. They shape how your page looks in Google results and when shared on social media, which directly affects click-through rate.",
       },
       {
         q: "What's the ideal title and description length?",
@@ -145,7 +145,7 @@ export const freeTools: FreeTool[] = [
       },
       {
         q: "Will meta tags improve my Google ranking?",
-        a: "A great title and description won't magically rank you #1, but they strongly influence whether people click your result — and click-through is a signal that helps. Clean tags also prevent Google from writing its own (often worse) snippet for you.",
+        a: "A great title and description won't magically rank you #1, but they strongly influence whether people click your result, and click-through is a signal that helps. Clean tags also prevent Google from writing its own (often worse) snippet for you.",
       },
     ],
   },

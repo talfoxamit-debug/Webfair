@@ -27,7 +27,7 @@ function confirmationHtml(name: string, when: string, calUrl: string): string {
         <div style="font:700 18px -apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#1a0f2e;margin-top:4px;">${esc(
           when,
         )}</div>
-        <div style="font:400 13px -apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#6b6480;margin-top:6px;">30-minute intro call — we'll review your site and goals, no obligation.</div>
+        <div style="font:400 13px -apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#6b6480;margin-top:6px;">30-minute intro call: we'll review your site and goals, no obligation.</div>
       </td></tr></table>
       <a href="${esc(
         calUrl,
@@ -63,7 +63,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const message = `Booking request: ${when}\nPhone: ${phone || "—"}`;
+  const message = `Booking request: ${when}\nPhone: ${phone || "not provided"}`;
 
   let stored = false;
   try {
@@ -84,7 +84,7 @@ export async function POST(req: Request) {
 
   const send = await sendEmail({
     to: email,
-    subject: `Your call with Stackwrk — ${when}`,
+    subject: `Your call with Stackwrk: ${when}`,
     html: confirmationHtml(name, when, calUrl || site.calendlyUrl),
     replyTo: site.email,
   });
@@ -93,9 +93,9 @@ export async function POST(req: Request) {
   if (notify) {
     await sendEmail({
       to: notify,
-      subject: `New booking: ${name} — ${when}`,
+      subject: `New booking: ${name}, ${when}`,
       html: `<pre style="font:14px ui-monospace,monospace;white-space:pre-wrap;">${esc(
-        `${name}\n${email}\nPhone: ${phone || "—"}\nWhen: ${when}`,
+        `${name}\n${email}\nPhone: ${phone || "not provided"}\nWhen: ${when}`,
       )}</pre>`,
       replyTo: email,
     });

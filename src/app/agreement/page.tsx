@@ -44,7 +44,7 @@ export default async function AgreementPage({ searchParams }: { searchParams: Pr
           <div className="mt-5 flex items-start gap-3 rounded-xl border p-4" style={{ borderColor: "#cfe9d8", background: "#f2faf5" }}>
             <span className="text-lg">🛡️</span>
             <p className="text-sm leading-relaxed text-slate-700">
-              <b style={{ color: NAVY }}>Zero-risk:</b> you approve the design before I build. Not thrilled? Full refund of your deposit — you walk away owing nothing.
+              <b style={{ color: NAVY }}>Zero-risk:</b> you approve the design before I build. Not thrilled? Full refund of your deposit. You walk away owing nothing.
             </p>
           </div>
 
@@ -58,7 +58,7 @@ export default async function AgreementPage({ searchParams }: { searchParams: Pr
             <div>
               <p className="text-xs font-bold uppercase tracking-wide text-slate-400">Client</p>
               <p className="mt-1 text-sm font-semibold" style={{ color: NAVY }}>{cfg.clientName}</p>
-              <p className="text-xs text-slate-500">{[cfg.contact, cfg.email, cfg.phone].filter(Boolean).join(" · ") || "—"}</p>
+              <p className="text-xs text-slate-500">{[cfg.contact, cfg.email, cfg.phone].filter(Boolean).join(" · ") || "-"}</p>
             </div>
           </div>
 

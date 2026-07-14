@@ -5,7 +5,7 @@ import { whatYouGet } from "@/lib/content";
 
 export default function WhatYouGet() {
   return (
-    <section id="process" className="relative scroll-mt-20 py-12 sm:py-16">
+    <section id="features" className="relative scroll-mt-20 py-12 sm:py-16">
       <div className="container-content relative grid gap-10 lg:grid-cols-[0.95fr_2fr] lg:items-center">
         <Reveal>
           <p className="eyebrow">What you get</p>

@@ -11,7 +11,7 @@ export default function DemoSection() {
             Not just websites. <span className="text-accent-glow">Tools that sell.</span>
           </h2>
           <p className="mt-4 text-base leading-relaxed text-white/60">
-            Real, interactive features I build into client sites — booking, calculators, AI chat, redesigns.
+            Real, interactive features I build into client sites: booking, calculators, AI chat, redesigns.
           </p>
         </Reveal>
 

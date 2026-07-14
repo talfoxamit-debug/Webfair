@@ -59,7 +59,7 @@ export default function FenceTools() {
       <main className="mx-auto max-w-5xl px-5 py-12 sm:px-8">
         <p className="text-xs font-bold uppercase tracking-[0.2em]" style={{ color: GREEN }}>Free tools</p>
         <h1 className="mt-2 text-4xl font-extrabold tracking-tight sm:text-5xl" style={{ color: NAVY }}>Plan your fence like a pro.</h1>
-        <p className="mt-3 max-w-2xl text-slate-600">Seven free tools to price, compare and plan your project — no email, no sign-up. Built by {c.business} for South-Florida homeowners.</p>
+        <p className="mt-3 max-w-2xl text-slate-600">Seven free tools to price, compare and plan your project. No email, no sign-up. Built by {c.business} for South-Florida homeowners.</p>
 
         {/* tool grid */}
         <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -102,7 +102,7 @@ export default function FenceTools() {
         {/* quote CTA (target of every tool's in-page #quote link) */}
         <section id="quote" className="mt-10 scroll-mt-20 rounded-3xl border border-black/[0.07] bg-white p-8 text-center shadow-lg">
           <h2 className="text-3xl font-extrabold tracking-tight" style={{ color: NAVY }}>Ready for the real number?</h2>
-          <p className="mx-auto mt-2 max-w-md text-slate-600">Get a free, written quote for your exact project — usually the same day.</p>
+          <p className="mx-auto mt-2 max-w-md text-slate-600">Get a free, written quote for your exact project, usually the same day.</p>
           <div className="mt-5 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link href="/demos/apex-fence#quote" className="rounded-lg px-6 py-3 text-sm font-bold text-white" style={{ background: GREEN }}>Get my free quote →</Link>
             <a href={`tel:${c.phone.replace(/[^0-9]/g, "")}`} className="text-sm font-bold" style={{ color: NAVY }}>or call {c.phone}</a>

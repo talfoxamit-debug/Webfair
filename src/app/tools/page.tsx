@@ -13,9 +13,9 @@ const ICONS: Record<ToolIcon, typeof Bolt> = {
   target: Target,
 };
 
-const title = "Free Website Tools — Audit, ROI Calculator & More | Stackwrk";
+const title = "Free Website Tools: Audit, ROI Calculator & More | Stackwrk";
 const description =
-  "Free tools for small-business owners: an instant website audit, a website ROI calculator, and more. No signup to get your results — see what a better site is worth.";
+  "Free tools for small-business owners: an instant website audit, a website ROI calculator, and more. No signup to get your results. See what a better site is worth.";
 
 export const metadata: Metadata = {
   title,
@@ -82,7 +82,7 @@ export default function ToolsHubPage() {
               Free tools that <span className="text-accent-glow">actually help</span>
             </h1>
             <p className="mt-4 text-base leading-relaxed text-white/60">
-              Practical tools for business owners — no fluff, no signup to get your results. Use them to
+              Practical tools for business owners: no fluff, no signup to get your results. Use them to
               see exactly where your website is losing customers and what fixing it is worth.
             </p>
           </div>

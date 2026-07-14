@@ -11,11 +11,11 @@ const UPDATED = "July 14, 2026";
 const blocks: LegalBlock[] = [
   {
     h: "About these terms",
-    p: "This website is operated by Fox Solutions LLC, doing business as Stackwrk. By using this site you agree to these terms. If you don’t agree, please don’t use the site. These terms cover the website itself — the specific work we do for a client is governed by the separate Website Design & Development Agreement you sign before a project starts.",
+    p: "This website is operated by Fox Solutions LLC, doing business as Stackwrk. By using this site you agree to these terms. If you don’t agree, please don’t use the site. These terms cover the website itself. The specific work we do for a client is governed by the separate Website Design & Development Agreement you sign before a project starts.",
   },
   {
     h: "Using the site",
-    p: "You may use this site to learn about our services, try our free tools, and get in touch. You agree not to misuse it — no attempting to break, overload, scrape at scale, or gain unauthorized access to the site or the systems behind it, and no using it for anything unlawful.",
+    p: "You may use this site to learn about our services, try our free tools, and get in touch. You agree not to misuse it: no attempting to break, overload, scrape at scale, or gain unauthorized access to the site or the systems behind it, and no using it for anything unlawful.",
   },
   {
     h: "Free tools & mockups",
@@ -23,7 +23,7 @@ const blocks: LegalBlock[] = [
   },
   {
     h: "Our content",
-    p: "The design, code, text, logos, and images on this site are owned by Fox Solutions LLC or used with permission, and are protected by law. Client names and marks shown as examples belong to their owners. Please don’t copy or reuse our site content without permission. (Note: work we build and deliver to a paying client becomes that client’s property under their project agreement — this section is about this marketing website.)",
+    p: "The design, code, text, logos, and images on this site are owned by Fox Solutions LLC or used with permission, and are protected by law. Client names and marks shown as examples belong to their owners. Please don’t copy or reuse our site content without permission. (Note: work we build and deliver to a paying client becomes that client’s property under their project agreement. This section is about this marketing website.)",
   },
   {
     h: "Quotes & pricing",
@@ -60,7 +60,7 @@ export default function TermsPage() {
     <LegalDoc
       title="Terms of Service"
       updated={UPDATED}
-      intro="These terms govern your use of the Stackwrk website. They’re separate from the project agreement you sign when you hire us — that agreement covers the actual work."
+      intro="These terms govern your use of the Stackwrk website. They’re separate from the project agreement you sign when you hire us. That agreement covers the actual work."
       blocks={blocks}
     />
   );

@@ -164,7 +164,7 @@ export async function POST(req: Request) {
         error: blocked ? "blocked" : "unreachable",
         message: blocked
           ? "That address points to a private or internal host, which can't be audited."
-          : "Couldn't reach that site — double-check the address and try again.",
+          : "Couldn't reach that site. Double-check the address and try again.",
       },
       { status: blocked ? 422 : 502 },
     );
@@ -269,25 +269,25 @@ export async function POST(req: Request) {
     {
       label: "Server response time",
       status: ttfb < 600 ? "pass" : ttfb < 1500 ? "warn" : "fail",
-      detail: `First byte in ${ttfb} ms${ttfb >= 600 ? " — under 600 ms is the target" : " — fast"}`,
+      detail: `First byte in ${ttfb} ms${ttfb >= 600 ? ", under 600 ms is the target" : ", fast"}`,
     },
     {
       label: "HTML page weight",
       status: pageKb < 150 ? "pass" : pageKb < 400 ? "warn" : "fail",
-      detail: `${pageKb} KB of HTML${pageKb >= 150 ? " — heavier docs delay first paint on phones" : ""}`,
+      detail: `${pageKb} KB of HTML${pageKb >= 150 ? ", heavier docs delay first paint on phones" : ""}`,
     },
     {
       label: "Render-blocking resources",
       status: cssLinksHead + blockingJsHead <= 2 ? "pass" : cssLinksHead + blockingJsHead <= 5 ? "warn" : "fail",
       detail: `${cssLinksHead} blocking stylesheet(s) + ${blockingJsHead} blocking script(s) in <head>${
-        cssLinksHead + blockingJsHead > 2 ? " — each one stalls rendering" : ""
+        cssLinksHead + blockingJsHead > 2 ? ", each one stalls rendering" : ""
       }`,
     },
     {
       label: "JavaScript footprint",
       status: scriptsTotal <= 8 ? "pass" : scriptsTotal <= 20 ? "warn" : "fail",
       detail: `${scriptsTotal} <script> tag(s), ${externalScripts} third-party${
-        scriptsTotal > 8 ? " — heavy JS hurts speed & battery" : ""
+        scriptsTotal > 8 ? ". Heavy JS hurts speed & battery" : ""
       }`,
     },
     {
@@ -296,7 +296,7 @@ export async function POST(req: Request) {
       detail:
         imgCount === 0
           ? "No <img> tags found on the page"
-          : `${legacyImg} legacy JPG/PNG vs ${modernImg} WebP/AVIF${legacyImg > modernImg ? " — convert to WebP to cut weight ~30%" : ""}`,
+          : `${legacyImg} legacy JPG/PNG vs ${modernImg} WebP/AVIF${legacyImg > modernImg ? ". Convert to WebP to cut weight ~30%" : ""}`,
     },
   ];
 
@@ -304,7 +304,7 @@ export async function POST(req: Request) {
     {
       label: "Secure connection (HTTPS)",
       status: isHttps ? "pass" : "fail",
-      detail: isHttps ? "Padlock shown to visitors" : "No HTTPS — browsers flag the site as 'Not secure'",
+      detail: isHttps ? "Padlock shown to visitors" : "No HTTPS. Browsers flag the site as 'Not secure'",
     },
     {
       label: "No mixed (insecure) content",
@@ -313,12 +313,12 @@ export async function POST(req: Request) {
         ? "N/A until HTTPS is enabled"
         : mixedContent === 0
           ? "All resources load over HTTPS"
-          : `${mixedContent} resource(s) still load over http:// — these get blocked or warned`,
+          : `${mixedContent} resource(s) still load over http://, these get blocked or warned`,
     },
     {
       label: "Mobile viewport tag",
       status: hasViewport ? "pass" : "fail",
-      detail: hasViewport ? "Scales correctly on phones" : "Missing — the page won't fit small screens",
+      detail: hasViewport ? "Scales correctly on phones" : "Missing. The page won't fit small screens",
     },
     {
       label: "Layout stability (image sizing)",
@@ -326,7 +326,7 @@ export async function POST(req: Request) {
       detail:
         imgCount === 0
           ? "No images to size"
-          : `${imgNoDim}/${imgCount} images have no width/height — causes content to jump while loading`,
+          : `${imgNoDim}/${imgCount} images have no width/height, causes content to jump while loading`,
     },
     {
       label: "Language & charset declared",
@@ -339,22 +339,22 @@ export async function POST(req: Request) {
     {
       label: "Indexable by Google",
       status: isNoindex ? "fail" : "pass",
-      detail: isNoindex ? "Page is set to noindex — invisible to Google" : "No noindex block found",
+      detail: isNoindex ? "Page is set to noindex, invisible to Google" : "No noindex block found",
     },
     {
       label: "Page title",
       status: title ? (title.length >= 15 && title.length <= 60 ? "pass" : "warn") : "fail",
-      detail: title ? `“${title.slice(0, 55)}” (${title.length} chars)` : "No <title> — badly hurts rankings",
+      detail: title ? `“${title.slice(0, 55)}” (${title.length} chars)` : "No <title>, badly hurts rankings",
     },
     {
       label: "Meta description",
       status: metaDesc ? (metaDesc.length >= 70 && metaDesc.length <= 160 ? "pass" : "warn") : "fail",
-      detail: metaDesc ? `${metaDesc.length} chars` : "Missing — Google writes its own, often badly",
+      detail: metaDesc ? `${metaDesc.length} chars` : "Missing. Google writes its own, often badly",
     },
     {
       label: "Single clear H1 headline",
       status: h1Count === 1 ? "pass" : h1Count === 0 ? "fail" : "warn",
-      detail: h1Count === 1 ? "Exactly one H1" : h1Count === 0 ? "No H1 — search engines can't tell the topic" : `${h1Count} H1s — should be exactly one`,
+      detail: h1Count === 1 ? "Exactly one H1" : h1Count === 0 ? "No H1. Search engines can't tell the topic" : `${h1Count} H1s, should be exactly one`,
     },
     {
       label: "Canonical + structured data",
@@ -374,7 +374,7 @@ export async function POST(req: Request) {
     {
       label: "robots.txt & sitemap",
       status: robots.ok && robots.hasSitemap ? "pass" : robots.ok ? "warn" : "fail",
-      detail: robots.ok ? (robots.hasSitemap ? "robots.txt + sitemap found" : "robots.txt found, but no sitemap listed") : "No robots.txt — crawlers get no guidance",
+      detail: robots.ok ? (robots.hasSitemap ? "robots.txt + sitemap found" : "robots.txt found, but no sitemap listed") : "No robots.txt. Crawlers get no guidance",
     },
   ];
 
@@ -382,7 +382,7 @@ export async function POST(req: Request) {
     {
       label: "Online booking / scheduling",
       status: bookingSignal ? "pass" : "fail",
-      detail: bookingSignal ? "Visitors can book you directly" : "No way to book — you're losing after-hours leads",
+      detail: bookingSignal ? "Visitors can book you directly" : "No way to book. You're losing after-hours leads",
     },
     {
       label: "Clear primary call-to-action",
@@ -392,7 +392,7 @@ export async function POST(req: Request) {
     {
       label: "Lead capture form",
       status: leadForm ? "pass" : "warn",
-      detail: leadForm ? "A form/email capture is present" : "No form — visitors can't leave their details",
+      detail: leadForm ? "A form/email capture is present" : "No form. Visitors can't leave their details",
     },
     {
       label: "Easy to contact",
@@ -407,7 +407,7 @@ export async function POST(req: Request) {
     {
       label: "Visitor analytics",
       status: analyticsSignal ? "pass" : "warn",
-      detail: analyticsSignal ? "You're measuring traffic" : "No analytics — you're flying blind",
+      detail: analyticsSignal ? "You're measuring traffic" : "No analytics. You're flying blind",
     },
   ];
 
@@ -433,14 +433,14 @@ export async function POST(req: Request) {
 
   const headline =
     score >= 88
-      ? "Strong site — a few tweaks and it'll really convert."
+      ? "Strong site. A few tweaks and it'll really convert."
       : score >= 70
         ? "Solid base, but you're leaving leads on the table."
         : score >= 50
-          ? "Real gaps here — this is costing you customers."
+          ? "Real gaps here. This is costing you customers."
           : score >= 30
             ? "This site is working against you. Let's fix it."
-            : "Critical issues — this needs a rebuild, not a patch.";
+            : "Critical issues. This needs a rebuild, not a patch.";
 
   // Fire-and-forget audit log (warm-lead signal).
   try {

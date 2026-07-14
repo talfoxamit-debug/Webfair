@@ -9,7 +9,7 @@ const GREEN = "#18894C";
 export const metadata: Metadata = {
   title: "Fence Guides & Resources | Apex Fence Co.",
   description:
-    "Straight answers on fence cost, materials and permits in South Florida — from the pros at Apex Fence Co.",
+    "Straight answers on fence cost, materials and permits in South Florida, from the pros at Apex Fence Co.",
   robots: { index: false, follow: false },
 };
 
@@ -30,7 +30,7 @@ export default function GuidesIndex() {
           Fence guides for South-Florida homeowners
         </h1>
         <p className="mt-3 max-w-2xl text-slate-600">
-          The questions we get asked most — answered straight, so you can plan your project with confidence.
+          The questions we get asked most, answered straight, so you can plan your project with confidence.
         </p>
 
         <div className="mt-10 grid gap-5 sm:grid-cols-2">

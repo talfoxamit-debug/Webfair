@@ -77,12 +77,12 @@ export default function RoiCalculator() {
       </div>
 
       <p className="mt-3 text-center text-[0.78rem] text-white/35">
-        Illustrative — real lift depends on your traffic quality &amp; offer.
+        Illustrative: real lift depends on your traffic quality &amp; offer.
       </p>
 
       <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
         <a href={site.calendlyUrl} target="_blank" rel="noopener noreferrer" className="btn-primary !rounded-md">
-          Get this uplift — book a free call
+          Get this uplift, book a free call
           <ArrowRight width={18} height={18} />
         </a>
         <a href="/tools/website-audit" className="btn-ghost !rounded-md">

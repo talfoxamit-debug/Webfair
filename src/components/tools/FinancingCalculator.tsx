@@ -32,7 +32,7 @@ export default function FinancingCalculator() {
             <button key={t} onClick={() => setTerm(t)} className="rounded-lg border px-2 py-2 text-sm font-semibold" style={term === t ? { borderColor: GREEN, background: "#EAF6EF", color: NAVY } : { borderColor: "rgba(0,0,0,0.1)", color: "#64748b" }}>{t} mo</button>
           ))}
         </div>
-        <p className="mt-3 text-[0.75rem] text-slate-400">Illustrative at {apr}% APR, $0 down. Your actual rate/term depend on approval — checking won&rsquo;t affect your credit.</p>
+        <p className="mt-3 text-[0.75rem] text-slate-400">Illustrative at {apr}% APR, $0 down. Your actual rate/term depend on approval. Checking won&rsquo;t affect your credit.</p>
       </div>
 
       <div className="flex flex-col justify-center rounded-2xl p-6 text-white" style={{ background: `linear-gradient(160deg, ${NAVY}, #123a52)` }}>

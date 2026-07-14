@@ -106,7 +106,7 @@ export default function HowItWorks() {
   }, []);
 
   return (
-    <section id="how" className="relative scroll-mt-20 py-12 sm:py-16">
+    <section id="process" className="relative scroll-mt-20 py-12 sm:py-16">
       {/* Running fox — reinforces "live in weeks, not months" (desktop only). */}
       <div className="pointer-events-none absolute right-[3%] top-4 z-0 hidden w-[32%] max-w-sm xl:block" aria-hidden="true">
         <div className="animate-float-y">

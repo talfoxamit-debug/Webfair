@@ -71,7 +71,7 @@ export default function MockupBuilder() {
               <div><span className={label}>Headline <span className="font-normal text-slate-500">(optional)</span></span><input className={field} value={f.tagline} onChange={set("tagline")} placeholder="Auto: “South Florida’s trusted fence builders.”" /></div>
               <div><span className={label}>Hero photo URL <span className="font-normal text-slate-500">(their best fence)</span></span><input className={field} value={f.heroImg} onChange={set("heroImg")} placeholder="https://…/their-fence.jpg" /></div>
               <div>
-                <span className={label}>Gallery photos <span className="font-normal text-slate-500">— one per line: URL | title | city</span></span>
+                <span className={label}>Gallery photos <span className="font-normal text-slate-500">(one per line: URL | title | city)</span></span>
                 <textarea className={`${field} font-mono text-[0.75rem]`} rows={5} value={f.gallery} onChange={set("gallery")} placeholder={"https://…/1.jpg | Cedar privacy | Davie\nhttps://…/2.jpg | White vinyl | Weston"} />
                 <p className="mt-1 text-[0.75rem] text-slate-500">Grab photo URLs from their Google listing / Facebook. Leave blank to keep the sample photos.</p>
               </div>

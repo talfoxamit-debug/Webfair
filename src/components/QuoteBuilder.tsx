@@ -54,8 +54,8 @@ export default function QuoteBuilder() {
   const quoteText = useMemo(() => {
     if (chosen.length === 0) return "";
     const lines: string[] = [];
-    lines.push(`Stackwrk — Proposal${client ? ` for ${client}` : ""}`);
-    lines.push("".padEnd(46, "—"));
+    lines.push(`Stackwrk: Proposal${client ? ` for ${client}` : ""}`);
+    lines.push("".padEnd(46, "-"));
     for (const p of chosen) {
       const one = rate === "founding" ? p.founding : p.standard;
       const mo = rate === "founding" ? (p.monthlyFounding ?? 0) : (p.monthlyStandard ?? 0);
@@ -63,10 +63,10 @@ export default function QuoteBuilder() {
         one > 0
           ? `${money(one)}${mo ? ` + ${money(mo)}/mo` : ""}`
           : `${money(mo)}/mo`;
-      lines.push(`• ${p.label} — ${price}`);
+      lines.push(`• ${p.label}: ${price}`);
       lines.push(`    ${p.blurb}`);
     }
-    lines.push("".padEnd(46, "—"));
+    lines.push("".padEnd(46, "-"));
     if (discount > 0) lines.push(`Discount applied: ${discount}% (one-time fees)`);
     if (totals.oneTime > 0) lines.push(`One-time investment: ${money(totals.oneTime)}`);
     if (totals.monthly > 0) lines.push(`Monthly: ${money(totals.monthly)}/mo`);
@@ -74,7 +74,7 @@ export default function QuoteBuilder() {
     lines.push("");
     lines.push(
       rate === "founding"
-        ? "Founding-client rate — locked in for as long as you're a client."
+        ? "Founding-client rate, locked in for as long as you're a client."
         : "Standard rate.",
     );
     lines.push("Fixed price. No hourly billing. You own 100% of the code.");
@@ -211,7 +211,7 @@ export default function QuoteBuilder() {
           )}
         </div>
         <p className="mt-3 text-center text-xs text-white/35">
-          Internal tool — not linked from the site, not indexed.
+          Internal tool. Not linked from the site, not indexed.
         </p>
       </div>
     </div>

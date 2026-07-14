@@ -60,7 +60,7 @@ export default function MockupModal() {
         <h3 className="font-display text-2xl uppercase text-white">Get a free site mockup</h3>
         <p className="mt-1.5 text-sm leading-relaxed text-white/60">
           Send your current site (or just your Facebook page) and I&rsquo;ll rebuild your homepage
-          from your own photos — free, no obligation.
+          from your own photos. Free, no obligation.
         </p>
         <div className="mt-5">
           <AuditForm />

@@ -36,7 +36,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
     name: c.business,
     telephone: c.phone,
     areaServed: `${rule.city}, FL`,
-    description: `Fence installation in ${rule.city}, ${rule.county} County — wood, vinyl, aluminum and gates.`,
+    description: `Fence installation in ${rule.city}, ${rule.county} County: wood, vinyl, aluminum and gates.`,
     aggregateRating: { "@type": "AggregateRating", ratingValue: c.rating, reviewCount: c.reviewCount },
   };
 
@@ -66,7 +66,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
         <div className="relative mx-auto max-w-5xl px-5 py-16 sm:px-8 sm:py-20">
           <p className="text-sm font-bold uppercase tracking-wide text-emerald-300">Serving {rule.city} · {rule.county} County</p>
           <h1 className="mt-2 max-w-2xl text-4xl font-extrabold leading-[1.05] tracking-tight text-white sm:text-5xl">Fence installation in {rule.city}, Florida.</h1>
-          <p className="mt-4 max-w-lg text-lg text-white/85">Wood, vinyl, aluminum and custom gates — installed fast and built for the {rule.city} climate. Licensed, insured, and we handle the permit.</p>
+          <p className="mt-4 max-w-lg text-lg text-white/85">Wood, vinyl, aluminum and custom gates, installed fast and built for the {rule.city} climate. Licensed, insured, and we handle the permit.</p>
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
             <a href="#quote" className="inline-flex items-center justify-center gap-2 rounded-lg px-7 py-4 text-base font-bold text-white shadow-lg" style={{ background: GREEN_BRIGHT }}>Get a Free Quote <ArrowRight width={18} height={18} /></a>
             <a href={tel(c.phone)} className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/40 bg-white/10 px-7 py-4 text-base font-bold text-white backdrop-blur-sm"><Phone width={17} height={17} /> {c.phone}</a>
@@ -78,7 +78,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
         <p className="text-[0.98rem] leading-relaxed text-slate-700">
           Looking for a trusted fence company in {rule.city}? {c.business} has installed thousands of
           fences across {rule.county} County. From backyard privacy fences to pool-code aluminum and
-          automated driveway gates, we build to last in South Florida&rsquo;s sun, salt and storms — and
+          automated driveway gates, we build to last in South Florida&rsquo;s sun, salt and storms, and
           we pull the {rule.city} permit so you don&rsquo;t have to.
         </p>
 
@@ -93,7 +93,7 @@ export default async function CityPage({ params }: { params: Promise<{ city: str
           <h2 className="text-lg font-bold" style={{ color: NAVY }}>{rule.city} fence permits & height</h2>
           <p className="mt-2 text-sm text-slate-600">
             Most residential fences in {rule.city} require a permit, with typical limits of {rule.back} in
-            back/side yards and {rule.front} in front. Corner lots, pools and HOAs add rules — we handle
+            back/side yards and {rule.front} in front. Corner lots, pools and HOAs add rules. We handle
             the survey, permit and inspection on every job.
           </p>
           <Link href="/demos/apex-fence/tools#permit" className="mt-3 inline-flex text-sm font-bold" style={{ color: GREEN }}>Check {rule.city} permit rules →</Link>

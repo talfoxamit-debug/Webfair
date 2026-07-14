@@ -2,9 +2,10 @@ import type { Metadata, Viewport } from "next";
 import Nav from "@/components/Nav";
 import ScrollProgress from "@/components/ScrollProgress";
 import CustomCursor from "@/components/CustomCursor";
+import ScrollToTop from "@/components/ScrollToTop";
 import "./globals.css";
 
-const title = "Stackwrk — Bold Websites. Real Results.";
+const title = "Stackwrk: Bold Websites, Real Results.";
 const description =
   "Custom web apps and sites that get you more bookings, leads, and revenue. Built fast, built to convert.";
 
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <CustomCursor />
         <Nav />
         <main id="main">{children}</main>
+        <ScrollToTop />
       </body>
     </html>
   );

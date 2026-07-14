@@ -44,7 +44,7 @@ function gcalUrl(start: Date, end: Date): string {
   const p = new URLSearchParams({
     action: "TEMPLATE",
     text: "Intro call with Stackwrk",
-    details: "30-min intro call — we'll review your site and goals. No obligation.",
+    details: "30-min intro call. We'll review your site and goals. No obligation.",
     dates: `${fmt(start)}/${fmt(end)}`,
   });
   return `https://calendar.google.com/calendar/render?${p.toString()}`;
@@ -92,9 +92,9 @@ function BookingDemo() {
         setStep("done");
         return;
       }
-      setError(json.message || "Something went wrong — please try again.");
+      setError(json.message || "Something went wrong. Please try again.");
     } catch {
-      setError("Network error — please try again.");
+      setError("Network error. Please try again.");
     } finally {
       setSubmitting(false);
     }
@@ -253,7 +253,7 @@ function CalculatorDemo() {
         </span>
       </div>
       <p className="mt-3 text-center text-[0.75rem] text-white/35">
-        Illustrative — real lift depends on your traffic &amp; offer.
+        Illustrative: real lift depends on your traffic &amp; offer.
       </p>
       <DemoCTA label="Get this uplift on your site" />
     </div>
@@ -276,13 +276,13 @@ const QUICK = [
  */
 const INTENTS: { keys: string[]; a: string }[] = [
   { keys: ["hour", "open", "close", "time", "when"], a: "We're open Mon–Sat, 9am–6pm. Want me to book you the next available slot?" },
-  { keys: ["quote", "estimate", "free"], a: "Yes — free, no-obligation quotes. Drop your name and I'll have someone reach out within the hour." },
+  { keys: ["quote", "estimate", "free"], a: "Yes. Free, no-obligation quotes. Drop your name and I'll have someone reach out within the hour." },
   { keys: ["price", "cost", "how much", "budget", "pricing", "rate"], a: "Most projects start around $2,000 and scale with what you need. Want a tailored quote in 2 minutes?" },
   { keys: ["where", "located", "location", "address", "area"], a: "We serve the whole metro area and work with clients remotely. Want directions or a callback?" },
-  { keys: ["book", "appointment", "schedule", "slot", "meeting"], a: "Happy to book you in — I've got openings this week. What day works best for you?" },
-  { keys: ["service", "do you", "offer", "build", "make", "website", "app"], a: "We build fast, custom websites and web apps — booking tools, calculators, AI chat and more. What are you looking to build?" },
-  { keys: ["contact", "phone", "call", "email", "reach"], a: "Easiest way is right here — share your email and I'll make sure the team follows up today." },
-  { keys: ["hello", "hi", "hey", "yo"], a: "Hey! 👋 Ask me anything about hours, pricing, or booking — or tell me what you're building." },
+  { keys: ["book", "appointment", "schedule", "slot", "meeting"], a: "Happy to book you in. I've got openings this week. What day works best for you?" },
+  { keys: ["service", "do you", "offer", "build", "make", "website", "app"], a: "We build fast, custom websites and web apps: booking tools, calculators, AI chat and more. What are you looking to build?" },
+  { keys: ["contact", "phone", "call", "email", "reach"], a: "Easiest way is right here. Share your email and I'll make sure the team follows up today." },
+  { keys: ["hello", "hi", "hey", "yo"], a: "Hey! 👋 Ask me anything about hours, pricing, or booking. Or tell me what you're building." },
   { keys: ["thank", "thanks", "great", "awesome", "cool"], a: "Anytime! Want me to grab your details so a human can take it from here?" },
 ];
 
@@ -290,12 +290,12 @@ function respond(text: string): string {
   const t = text.toLowerCase();
   const hit = INTENTS.find((i) => i.keys.some((k) => t.includes(k)));
   if (hit) return hit.a;
-  return "Good question — let me get that to the right person. What's the best email to send a full answer to? (This is exactly how the bot captures a lead on your real site.)";
+  return "Good question. Let me get that to the right person. What's the best email to send a full answer to? (This is exactly how the bot captures a lead on your real site.)";
 }
 
 function ChatbotDemo() {
   const [messages, setMessages] = useState<Msg[]>([
-    { from: "bot", text: "Hi! 👋 I'm your site's AI assistant. Ask me anything — I never sleep." },
+    { from: "bot", text: "Hi! 👋 I'm your site's AI assistant. Ask me anything. I never sleep." },
   ]);
   const [typing, setTyping] = useState(false);
   const [input, setInput] = useState("");
@@ -493,7 +493,7 @@ function BeforeAfterDemo() {
               <span className="text-accent-glow">Converts.</span>
             </p>
             <p className="mt-2 hidden text-[0.75rem] leading-snug text-white/75 sm:ml-auto sm:block sm:max-w-[15rem]">
-              A site that turns visitors into booked customers — on any device.
+              A site that turns visitors into booked customers, on any device.
             </p>
             <div className="mt-3 flex items-center justify-end gap-2">
               <span className="hidden items-center rounded-md border border-white/25 px-2.5 py-1.5 text-[0.75rem] font-semibold text-white/85 sm:inline-flex">
@@ -609,7 +609,7 @@ function BeforeAfterDemo() {
         </div>
       </div>
       <p className="mt-3 text-center text-xs text-white/45">
-        Drag anywhere on the image — same business, redesigned to sell.
+        Drag anywhere on the image. Same business, redesigned to sell.
       </p>
       <DemoCTA label="Get a redesign like this" />
     </div>
@@ -765,7 +765,7 @@ export default function DemoShowcase() {
               <Sparkles width={14} height={14} /> Live product lab
             </p>
             <p className="mt-2 hidden text-sm leading-relaxed text-white/55 lg:block">
-              Real features I build into client sites. Pick one and try it — every click works.
+              Real features I build into client sites. Pick one and try it. Every click works.
             </p>
             {/* Mobile hint that the tools scroll sideways */}
             <p className="mt-2 flex items-center gap-1.5 text-[0.75rem] font-medium text-white/40 lg:hidden">
@@ -794,7 +794,7 @@ export default function DemoShowcase() {
           <div className="relative min-w-0 p-4 sm:p-5">
             <div className="mb-3 flex items-center gap-2 px-1 text-xs text-white/45">
               <span className="h-1.5 w-1.5 rounded-full bg-lime shadow-[0_0_6px_rgba(203,255,60,0.9)]" />
-              {current.note} — go ahead, try it
+              {current.note}. Go ahead, try it
             </div>
             <div key={active} className="animate-fade-up overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0b0616]/70">
               {current.render}

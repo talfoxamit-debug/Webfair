@@ -58,7 +58,7 @@ export default function AuditForm() {
         </span>
         <h4 className="mt-4 font-display text-xl uppercase text-white">Request received</h4>
         <p className="mt-2 max-w-xs text-sm text-white/60">
-          Thanks — I’ll review your site and reply within one business day.
+          Thanks, I’ll review your site and reply within one business day.
         </p>
       </div>
     );

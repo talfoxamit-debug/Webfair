@@ -68,8 +68,8 @@ export function buildAgreement(cfg: AgreementConfig) {
   const savings = listFee ? listFee - cfg.projectFee : 0;
   const discountPct = listFee ? Math.round((savings / listFee) * 100) : 0;
   const feeLine = listFee
-    ? `Project fee: ${money(cfg.projectFee)} — a founding-client rate (list price ${money(listFee)}; you save ${money(savings)}, ${discountPct}% off). A ${cfg.depositPct}% deposit (${money(deposit)}) to start, and the ${money(balance)} balance due when the site launches.`
-    : `Project fee: ${money(cfg.projectFee)} — a ${cfg.depositPct}% deposit (${money(deposit)}) to start, and the ${money(balance)} balance due when the site launches.`;
+    ? `Project fee: ${money(cfg.projectFee)}, a founding-client rate (list price ${money(listFee)}; you save ${money(savings)}, ${discountPct}% off). A ${cfg.depositPct}% deposit (${money(deposit)}) to start, and the ${money(balance)} balance due when the site launches.`
+    : `Project fee: ${money(cfg.projectFee)}, with a ${cfg.depositPct}% deposit (${money(deposit)}) to start and the ${money(balance)} balance due when the site launches.`;
   const clauses: { h: string; body: string[] }[] = [
     {
       h: "1. Services & Deliverables",
@@ -87,7 +87,7 @@ export function buildAgreement(cfg: AgreementConfig) {
       h: "2. Price & Payment",
       body: [
         feeLine,
-        `Care plan (${cfg.careName}): ${money(cfg.careMonthly)}/month, billed monthly starting at launch — covers hosting, updates, security, backups, monitoring, and the plan's included changes. Cancel any time with 30 days' notice.`,
+        `Care plan (${cfg.careName}): ${money(cfg.careMonthly)}/month, billed monthly starting at launch. It covers hosting, updates, security, backups, monitoring, and the plan's included changes. Cancel any time with 30 days' notice.`,
         `Third-party costs (domain name, premium plugins/licenses, paid stock photos, etc.) are passed through to Client at cost and only with Client's approval.`,
         `Balances more than 10 days late accrue 1.5% monthly interest, and Developer may pause the site until paid.`,
       ],
@@ -95,7 +95,7 @@ export function buildAgreement(cfg: AgreementConfig) {
     {
       h: "3. Our Guarantee (Zero-Risk)",
       body: [
-        `Love-the-design guarantee: Client approves the design before Developer builds the full site. If Client is not thrilled with the initial design and Developer cannot make it right, Developer refunds the deposit in full — Client walks away owing nothing.`,
+        `Love-the-design guarantee: Client approves the design before Developer builds the full site. If Client is not thrilled with the initial design and Developer cannot make it right, Developer refunds the deposit in full, and Client walks away owing nothing.`,
         `On-time launch guarantee: If the site is not live within 14 business days after Developer has received everything needed from Client (Section 4), Client's first month of the care plan is free.`,
         `30-day money-back: Within 30 days of launch, if Client is not satisfied and Developer cannot make it right, Client may cancel for a full refund of the project fee (the site is taken down; care-plan fees already used are non-refundable).`,
       ],
@@ -108,11 +108,11 @@ export function buildAgreement(cfg: AgreementConfig) {
       ],
     },
     {
-      h: "5. Ownership — It's Yours to Keep",
+      h: "5. Ownership: It's Yours to Keep",
       body: [
-        `Upon full payment of the project fee, the final website — its design, content, and the custom code built for Client — belongs to Client. It's yours to keep.`,
+        `Upon full payment of the project fee, the final website (its design, content, and the custom code built for Client) belongs to Client. It's yours to keep.`,
         `Developer retains only its own general-purpose frameworks, tools, and reusable components (nothing unique to Client), and may show the finished site in its portfolio.`,
-        `While Client is on a care plan, Developer hosts and manages the site. If Client cancels the care plan, Developer will hand over an export of the site files so Client can host it anywhere — no lock-in.`,
+        `While Client is on a care plan, Developer hosts and manages the site. If Client cancels the care plan, Developer will hand over an export of the site files so Client can host it anywhere, with no lock-in.`,
       ],
     },
     {

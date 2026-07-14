@@ -145,7 +145,7 @@ function SampleScorecard() {
           )}
           <div className="min-w-0">
             <p className="font-display text-lg uppercase leading-tight text-white">
-              Real gaps here — costing you customers.
+              Real gaps here, costing you customers.
             </p>
             <p className="mt-1 truncate text-xs text-white/40">demo-site.com · 2.4 s · 890 KB</p>
           </div>
@@ -175,11 +175,11 @@ function SampleScorecard() {
         <ul className="mt-4 space-y-2 border-t border-white/[0.07] pt-3.5">
           <li className="flex items-start gap-2.5">
             <StatusDot status="fail" />
-            <span className="text-xs text-white/70">No online booking — losing after-hours leads</span>
+            <span className="text-xs text-white/70">No online booking, losing after-hours leads</span>
           </li>
           <li className="flex items-start gap-2.5">
             <StatusDot status="warn" />
-            <span className="text-xs text-white/70">Meta description missing — Google writes its own</span>
+            <span className="text-xs text-white/70">Meta description missing, Google writes its own</span>
           </li>
         </ul>
       </div>
@@ -229,10 +229,10 @@ function ReportCapture({ result }: { result: Result }) {
         setPhase("sent");
         return;
       }
-      setError(json.message || "Something went wrong — please try again or email hello@stackwrk.com.");
+      setError(json.message || "Something went wrong. Please try again or email hello@stackwrk.com.");
       setPhase("error");
     } catch {
-      setError("Network error — please try again.");
+      setError("Network error. Please try again.");
       setPhase("error");
     }
   }
@@ -249,12 +249,12 @@ function ReportCapture({ result }: { result: Result }) {
         <p className="max-w-sm text-sm text-white/70">
           {emailed ? (
             <>
-              Your full audit — every fix prioritized — just landed in{" "}
+              Your full audit (every fix prioritized) just landed in{" "}
               <span className="text-lime">{sentTo}</span>. Check your inbox (and spam, just in case).
             </>
           ) : (
             <>
-              Got it — I&rsquo;ll send the full prioritized report to{" "}
+              Got it. I&rsquo;ll send the full prioritized report to{" "}
               <span className="text-lime">{sentTo}</span> shortly, then follow up personally.
             </>
           )}
@@ -278,11 +278,11 @@ function ReportCapture({ result }: { result: Result }) {
         </span>
         <div>
           <h4 className="font-display text-xl uppercase leading-tight text-white sm:text-2xl">
-            Get the full report — free
+            Get the full report, free
           </h4>
           <p className="mt-1.5 max-w-lg text-sm leading-relaxed text-white/65">
             The complete audit with <span className="text-white/90">every issue above prioritized</span>,
-            the exact fixes, and what each one is worth — delivered to your inbox. No cost, no catch.
+            the exact fixes, and what each one is worth, delivered to your inbox. No cost, no catch.
           </p>
         </div>
       </div>
@@ -356,7 +356,7 @@ export default function AuditTool() {
         setPhase("error");
       }
     } catch {
-      setError("Network error — please try again.");
+      setError("Network error. Please try again.");
       setPhase("error");
     }
   }
@@ -398,7 +398,7 @@ export default function AuditTool() {
             {phase === "loading" ? (
               <div className="mt-5 flex items-center gap-3 text-sm text-white/60">
                 <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/20 border-t-lime" />
-                Scanning the page — speed, mobile, SEO &amp; conversion…
+                Scanning the page: speed, mobile, SEO &amp; conversion…
               </div>
             ) : (
               <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-2">

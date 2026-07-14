@@ -112,7 +112,7 @@ export default function ToolLayout({
                 Want the fixes done for you?
               </h3>
               <p className="max-w-md text-sm text-white/60">
-                Stackwrk builds fast, conversion-focused websites — and keeps them that way. Book a free
+                Stackwrk builds fast, conversion-focused websites, and keeps them that way. Book a free
                 call and we&rsquo;ll walk through your results together.
               </p>
               <a href={site.calendlyUrl} target="_blank" rel="noopener noreferrer" className="btn-primary !rounded-md">

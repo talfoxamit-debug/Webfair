@@ -34,10 +34,10 @@ export default function PermitChecker() {
           </div>
           <p className="mt-3 text-xs leading-relaxed text-slate-500">
             Corner lots, pools and HOAs have extra rules. We pull the permit, order the survey,
-            and pass inspection for you — it&rsquo;s included in your quote.
+            and pass inspection for you. It&rsquo;s included in your quote.
           </p>
           <a href="#quote" className="mt-3 inline-flex rounded-lg px-4 py-2 text-sm font-bold text-white" style={{ background: GREEN }}>
-            Get a quote — we handle the permit →
+            Get a quote, we handle the permit →
           </a>
         </div>
       )}

@@ -8,7 +8,7 @@ import { decodeConfig } from "@/lib/fence-config";
  * Loom to a prospect. Noindex.
  */
 export const metadata: Metadata = {
-  title: "Your new website — preview",
+  title: "Your new website: preview",
   robots: { index: false, follow: false },
 };
 

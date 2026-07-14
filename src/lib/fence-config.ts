@@ -37,7 +37,7 @@ export const DEFAULT_CONFIG: FenceConfig = {
     { img: "/demo/fence/g-rail.webp", title: "Ranch rail on the water", city: "Parkland" },
   ],
   reviews: [
-    { q: "They replaced our whole backyard fence in two days. Cleanest crew we've had — the vinyl looks incredible.", n: "Maria S.", c: "Coral Springs" },
+    { q: "They replaced our whole backyard fence in two days. Cleanest crew we've had, and the vinyl looks incredible.", n: "Maria S.", c: "Coral Springs" },
     { q: "Got three quotes; these guys were the only ones that showed up on time and put it in writing. No surprises.", n: "James T.", c: "Fort Lauderdale" },
     { q: "Our pool passed inspection first try thanks to their safety fence. Highly recommend.", n: "Dana R.", c: "Pembroke Pines" },
   ],

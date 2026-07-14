@@ -54,7 +54,7 @@ export default function MaterialsCalculator() {
           </div>
           <div>
             <label className="text-xs font-bold uppercase tracking-wide text-slate-500">Privacy boards?</label>
-            <button onClick={() => setPickets((p) => !p)} className="mt-2 w-full rounded-lg border px-3 py-2 text-sm font-semibold" style={pickets ? { borderColor: GREEN, background: "#EAF6EF", color: NAVY } : { borderColor: "rgba(0,0,0,0.1)", color: "#64748b" }}>{pickets ? "Yes — count boards" : "No"}</button>
+            <button onClick={() => setPickets((p) => !p)} className="mt-2 w-full rounded-lg border px-3 py-2 text-sm font-semibold" style={pickets ? { borderColor: GREEN, background: "#EAF6EF", color: NAVY } : { borderColor: "rgba(0,0,0,0.1)", color: "#64748b" }}>{pickets ? "Yes, count boards" : "No"}</button>
           </div>
         </div>
       </div>
@@ -68,7 +68,7 @@ export default function MaterialsCalculator() {
           {pickets && <Row label="Privacy boards (5.5″)" value={`${bom.picketCount}`} />}
           <Row label="Concrete (60-lb bags)" value={`${bom.concrete}`} />
         </div>
-        <p className="mt-3 text-[0.75rem] leading-relaxed text-slate-400">Rough estimate for planning. Actual counts vary with terrain, corners and gate hardware — we spec it exactly on-site.</p>
+        <p className="mt-3 text-[0.75rem] leading-relaxed text-slate-400">Rough estimate for planning. Actual counts vary with terrain, corners and gate hardware. We spec it exactly on-site.</p>
       </div>
     </div>
   );

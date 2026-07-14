@@ -44,7 +44,7 @@ export function reportSummaryText(name: string, result: AuditResult): string {
   return [
     `Instant audit requested by ${name}.`,
     `Site: ${result.finalUrl}`,
-    `Score: ${result.score}/100 — ${result.headline}`,
+    `Score: ${result.score}/100. ${result.headline}`,
     `Load: ${result.loadMs}ms · ${result.pageKb}KB`,
     fixes.length ? `Top issues:` : `No major issues flagged.`,
     ...top,
@@ -164,7 +164,7 @@ export function renderReportEmailHtml(opts: {
       ${
         fixes.length
           ? `<table role="presentation" width="100%" cellpadding="0" cellspacing="0">${fixItems}</table>`
-          : `<p style="font:400 15px -apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#1a0f2e;">Your site passed every check — impressive. A few conversion tweaks could still squeeze out more leads. Let's talk.</p>`
+          : `<p style="font:400 15px -apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#1a0f2e;">Your site passed every check. Impressive. A few conversion tweaks could still squeeze out more leads. Let's talk.</p>`
       }
     </td></tr>
 
@@ -173,7 +173,7 @@ export function renderReportEmailHtml(opts: {
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f2f8;border-radius:12px;"><tr>
         <td style="padding:22px 24px;">
           <div style="font:700 17px -apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#1a0f2e;">Want me to fix these for you?</div>
-          <div style="font:400 14px -apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#6b6480;margin:6px 0 16px;">I turn audits like this into fast, custom sites that book customers. Grab a free 30-minute call — no obligation.</div>
+          <div style="font:400 14px -apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#6b6480;margin:6px 0 16px;">I turn audits like this into fast, custom sites that book customers. Grab a free 30-minute call, no obligation.</div>
           <a href="${esc(
             bookUrl,
           )}" style="display:inline-block;background:#cbff3c;color:#12081f;font:700 15px -apple-system,Segoe UI,Roboto,Arial,sans-serif;text-decoration:none;padding:12px 22px;border-radius:9px;">Book my free call →</a>

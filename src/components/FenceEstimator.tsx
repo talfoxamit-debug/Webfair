@@ -120,7 +120,7 @@ export default function FenceEstimator({ phone }: { phone: string }) {
           </p>
           <p className="mt-3 text-xs leading-relaxed text-white/55">
             Ballpark based on typical South-Florida installs. Your exact price depends on
-            terrain, materials &amp; access — we&rsquo;ll confirm it free on-site.
+            terrain, materials &amp; access. We&rsquo;ll confirm it free on-site.
           </p>
         </div>
         <div className="mt-5 space-y-2">

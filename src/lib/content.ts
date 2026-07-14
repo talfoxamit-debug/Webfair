@@ -33,9 +33,9 @@ export const hero = {
   image: "/fox.webp" as string | null,
   titleLines: ["WEBSITES THAT", "BOOK MORE JOBS."],
   subtitle:
-    "Custom, mobile-first sites for fence & exterior contractors — built to turn “near me” searches into quote requests. Live in about two weeks.",
+    "Custom, mobile-first sites for fence & exterior contractors, built to turn “near me” searches into quote requests. Live in about two weeks.",
   primaryCta: "Get a Free Site Mockup",
-  secondaryCta: "See My Work",
+  secondaryCta: "See Live Examples",
   highlights: [
     { title: "2-Week Launch", sub: "Most projects go live in ~2 weeks" },
     { title: "Built to Convert", sub: "Engineered for leads & bookings" },
@@ -70,10 +70,10 @@ export const projects: Project[] = [
     name: "Apex Fence Co.",
     tag: "The fence-contractor site, done right.",
     blurb:
-      "A homeowner-facing fence company site — instant quote widget, reviews, financing and service-area pages, all built to turn searches into quote requests.",
+      "A homeowner-facing fence company site with an instant quote widget, reviews, financing and service-area pages, all built to turn searches into quote requests.",
     features: ["Instant quote form + click-to-call", "Reviews, warranty & trust signals", "Financing + service-area pages"],
     href: "/demos/apex-fence",
-    result: "This is the exact site I build for fence & exterior contractors — yours gets your name, your photos, your number.",
+    result: "This is the exact site I build for fence & exterior contractors. Yours gets your name, your photos, your number.",
     accent: "from-emerald-800 via-teal-900 to-ink-700",
     image: "/shots/apexfence.webp",
     badge: "Demo site",
@@ -84,10 +84,10 @@ export const projects: Project[] = [
     name: "Above Air",
     tag: "South-Florida HVAC contractor.",
     blurb:
-      "A contractor site with an instant-estimate flow, live comfort slider, financing and bilingual support — built to book service calls.",
+      "A contractor site with an instant-estimate flow, live comfort slider, financing and bilingual support, built to book service calls.",
     features: ["Instant estimate flow", "Click-to-call + quote form", "English / Español"],
     href: "https://above-air-inc.vercel.app",
-    result: "Turns after-hours emergencies into booked service calls — the same lead-first playbook as your fence site.",
+    result: "Turns after-hours emergencies into booked service calls, using the same lead-first playbook as your fence site.",
     accent: "from-emerald-800 via-teal-900 to-ink-700",
     image: "/shots/aboveair.webp",
     tier: "main",
@@ -96,7 +96,7 @@ export const projects: Project[] = [
     name: "Marco's · FTL",
     tag: "Local business, booked solid.",
     blurb:
-      "An upscale steakhouse experience — editorial design with reservations, menus and live events.",
+      "An upscale steakhouse experience: editorial design with reservations, menus and live events.",
     features: ["Table reservations", "Digital menus & events", "High-end editorial design"],
     href: "https://marcos-restaurant-demo.vercel.app",
     result: "A first impression that turns browsers into booked tables the moment they land.",
@@ -134,10 +134,10 @@ export const projects: Project[] = [
     name: "YatHub",
     tag: "Custom booking platform, built from scratch.",
     blurb:
-      "A dual-sided marketplace for verified docks, crew, yacht jobs and marinas — book in real time.",
+      "A dual-sided marketplace for verified docks, crew, yacht jobs and marinas, all bookable in real time.",
     features: ["Real-time search & booking", "Verified listings", "Custom-coded, not a template"],
     href: "https://yathub.com",
-    result: "Proof I build serious, custom software — not drag-and-drop sites — when the job calls for it.",
+    result: "Proof I build serious, custom software (not drag-and-drop sites) when the job calls for it.",
     accent: "from-teal-800 via-cyan-900 to-ink-700",
     image: "/shots/yathub.webp",
     tier: "more",
@@ -155,12 +155,12 @@ export const whatYouGet = {
     {
       icon: "bolt",
       title: "Fast Delivery",
-      body: "Most projects live in 2–4 weeks. No endless delays.",
+      body: "Most projects go live in 2–4 weeks, with no drawn-out timelines or ghosting.",
     },
     {
       icon: "stack",
       title: "Custom-Coded",
-      body: "Hand-built to load fast and rank — never a slow, cookie-cutter template.",
+      body: "Hand-built to load fast and rank, never a slow, cookie-cutter template.",
     },
     {
       icon: "target",
@@ -181,10 +181,10 @@ export const investment = {
 export const finalCta = {
   eyebrow: "Let’s book you more jobs",
   heading: "Ready to book more jobs?",
-  body: "Send me your current site (or just your Facebook page) and I’ll rebuild your homepage from your own project photos — a free mockup, no obligation.",
+  body: "Send me your current site (or just your Facebook page) and I’ll rebuild your homepage from your own project photos. A free mockup, no obligation.",
   points: ["Free homepage mockup", "Built from your own photos", "No obligation"],
   formTitle: "Get a Free Site Mockup",
-  formSub: "Tell me about your business — I’ll reply within one business day.",
+  formSub: "Tell me about your business, and I’ll reply within one business day.",
   formCta: "Get My Free Mockup",
   calendlyLabel: "Prefer to pick a time? Book a call",
   trust: "Trusted by contractors and local businesses across South Florida.",
@@ -202,7 +202,7 @@ export const howItWorks = {
     {
       n: "02",
       title: "I design & build",
-      body: "A custom, mobile-first site with the exact tools you need — booking, calculators, chat. You review as it comes to life.",
+      body: "A custom, mobile-first site with the exact tools you need: booking, calculators, chat. You review as it comes to life.",
     },
     {
       n: "03",
@@ -223,7 +223,7 @@ export const testimonials = [
   },
   {
     quote:
-      "The online booking he set up saves us the constant back-and-forth — customers just reserve online. Exactly what we needed.",
+      "The online booking he set up saves us the constant back-and-forth. Customers just reserve online. Exactly what we needed.",
     name: "Saar",
     role: "Fort Lauderdale Dock Rental",
   },
@@ -240,9 +240,9 @@ export const testimonials = [
 export const guarantee = {
   eyebrow: "Zero-risk",
   heading: "Love it, or your money back.",
-  body: "You approve the design before I build the full site. If you're not thrilled, I refund your deposit — you walk away owing nothing.",
+  body: "You approve the design before I build the full site. If you're not thrilled, I refund your deposit, and you walk away owing nothing.",
   points: [
-    "Free audit — no obligation",
+    "Free audit, no obligation",
     "Fixed price, no surprise invoices",
     "You own 100% of your site & code",
   ],

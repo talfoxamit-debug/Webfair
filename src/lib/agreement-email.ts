@@ -49,7 +49,7 @@ export function renderAgreementEmailHtml(
     <div style="background:#fff;border:1px solid #e2e8f0;border-top:none;border-radius:0 0 14px 14px;padding:22px;">
       <div style="background:#f2faf5;border:1px solid #cfe9d8;border-radius:10px;padding:12px 14px;margin-bottom:16px;">
         <b style="color:${GREEN};">✓ Signed by ${esc(sig.signer)}</b> on ${esc(when)}.<br>
-        <span style="color:#64748b;font-size:12px;">Recorded electronically · method: ${esc(sig.method)}${sig.ip ? ` · IP ${esc(sig.ip)}` : ""} — legally binding under the U.S. E-SIGN Act.</span>
+        <span style="color:#64748b;font-size:12px;">Recorded electronically · method: ${esc(sig.method)}${sig.ip ? ` · IP ${esc(sig.ip)}` : ""}, legally binding under the U.S. E-SIGN Act.</span>
       </div>
       <h1 style="margin:0 0 2px;color:${NAVY};font-size:20px;">Website Design &amp; Development Agreement</h1>
       <p style="margin:0 0 14px;color:#64748b;font-size:12px;">Fox Solutions LLC, d/b/a Stackwrk · ${esc(cfg.clientName)}</p>

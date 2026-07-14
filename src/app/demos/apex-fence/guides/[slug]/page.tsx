@@ -74,7 +74,7 @@ export default async function GuideArticle({ params }: { params: Promise<{ slug:
         {/* article CTA */}
         <div className="mt-12 rounded-2xl border border-black/[0.07] bg-white p-7 text-center shadow-sm">
           <h3 className="text-xl font-extrabold" style={{ color: NAVY }}>Ready for a real number?</h3>
-          <p className="mx-auto mt-2 max-w-sm text-sm text-slate-600">Get a free, written quote for your project — usually the same day.</p>
+          <p className="mx-auto mt-2 max-w-sm text-sm text-slate-600">Get a free, written quote for your project, usually the same day.</p>
           <Link href="/demos/apex-fence#quote" className="mt-4 inline-flex rounded-lg px-6 py-3 text-sm font-bold text-white" style={{ background: GREEN }}>
             Get my free quote →
           </Link>

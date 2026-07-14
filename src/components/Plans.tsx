@@ -12,11 +12,11 @@ import { carePlans, money } from "@/lib/pricing";
 const capabilities = [
   {
     title: "Automations",
-    blurb: "Kill the busywork — quotes, follow-ups, invoicing and reporting wired together and running on their own.",
+    blurb: "Kill the busywork: quotes, follow-ups, invoicing and reporting wired together and running on their own.",
   },
   {
     title: "AI & CRM",
-    blurb: "A 24/7 site assistant that answers questions and books leads, plus a custom CRM built around your process — no per-seat fees.",
+    blurb: "A 24/7 site assistant that answers questions and books leads, plus a custom CRM built around your process, with no per-seat fees.",
   },
   {
     title: "Growth systems",
@@ -39,7 +39,7 @@ export default function Plans() {
           </p>
           <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-lime/30 bg-lime/[0.08] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-lime">
             <Bolt width={13} height={13} />
-            Founding-client rates — first 5 clients only
+            Founding-client rates: first 5 clients only
           </p>
         </Reveal>
 
