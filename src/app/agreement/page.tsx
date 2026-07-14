@@ -40,7 +40,7 @@ export default async function AgreementPage({ searchParams }: { searchParams: Pr
             <div>
               <p className="text-xs font-bold uppercase tracking-wide text-slate-400">Developer</p>
               <p className="mt-1 text-sm font-semibold" style={{ color: NAVY }}>Fox Solutions LLC (Stackwrk)</p>
-              <p className="text-xs text-slate-500">hello@stackwrk.com · (754) 282-2149</p>
+              <p className="text-xs text-slate-500">hello@stackwrk.com · (754) 551-2828</p>
             </div>
             <div>
               <p className="text-xs font-bold uppercase tracking-wide text-slate-400">Client</p>

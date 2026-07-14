@@ -5,7 +5,7 @@ Everything's built. Tomorrow is about **reps, not setup.** Here's the hour-by-ho
 ## The night before (15 min)
 - [ ] Log into **stackwrk.com/prospects** → click **Load starter list (254)** once.
 - [ ] Confirm your Instantly campaign (47 leads) is loaded and scheduled to send in the morning.
-- [ ] Put your phone on the desk. Google Voice: **(754) 282-2149**.
+- [ ] Put your phone on the desk. Quo line: **(754) 551-2828**.
 - [ ] Upload **guessed-emails-to-verify.csv** to MillionVerifier so it's ready by morning.
 
 ---

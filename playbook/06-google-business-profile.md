@@ -37,7 +37,7 @@ doubles as social proof. Here's the exact setup for Stackwrk.
   / South Florida**.
 
 ## 5. Contact info
-- **Phone:** `(754) 282-2149` (your Google Voice line — local 754 = trust)
+- **Phone:** `(754) 551-2828` (your Quo line — local 754 = trust)
 - **Website:** `https://stackwrk.com`
 
 ## 6. Verify (the gate to going live)

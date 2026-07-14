@@ -33,7 +33,7 @@ way to reach them, and it's the fastest path to a booked call.
 > "Hey, I'm trying to reach the owner about the company's website — is he around? … No worries, what's the best way to get a quick concept in front of him — his cell or email?"
 
 ## Voicemail (keep it 12 seconds)
-> "Hi {{owner}}, this is Tal with Stackwrk — I build websites for fence companies in {{city}}. I made a quick concept of what yours could look like and want to send it over. Text me at **(754) 282-2149** and I'll get it to you. Thanks!"
+> "Hi {{owner}}, this is Tal with Stackwrk — I build websites for fence companies in {{city}}. I made a quick concept of what yours could look like and want to send it over. Text me at **(754) 551-2828** and I'll get it to you. Thanks!"
 
 **Always text right after a VM:**
 > "Hi {{owner}}, Tal here — that fence-website concept I mentioned: stackwrk.com/demos/apex-fence. Happy to build you a free one with your photos. Worth a quick call?"

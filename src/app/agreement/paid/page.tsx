@@ -21,7 +21,7 @@ export default async function PaidPage({ searchParams }: { searchParams: Promise
             ? "Your care plan is active. We'll keep your site fast, secure and improving every month."
             : "We've got your deposit. Send over your logo, photos and details and we'll get your build started — usually within a couple of business days."}
         </p>
-        <p className="mt-4 text-sm font-semibold" style={{ color: NAVY }}>Questions? hello@stackwrk.com · (754) 282-2149</p>
+        <p className="mt-4 text-sm font-semibold" style={{ color: NAVY }}>Questions? hello@stackwrk.com · (754) 551-2828</p>
         <Link href="/" className="mt-6 inline-flex rounded-lg px-6 py-2.5 text-sm font-bold text-white" style={{ background: GREEN }}>Back to Stackwrk</Link>
       </div>
     </div>
