@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { PROSPECT_STAGES, TEMPLATES, TIER_META, type Prospect, type ProspectStage, type ProspectTier } from "@/lib/prospects";
+import { PROSPECT_STAGES, TEMPLATES, TIER_META, QUICK_TAGS, tagStyle, type Prospect, type ProspectStage, type ProspectTier } from "@/lib/prospects";
 import TodayDriver from "./TodayDriver";
 import { useTheme } from "./useTheme";
 import { encodeAgreement, type AgreementConfig } from "@/lib/agreement";
@@ -75,6 +75,7 @@ export default function Board({ user }: { user: string }) {
   const [agrPkg, setAgrPkg] = useState<AgreementConfig["pkg"]>("Growth");
   const [agrFee, setAgrFee] = useState(3900);
   const [agrCare, setAgrCare] = useState(249);
+  const [tagDraft, setTagDraft] = useState("");
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Load the shared team pipeline + merge in inbound audited sites (page is
@@ -127,6 +128,16 @@ export default function Board({ user }: { user: string }) {
   }
   const patch = (id: string, d: Partial<Prospect>) => setItems((xs) => xs.map((x) => (x.id === id ? { ...x, ...d } : x)));
   const copy = (t: string) => { navigator.clipboard?.writeText(t); flash("Copied"); };
+  const toggleTag = (p: Prospect, t: string) => {
+    const cur = p.tags || [];
+    patch(p.id, { tags: cur.includes(t) ? cur.filter((x) => x !== t) : [...cur, t] });
+  };
+  const lookup = (p: Prospect, kind: "google" | "maps" | "fb") => {
+    const q = encodeURIComponent(`${p.name} ${p.city}`.trim());
+    return kind === "maps" ? `https://www.google.com/maps/search/${q}`
+      : kind === "fb" ? `https://www.facebook.com/search/top?q=${q}`
+      : `https://www.google.com/search?q=${q}`;
+  };
 
   function copyAgreementLink(p: Prospect) {
     const pages = agrPkg === "Launch" ? 5 : agrPkg === "Growth" ? 7 : 10;
@@ -254,6 +265,13 @@ export default function Board({ user }: { user: string }) {
                         </div>
                         <div className="mt-0.5 truncate text-[0.68rem] crm-muted">{p.city}</div>
                         {p.phone && <div className="mt-1 text-[0.68rem] crm-muted">{p.phone}</div>}
+                        {(p.tags?.length ?? 0) > 0 && (
+                          <div className="mt-1 flex flex-wrap gap-1">
+                            {p.tags!.slice(0, 3).map((t) => (
+                              <span key={t} className={`rounded px-1 text-[0.55rem] font-bold ${tagStyle(t)}`}>{t}</span>
+                            ))}
+                          </div>
+                        )}
                         {p.nextFollowUp && <div className={`mt-1 text-[0.62rem] ${p.nextFollowUp <= todayISO() ? "text-amber-600 dark:text-amber-400" : "crm-subtle"}`}>⏰ {p.nextFollowUp}</div>}
                       </button>
                     ))}
@@ -291,7 +309,45 @@ export default function Board({ user }: { user: string }) {
               <div className="mt-4 grid grid-cols-2 gap-2">
                 {p.phone && <a href={`tel:${p.phone.replace(/[^0-9]/g, "")}`} className="rounded-lg bg-lime px-3 py-2 text-center text-sm font-bold text-ink">Call {p.phone}</a>}
                 {p.email && <button onClick={() => copy(p.email)} className="rounded-lg px-3 py-2 text-sm font-semibold crm-btn">Copy email</button>}
-                {p.website && <a href={p.website} target="_blank" rel="noopener noreferrer" className="col-span-2 rounded-lg px-3 py-2 text-center text-xs crm-btn">Open their site ↗</a>}
+              </div>
+
+              {/* recon — look them up before you call */}
+              <div className="mt-3">
+                <p className="text-[0.7rem] font-bold uppercase tracking-wide crm-subtle">Look them up before you call</p>
+                <div className="mt-1.5 flex flex-wrap gap-1.5">
+                  {p.website
+                    ? <a href={p.website} target="_blank" rel="noopener noreferrer" className="rounded-lg px-3 py-1.5 text-xs font-semibold crm-btn">🌐 Their website ↗</a>
+                    : <span className="rounded-lg bg-rose-100 px-3 py-1.5 text-xs font-semibold text-rose-700 dark:bg-rose-500/15 dark:text-rose-300">🚫 No website</span>}
+                  <a href={lookup(p, "maps")} target="_blank" rel="noopener noreferrer" className="rounded-lg px-3 py-1.5 text-xs font-semibold crm-btn">📍 Google reviews ↗</a>
+                  <a href={lookup(p, "google")} target="_blank" rel="noopener noreferrer" className="rounded-lg px-3 py-1.5 text-xs font-semibold crm-btn">🔍 Google ↗</a>
+                  <a href={lookup(p, "fb")} target="_blank" rel="noopener noreferrer" className="rounded-lg px-3 py-1.5 text-xs font-semibold crm-btn">📘 Facebook ↗</a>
+                </div>
+              </div>
+
+              {/* tags */}
+              <div className="mt-4">
+                <p className="text-[0.7rem] font-bold uppercase tracking-wide crm-subtle">Tags</p>
+                {(p.tags?.length ?? 0) > 0 && (
+                  <div className="mt-1.5 flex flex-wrap gap-1.5">
+                    {p.tags!.map((t) => (
+                      <button key={t} onClick={() => toggleTag(p, t)} className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold ${tagStyle(t)}`} title="Click to remove">
+                        {t} <span className="opacity-60">✕</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+                <div className="mt-2 flex flex-wrap gap-1.5">
+                  {QUICK_TAGS.filter((t) => !(p.tags || []).includes(t)).map((t) => (
+                    <button key={t} onClick={() => toggleTag(p, t)} className="rounded-full px-2.5 py-1 text-xs font-semibold crm-btn">+ {t}</button>
+                  ))}
+                </div>
+                <input
+                  value={tagDraft}
+                  onChange={(e) => setTagDraft(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === "Enter" && tagDraft.trim()) { toggleTag(p, tagDraft.trim()); setTagDraft(""); } }}
+                  placeholder="+ custom tag, press Enter"
+                  className="mt-2 w-full rounded-lg px-3 py-2 text-xs crm-input"
+                />
               </div>
 
               {/* stage + follow-up */}

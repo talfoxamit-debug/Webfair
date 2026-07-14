@@ -44,7 +44,25 @@ export type Prospect = {
   tier?: ProspectTier; // qualification tier for no-website leads
   source?: "audit" | "manual" | "import"; // where the lead came from
   auditScore?: number; // score if they ran the site audit
+  tags?: string[]; // manual labels (Hot, Cold, Many reviews, …)
 };
+
+/** One-tap tags to set before/after a call. Stored on prospect.tags. */
+export const QUICK_TAGS = [
+  "Hot", "Warm", "Cold", "Many reviews", "Few reviews",
+  "Left VM", "Gatekeeper", "Decision-maker", "Callback", "Bilingual",
+] as const;
+
+/** Chip color for a tag (theme-aware Tailwind classes). */
+export function tagStyle(tag: string): string {
+  const t = tag.toLowerCase();
+  if (t === "hot") return "bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-300";
+  if (t === "warm") return "bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300";
+  if (t === "cold") return "bg-sky-100 text-sky-700 dark:bg-sky-500/20 dark:text-sky-300";
+  if (t === "many reviews") return "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300";
+  if (t === "callback") return "bg-violet-100 text-violet-700 dark:bg-violet-500/20 dark:text-violet-300";
+  return "bg-slate-200 text-slate-700 dark:bg-white/10 dark:text-slate-200";
+}
 
 /** Message templates surfaced in the CRM with one-click copy + {{merge}} fields. */
 export const TEMPLATES: { key: string; label: string; channel: "email" | "call" | "sms"; subject?: string; body: string }[] = [
