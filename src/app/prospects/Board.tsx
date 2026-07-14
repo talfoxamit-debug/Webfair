@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { PROSPECT_STAGES, TEMPLATES, TEMPLATE_FLOWS, TIER_META, QUICK_TAGS, CALL_OUTCOMES, BEST_TIMES, phoneCheck, phoneDigits, PHONE_FLAG_META, tagStyle, type Prospect, type ProspectStage, type ProspectTier } from "@/lib/prospects";
 import TodayDriver from "./TodayDriver";
 import LeadAudit from "./LeadAudit";
+import CallHistory from "./CallHistory";
 import AgreementGen from "./AgreementGen";
 import { useTheme } from "./useTheme";
 
@@ -107,6 +108,23 @@ export default function Board({ user }: { user: string }) {
           base = [...fresh, ...base]; // newest inbound at the top of New
         }
       } catch { /* audits optional */ }
+      try {
+        const qc = await fetch("/api/team/quo-calls").then((r) => r.json());
+        if (qc.ok && Array.isArray(qc.data)) {
+          const have = new Set(base.map((p) => phoneDigits(p.phone)).filter((d) => d.length === 10));
+          const fresh: Prospect[] = qc.data
+            .filter((c: { phone_digits: string }) => c.phone_digits && !have.has(c.phone_digits))
+            .map((c: { phone_digits: string; phone_pretty: string; contact_name: string | null; last_call: string; call_count: number }) => ({
+              id: uid(), name: c.contact_name || c.phone_pretty, phone: c.phone_pretty, email: "", website: "", hasSite: false,
+              city: "", street: "", owner: c.contact_name || "", stage: "contacted" as ProspectStage,
+              nextFollowUp: "", lastContacted: new Date(c.last_call).toISOString().slice(0, 10),
+              notes: `Called via Quo — ${c.call_count} call${c.call_count === 1 ? "" : "s"} logged, not yet added to the CRM.`,
+              createdAt: new Date(c.last_call).getTime() || Date.now(),
+              source: "quo" as const,
+            }));
+          base = [...base, ...fresh]; // append — these already had a call, not fresh inbound
+        }
+      } catch { /* quo sync optional */ }
       setItems(base);
       setReady(true);
     })();
@@ -314,6 +332,8 @@ export default function Board({ user }: { user: string }) {
                             ? <span className={`shrink-0 rounded px-1 text-[0.55rem] font-bold ${TIER_META[p.tier].cls}`}>{TIER_META[p.tier].short}</span>
                             : p.source === "audit"
                             ? <span className="shrink-0 rounded bg-sky-100 px-1 text-[0.55rem] font-bold text-sky-700 dark:bg-sky-500/20 dark:text-sky-300">🔎 AUDIT{p.auditScore != null ? ` ${p.auditScore}` : ""}</span>
+                            : p.source === "quo"
+                            ? <span className="shrink-0 rounded bg-violet-100 px-1 text-[0.55rem] font-bold text-violet-700 dark:bg-violet-500/20 dark:text-violet-300">📞 CALLED</span>
                             : !p.hasSite && <span className="shrink-0 rounded bg-rose-100 px-1 text-[0.55rem] font-bold text-rose-700 dark:bg-rose-500/20 dark:text-rose-300">NO SITE</span>}
                         </div>
                         <div className="mt-0.5 truncate text-[0.68rem] crm-muted">{p.city}</div>
@@ -356,6 +376,8 @@ export default function Board({ user }: { user: string }) {
                 ? <div className={`mt-3 rounded-lg px-3 py-2 text-xs font-semibold ${TIER_META[p.tier].cls}`}>{p.tier === "call" ? "🟢" : p.tier === "verify" ? "🟡" : "🔴"} {TIER_META[p.tier].label} — {TIER_META[p.tier].hint}</div>
                 : p.source === "audit"
                 ? <div className="mt-3 rounded-lg bg-sky-100 px-3 py-2 text-xs font-semibold text-sky-700 dark:bg-sky-500/15 dark:text-sky-300">🔎 Inbound — ran your site audit{p.auditScore != null ? ` (scored ${p.auditScore}/100)` : ""}. Warm lead, reach out fast.</div>
+                : p.source === "quo"
+                ? <div className="mt-3 rounded-lg bg-violet-100 px-3 py-2 text-xs font-semibold text-violet-700 dark:bg-violet-500/15 dark:text-violet-300">📞 Synced from a Quo call — not yet in the CRM by name. Fill in what you know below.</div>
                 : !p.hasSite && <div className="mt-3 rounded-lg bg-rose-100 px-3 py-2 text-xs font-semibold text-rose-700 dark:bg-rose-500/15 dark:text-rose-300">🔥 No website — top prospect. Call first.</div>}
 
               {/* contact quick actions */}
@@ -407,6 +429,9 @@ export default function Board({ user }: { user: string }) {
 
               {/* run the audit on their live site, if they have one */}
               {p.website && <LeadAudit key={p.website} url={href(p.website)} />}
+
+              {/* past calls with this number, synced from Quo */}
+              {p.phone && <CallHistory key={p.phone} phone={p.phone} />}
 
               {/* call script — exactly what to say, filled in for this lead */}
               <div className="mt-5 rounded-lg border border-emerald-200 bg-emerald-50/60 p-3 dark:border-lime/25 dark:bg-lime/[0.06]">
