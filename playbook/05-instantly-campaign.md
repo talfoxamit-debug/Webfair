@@ -35,6 +35,10 @@ nothing to give but works as the same green light, so it lowers the delete-refle
 - **Daily limit:** 25–30/inbox/day to start (you only have 47 leads, this list
   finishes in ~1 day across 2 inboxes; that's fine, keep the per-inbox cap low).
 - **Schedule:** Tue–Thu, 8–11am ET is best for contractors. Skip weekends.
+- **Step delays:** in the sequence editor, set step 2 to send **2 days** after
+  step 1, and step 3 **2 days** after step 2 (so Day 0 / Day 2 / Day 4). Instantly
+  asks for this wait time when you add each step. Weekends are skipped automatically
+  by your schedule, so a "2 day" gap may land on the next weekday.
 - **Tracking:** turn **link tracking OFF** for step 1 (open tracking is fine).
   Tracked links on a cold first touch hurt deliverability.
 - **Stop on reply:** ON.
@@ -69,7 +73,7 @@ Not interested? Just reply and I'll stop.
 ```
 *Why it works: leads with the give (a free concept), and the ask is a "no" question. A "no, not a bad idea" is far easier to send than committing to "yes."*
 
-### Step 2: Day 3 (one link OK now)
+### Step 2: Day 2 (one link OK now, 2 days after step 1)
 **Subject:** re: quick idea for {{company_name}}
 
 ```
@@ -89,12 +93,10 @@ Stackwrk
 Not interested? Just reply and I'll stop.
 ```
 
-### Step 3: Day 6 (breakup)
+### Step 3: Day 4 (breakup, 2 days after step 2)
 **Subject:** should I close your file?
 
 ```
-Not trying to be a pest, {{company_name}}
-
 If a better website isn't on your list right now, no worries at all, ignore this
 and I'll stop reaching out.
 
