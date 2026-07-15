@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { ArrowRight, Calendar, Check, Sparkles, TrendUp } from "./icons";
 
-/** Lead-capture CTA shared by every demo — routes to the #about audit form. */
+/** Lead-capture CTA shared by every demo: routes to the #about audit form. */
 function DemoCTA({ label }: { label: string }) {
   return (
     <a
@@ -271,7 +271,7 @@ const QUICK = [
 
 /**
  * Tiny on-device "AI" for the demo: keyword-intent matching with a graceful
- * lead-capture fallback. No backend — it shows how a real assistant would
+ * lead-capture fallback. No backend. It shows how a real assistant would
  * answer FAQs and route anything it can't answer into a captured lead.
  */
 const INTENTS: { keys: string[]; a: string }[] = [
@@ -419,7 +419,7 @@ function BeforeAfterDemo() {
 
   return (
     <div className="p-5 sm:p-7">
-      {/* legend — makes it unmistakable which side is which */}
+      {/* legend: makes it unmistakable which side is which */}
       <div className="mb-3 flex items-center justify-between text-[0.75rem] font-bold uppercase tracking-wider">
         <span className="flex items-center gap-1.5 text-white/45">
           <span aria-hidden="true">◀</span> Before · dated
@@ -446,7 +446,7 @@ function BeforeAfterDemo() {
           dragging ? "cursor-grabbing" : "cursor-ew-resize"
         }`}
       >
-        {/* AFTER (modern) — an art-directed hero: aurora mesh, rating + avatars,
+        {/* AFTER (modern). An art-directed hero: aurora mesh, rating + avatars,
             and a floating glass booking widget. Reads as a real premium site.
             `isolate` keeps its inner z-index from bleeding over the BEFORE pane. */}
         <div className="absolute inset-0 isolate overflow-hidden">
@@ -482,7 +482,7 @@ function BeforeAfterDemo() {
             </div>
           </div>
 
-          {/* hero copy — right-anchored so the punchline shows at a middle split */}
+          {/* hero copy: right-anchored so the punchline shows at a middle split */}
           <div className="absolute right-4 top-[52%] z-10 max-w-[70%] -translate-y-1/2 text-right sm:right-6 sm:max-w-[60%]">
             <div className="mb-1.5 flex items-center justify-end gap-1.5">
               <span className="text-[0.75rem] leading-none tracking-tight text-lime">★★★★★</span>
@@ -513,7 +513,7 @@ function BeforeAfterDemo() {
             </div>
           </div>
 
-          {/* floating glass booking widget — the "wow" element */}
+          {/* floating glass booking widget: the "wow" element */}
           <div className="absolute bottom-3 left-3 z-10 hidden w-40 rounded-xl border border-white/15 bg-white/[0.08] p-2.5 shadow-2xl backdrop-blur-md md:block">
             <div className="flex items-center justify-between">
               <span className="text-[0.75rem] font-bold uppercase tracking-wide text-white">Book a table</span>
@@ -531,7 +531,7 @@ function BeforeAfterDemo() {
             <div className="mt-2 rounded-md bg-lime py-1 text-center text-[0.75rem] font-bold uppercase text-ink">Confirm</div>
           </div>
         </div>
-        {/* BEFORE (dated) — a cluttered 2003 site; fixed inner width so it never reflows */}
+        {/* BEFORE (dated): a cluttered 2003 site; fixed inner width so it never reflows */}
         <div className="absolute inset-0 overflow-hidden bg-[#d9d7cc]" style={{ width: `${pos}%` }}>
           <div
             className="h-full font-serif text-[#3a3a44]"
@@ -641,10 +641,10 @@ const nextStage = (s: Stage): Stage =>
   STAGE_ORDER[Math.min(STAGE_ORDER.indexOf(s) + 1, STAGE_ORDER.length - 1)];
 
 /**
- * Interactive CRM demo — a live pipeline board. Every lead the site captures
+ * Interactive CRM demo: a live pipeline board. Every lead the site captures
  * (audit form, AI chat, booking widget) lands here as a card. Tap a card to
  * advance it down the pipeline; the pipeline value + won total update live.
- * Pure client state — mirrors the real /crm board Stackwrk ships to clients.
+ * Pure client state: mirrors the real /crm board Stackwrk ships to clients.
  */
 function CrmDemo() {
   const [deals, setDeals] = useState<Deal[]>(SEED_DEALS);
@@ -671,7 +671,7 @@ function CrmDemo() {
         </div>
       </div>
 
-      {/* board — scrolls sideways on small panels */}
+      {/* board: scrolls sideways on small panels */}
       <div className="overflow-x-auto pb-1">
         <div className="flex min-w-[460px] gap-2">
           {CRM_STAGES.map((stage) => {
@@ -759,7 +759,7 @@ export default function DemoShowcase() {
         <div className="pointer-events-none absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-violet-600/15 blur-[90px]" />
 
         <div className="relative grid grid-cols-1 lg:grid-cols-[0.82fr_2fr]">
-          {/* Left rail — explanation + vertical tabs */}
+          {/* Left rail: explanation + vertical tabs */}
           <div className="min-w-0 border-b border-white/[0.06] p-5 sm:p-6 lg:border-b-0 lg:border-r">
             <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-lime">
               <Sparkles width={14} height={14} /> Live product lab
@@ -790,7 +790,7 @@ export default function DemoShowcase() {
             </div>
           </div>
 
-          {/* Right — the live demo */}
+          {/* Right: the live demo */}
           <div className="relative min-w-0 p-4 sm:p-5">
             <div className="mb-3 flex items-center gap-2 px-1 text-xs text-white/45">
               <span className="h-1.5 w-1.5 rounded-full bg-lime shadow-[0_0_6px_rgba(203,255,60,0.9)]" />

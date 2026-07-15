@@ -84,7 +84,7 @@ export default function ToolLayout({
         </div>
       </div>
 
-      {/* FAQ — visible + drives FAQPage schema for SEO/AIO */}
+      {/* FAQ: visible + drives FAQPage schema for SEO/AIO */}
       <section className="relative py-14 sm:py-20">
         <div className="container-content">
           <div className="mx-auto max-w-3xl">

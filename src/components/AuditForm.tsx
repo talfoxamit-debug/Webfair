@@ -34,7 +34,7 @@ export default function AuditForm() {
       }
 
       if (res.status === 503) {
-        // Not configured yet — still give the user a path forward.
+        // Not configured yet, still give the user a path forward.
         setErrorMsg(
           "The form isn’t live just yet. Please email hello@stackwrk.com and we’ll get right back to you.",
         );
@@ -69,7 +69,7 @@ export default function AuditForm() {
 
   return (
     <form onSubmit={onSubmit} className="space-y-3" noValidate>
-      {/* Honeypot — visually hidden, ignored by humans, catches bots */}
+      {/* Honeypot: visually hidden, ignored by humans, catches bots */}
       <input
         type="text"
         name="company"

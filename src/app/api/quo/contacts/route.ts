@@ -7,7 +7,7 @@ export const runtime = "nodejs";
 /**
  * POST → push one CRM lead into Quo as a contact (create or update), so
  * their name shows up in Quo's own call/text UI instead of a raw number.
- * Best-effort by design (see upsertQuoContact) — a failure here never
+ * Best-effort by design (see upsertQuoContact): a failure here never
  * blocks saving the lead in the CRM itself.
  */
 export async function POST(req: Request) {

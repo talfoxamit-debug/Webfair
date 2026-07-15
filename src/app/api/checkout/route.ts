@@ -6,8 +6,8 @@ export const runtime = "nodejs";
 /**
  * Create a Stripe Checkout Session and return its URL.
  * Body:
- *   { kind: "deposit", amount, label, email?, client? }        — one-time payment
- *   { kind: "care", monthly, plan, email? }                    — monthly subscription
+ *   { kind: "deposit", amount, label, email?, client? }        : one-time payment
+ *   { kind: "care", monthly, plan, email? }                    : monthly subscription
  * amount / monthly are in whole US dollars.
  */
 export async function POST(req: Request) {

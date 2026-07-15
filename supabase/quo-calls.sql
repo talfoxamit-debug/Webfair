@@ -22,4 +22,4 @@ create index if not exists quo_calls_phone_idx on public.quo_calls (phone_digits
 create index if not exists quo_calls_occurred_idx on public.quo_calls (occurred_at desc);
 
 alter table public.quo_calls enable row level security;
--- (No policies on purpose — only the service-role key may read/write.)
+-- (No policies on purpose, only the service-role key may read/write.)

@@ -64,7 +64,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "invalid_json" }, { status: 400 });
   }
 
-  // Honeypot — silently accept, never store.
+  // Honeypot: silently accept, never store.
   if (typeof body.company === "string" && body.company.trim() !== "") {
     return NextResponse.json({ ok: true, emailed: false, stored: false });
   }

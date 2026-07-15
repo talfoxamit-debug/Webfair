@@ -27,7 +27,7 @@ const money = (n: number) => {
 };
 
 /**
- * Instant fence cost estimator — the lead-magnet centerpiece. Pure client math,
+ * Instant fence cost estimator: the lead-magnet centerpiece. Pure client math,
  * no backend. Gives a homeowner a real ballpark in seconds, then funnels them
  * to the quote form. Reused verbatim by the mockup generator per prospect.
  */

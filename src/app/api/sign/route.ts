@@ -28,7 +28,7 @@ function rateLimited(ip: string): boolean {
 export async function POST(req: Request) {
   let body: { config?: unknown; signer?: string; method?: string; drawing?: string; company?: string };
   try { body = await req.json(); } catch { return NextResponse.json({ ok: false, error: "bad" }, { status: 400 }); }
-  // Honeypot — bots fill hidden fields; silently accept without sending/storing.
+  // Honeypot: bots fill hidden fields; silently accept without sending/storing.
   if (typeof body.company === "string" && body.company.trim() !== "") {
     return NextResponse.json({ ok: true, id: "", ip: "", signedAt: new Date().toISOString() });
   }
@@ -64,12 +64,12 @@ export async function POST(req: Request) {
       user_agent: userAgent,
     });
     // Best-effort: a DB error (e.g. the `signatures` table not created yet) must
-    // NOT block a real client from signing and paying. Log it and continue —
+    // NOT block a real client from signing and paying. Log it and continue:
     // the signed confirmation + emailed copy still go through.
     if (error) console.error("[sign] signature insert failed:", error.message);
   }
 
-  // Email a permanent copy to the client (and Tal) — best-effort, never blocks
+  // Email a permanent copy to the client (and Tal): best-effort, never blocks
   // the signed confirmation the client sees.
   try {
     const html = renderAgreementEmailHtml(body.config as Record<string, unknown>, { signer, method, ip, signedAt });
@@ -86,7 +86,7 @@ export async function POST(req: Request) {
     console.error("[sign] copy email failed:", (e as Error).message);
   }
 
-  // If Supabase isn't configured we still confirm — the signature intent is captured client-side.
+  // If Supabase isn't configured we still confirm: the signature intent is captured client-side.
   return NextResponse.json({ ok: true, id, ip, signedAt });
 }
 

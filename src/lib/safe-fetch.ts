@@ -3,7 +3,7 @@ import dnsp from "dns/promises";
 /**
  * SSRF-safe outbound HTTP fetch for user-submitted URLs (the audit tool,
  * lead email enrichment, etc.). Blocks localhost/internal/private/
- * link-local hosts, including cloud metadata endpoints — checked on every
+ * link-local hosts, including cloud metadata endpoints. Checked on every
  * redirect hop, not just the initial URL, so a public host can't redirect
  * its way into an internal one.
  */
@@ -41,8 +41,8 @@ export function isBlockedHost(host: string): boolean {
 }
 
 /** DNS-resolve a hostname and block if any address is internal (catches names
- *  that point at private IPs). Best-effort: a resolution failure doesn't block —
- *  the fetch will simply fail on its own for a genuinely unreachable host. */
+ *  that point at private IPs). Best-effort: a resolution failure doesn't block.
+ *  The fetch will simply fail on its own for a genuinely unreachable host. */
 export async function resolvesToPrivate(hostname: string): Promise<boolean> {
   if (/^[0-9.]+$/.test(hostname) || hostname.includes(":")) return isPrivateIp(hostname);
   try {

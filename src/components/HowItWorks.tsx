@@ -6,7 +6,7 @@ import CardSpotlight from "./CardSpotlight";
 import { howItWorks } from "@/lib/content";
 
 /* ----------------------------------------------------- step mini-artifacts */
-/** ① a concrete audit scorecard — score + labelled category bars */
+/** ① a concrete audit scorecard: score + labelled category bars */
 function MiniAudit() {
   const cats: [string, number, string][] = [
     ["Speed", 61, "#A8E016"],
@@ -107,7 +107,7 @@ export default function HowItWorks() {
 
   return (
     <section id="process" className="relative scroll-mt-20 py-12 sm:py-16">
-      {/* Running fox — reinforces "live in weeks, not months" (desktop only). */}
+      {/* Running fox: reinforces "live in weeks, not months" (desktop only). */}
       <div className="pointer-events-none absolute right-[3%] top-4 z-0 hidden w-[32%] max-w-sm xl:block" aria-hidden="true">
         <div className="animate-float-y">
           {/* eslint-disable-next-line @next/next/no-img-element -- static decorative asset */}
@@ -137,7 +137,7 @@ export default function HowItWorks() {
         </div>
 
         <div ref={ref} className="relative mt-10">
-          {/* Connecting journey line — draws itself across the three steps */}
+          {/* Connecting journey line: draws itself across the three steps */}
           <svg
             aria-hidden="true"
             viewBox="0 0 1200 60"
@@ -175,7 +175,7 @@ export default function HowItWorks() {
                   className="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-lime/30 hover:bg-white/[0.035] hover:shadow-[0_24px_60px_-34px_rgba(203,255,60,0.4)]"
                 >
                   <CardSpotlight />
-                  {/* ghost digit — kept fully inside the card so it reads as a
+                  {/* ghost digit: kept fully inside the card so it reads as a
                       faint watermark instead of a cropped number at the edge */}
                   <span
                     aria-hidden="true"

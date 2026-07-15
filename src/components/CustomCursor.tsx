@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 /**
  * A trailing lime glow ring that springs after the cursor and swells over
- * interactive elements. Additive — the native cursor stays for usability.
+ * interactive elements. Additive: the native cursor stays for usability.
  * Fine-pointer only, frozen for reduced-motion, all transforms via rAF lerp.
  */
 export default function CustomCursor() {

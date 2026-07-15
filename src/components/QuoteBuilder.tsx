@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { priceItems, money, type PriceItem } from "@/lib/pricing";
 
 /**
- * Internal quote builder (Tal-only, /quote — noindex, unlinked).
+ * Internal quote builder (Tal-only, /quote, noindex, unlinked).
  * Pick services → live totals (one-time, MRR, year-1 value) with a
  * founding/standard rate toggle → copy a ready-to-send quote.
  */
@@ -87,7 +87,7 @@ export default function QuoteBuilder() {
       setCopied(true);
       setTimeout(() => setCopied(false), 1600);
     } catch {
-      /* clipboard unavailable — user can select the preview text manually */
+      /* clipboard unavailable: user can select the preview text manually */
     }
   }
 

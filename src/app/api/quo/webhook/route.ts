@@ -10,7 +10,7 @@ type Json = Record<string, unknown>;
 type QuoEvent = { type?: string; data?: { resource?: Json; context?: Json } };
 
 /**
- * Quo (formerly OpenPhone) event webhook — the live feed for calls,
+ * Quo (formerly OpenPhone) event webhook: the live feed for calls,
  * recordings, transcripts, summaries, texts and contact updates.
  *
  * Setup: Quo → Settings → Integrations → Webhooks → Add webhook
@@ -20,13 +20,13 @@ type QuoEvent = { type?: string; data?: { resource?: Json; context?: Json } };
  *           message.received, message.delivered,
  *           contact.updated, contact.deleted
  * Copy the signing secret into QUO_WEBHOOK_SECRET (new-style, starts
- * "whsec_") or QUO_WEBHOOK_SECRET_LEGACY (older app-created webhooks) —
+ * "whsec_") or QUO_WEBHOOK_SECRET_LEGACY (older app-created webhooks).
  * Quo hands you one or the other depending on which system creates it.
  *
  * If your Quo workspace has numbers for more than one business (e.g. a
  * "receive updates from all phone numbers" webhook also covers an
  * unrelated line), set QUO_ALLOWED_NUMBERS to a comma-separated list of
- * the Stackwrk number(s) — any event from a number not in that list is
+ * the Stackwrk number(s): any event from a number not in that list is
  * ignored, so a different business's calls never leak into this CRM.
  *
  * The contact.* payload shape isn't fully documented publicly, so

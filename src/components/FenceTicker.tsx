@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 /**
- * Subtle "recent activity" ticker — cycles through quote/booking events to give
+ * Subtle "recent activity" ticker: cycles through quote/booking events to give
  * the site a sense of momentum. Purely presentational; messages are generic so
  * it's honest on both the demo and per-prospect mockups.
  */

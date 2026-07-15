@@ -1,7 +1,7 @@
 import CountUp from "./CountUp";
 
 /**
- * Thin proof strip — honest, verifiable numbers only (no invented
+ * Thin proof strip: honest, verifiable numbers only (no invented
  * percentages). Numeric stats count up as they scroll into view.
  */
 const stats: { value?: number; text?: string; label: string }[] = [

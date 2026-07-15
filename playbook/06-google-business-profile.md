@@ -1,4 +1,4 @@
-# Google Business Profile — Stackwrk Setup
+# Google Business Profile: Stackwrk Setup
 
 A Google Business Profile (GBP) is how you show up in Google Maps and the local
 "3-pack" when someone searches **"web designer near me"** or **"website
@@ -15,34 +15,34 @@ doubles as social proof. Here's the exact setup for Stackwrk.
    account you control long-term (your `@stackwrk.com` Workspace account is fine,
    or a dedicated Gmail). Don't use a random personal one you might lose.
 
-## 2. Business name — exactly this
+## 2. Business name: exactly this
 - Name: **`Stackwrk`**
 - ⚠️ Do NOT stuff keywords ("Stackwrk Web Design Fort Lauderdale"). Google
   suspends profiles for that. Just `Stackwrk`.
 
 ## 3. Business type & category
 - When asked about a storefront, choose **"I deliver goods and services to my
-  customers"** — you're a **service-area business** (no public office).
+  customers"**, you're a **service-area business** (no public office).
 - **Primary category: `Website designer`** ← this is the money category; it's
   what you'll rank for.
 - Add these **additional categories**: `Marketing agency`, `Internet marketing
   service`, `Advertising agency`. (Categories decide what searches you appear in
-  — add all that truly apply.)
+  - add all that truly apply.)
 
 ## 4. Service area (not an address)
-- Since you work from home/remote, **don't show a street address** — Google lets
+- Since you work from home/remote, **don't show a street address**, Google lets
   service-area businesses hide it.
 - Add your service areas: **Fort Lauderdale, Pompano Beach, Coral Springs,
   Hollywood, Davie, Pembroke Pines, Boca Raton** and **Broward County / Miami-Dade
   / South Florida**.
 
 ## 5. Contact info
-- **Phone:** `(754) 551-2828` (your Quo line — local 754 = trust)
+- **Phone:** `(754) 551-2828` (your Quo line, local 754 = trust)
 - **Website:** `https://stackwrk.com`
 
 ## 6. Verify (the gate to going live)
 - For service-area businesses Google usually requires **video verification**:
-  record a short unbroken video showing you're a real, operating business —
+  record a short unbroken video showing you're a real, operating business
   your laptop with a client site open (use the fence demo!), your business
   mail/ID, the tools you use. Follow the on-screen prompts.
 - Verification can take a few days. Nothing shows publicly until it clears.
@@ -50,7 +50,7 @@ doubles as social proof. Here's the exact setup for Stackwrk.
 ## 7. Fill it out 100% (Google ranks complete profiles higher)
 **Description** (paste this, tweak to taste):
 > Stackwrk builds fast, modern websites for contractors and local businesses
-> across South Florida — fence and exterior pros, home services, restaurants and
+> across South Florida, fence and exterior pros, home services, restaurants and
 > shops. You work directly with the developer, no agency middlemen: custom-coded,
 > mobile-first sites with instant-quote forms and SEO built to turn "near me"
 > searches into booked jobs. Most sites launch in about two weeks. Serving Fort
@@ -61,7 +61,7 @@ doubles as social proof. Here's the exact setup for Stackwrk.
 - Website Design · Website Redesign · Contractor Websites · Landing Pages ·
   Local SEO · Website Maintenance · Instant-Quote Forms
 
-**Photos** (huge for ranking — add 5–10):
+**Photos** (huge for ranking, add 5–10):
 - Your logo + a cover image
 - Screenshots of sites you've built: the fence demo, Above Air, Marco's, SeaTop
 - A photo of you (people hire people)
@@ -82,6 +82,6 @@ doubles as social proof. Here's the exact setup for Stackwrk.
 
 ---
 
-**When it's live, ping me** — I'll embed the profile + reviews on stackwrk.com,
+**When it's live, ping me**, I'll embed the profile + reviews on stackwrk.com,
 add the review link, and wire your GBP into the site's local SEO so they
 reinforce each other.

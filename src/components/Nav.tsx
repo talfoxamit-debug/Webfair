@@ -13,7 +13,7 @@ export default function Nav() {
   const lastY = useRef(0);
   const pathname = usePathname() || "/";
   const onHome = pathname === "/";
-  // Internal tools + standalone demo sites carry their own chrome — no marketing nav.
+  // Internal tools + standalone demo sites carry their own chrome: no marketing nav.
   const bare = /^\/(crm|prospects|quote|demos|mockup|agreement)(\/|$)/.test(pathname);
   // In-page anchors only resolve on the home page; from any other route send
   // them to the home page first (e.g. "#plans" → "/#plans").
@@ -23,7 +23,7 @@ export default function Nav() {
     const onScroll = () => {
       const y = window.scrollY;
       setScrolled(y > 12);
-      // Hide on scroll-down past the hero, reveal on scroll-up — keeps sections
+      // Hide on scroll-down past the hero, reveal on scroll-up: keeps sections
       // cinematic instead of always under a fixed strip.
       if (y > 200 && y > lastY.current + 5) setHidden(true);
       else if (y < lastY.current - 5) setHidden(false);

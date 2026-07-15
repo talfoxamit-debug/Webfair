@@ -36,7 +36,7 @@ function Shot({ project, ratio = "aspect-[16/11]" }: { project: Project; ratio?:
             className="h-full w-full object-cover object-top brightness-[1.16] contrast-[1.04] saturate-[1.06] transition-transform duration-[1400ms] ease-out group-hover:scale-[1.05]"
           />
         )}
-        {/* premium glass pill — a demo reads as a demo (no "live" pulse) */}
+        {/* premium glass pill: a demo reads as a demo (no "live" pulse) */}
         <span className={`absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/45 px-2.5 py-1 text-[0.75rem] font-semibold uppercase tracking-wide backdrop-blur-md ${project.demo ? "text-white/75" : "text-lime"}`}>
           {!project.demo && <span className="h-1.5 w-1.5 rounded-full bg-lime shadow-[0_0_6px_rgba(203,255,60,0.9)]" />}
           {project.badge ?? "Live project"}
@@ -86,7 +86,7 @@ export default function FeaturedProjects() {
       id="work"
       className="relative scroll-mt-20 overflow-hidden bg-[#070312] py-12 sm:py-16"
     >
-      {/* Deep cinematic backdrop — near-black base, a few restrained glows, and a
+      {/* Deep cinematic backdrop: near-black base, a few restrained glows, and a
           grid so faint it only reads as texture. Not a flat purple block. */}
       <div className="pointer-events-none absolute inset-0">
         <ScrollParallax speed={0.22} className="absolute -left-40 top-4 h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.16),transparent_68%)] blur-2xl" />
@@ -116,14 +116,14 @@ export default function FeaturedProjects() {
           </a>
         </Reveal>
 
-        {/* Featured case study — wide, screenshot + copy side by side */}
+        {/* Featured case study: wide, screenshot + copy side by side */}
         <Reveal as="article" className={`mt-8 ${cardBase}`}>
           <CardSpotlight />
           <div className="relative z-[1] grid lg:grid-cols-[1.6fr_1fr]">
             <div className="relative border-b border-white/[0.06] lg:border-b-0 lg:border-r">
               <Shot project={featured} ratio="aspect-[16/9]" />
 
-              {/* Floating fragments of the site's real tools — makes the
+              {/* Floating fragments of the site's real tools: makes the
                   screenshot read as a living product, not a pasted image */}
               <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden lg:block">
                 <div className="absolute right-5 top-14 w-40 animate-float rounded-xl border border-white/15 bg-[#0b0616]/85 p-3 shadow-2xl backdrop-blur-md">
@@ -159,7 +159,7 @@ export default function FeaturedProjects() {
           </div>
         </Reveal>
 
-        {/* Prominent work — 2-up */}
+        {/* Prominent work: 2-up */}
         <div className="mt-5 grid gap-5 md:grid-cols-2">
           {main.map((project, i) => (
             <Reveal
@@ -182,7 +182,7 @@ export default function FeaturedProjects() {
           ))}
         </div>
 
-        {/* More work — quieter 2-up: screenshot + name + one line, no bullets */}
+        {/* More work, quieter 2-up: screenshot + name + one line, no bullets */}
         {more.length > 0 && (
           <div className="mt-9">
             <p className="mb-4 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-white/35">

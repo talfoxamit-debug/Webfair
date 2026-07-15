@@ -33,7 +33,7 @@ export default function FinalCTA() {
     <section id="about" className="relative scroll-mt-20 overflow-hidden pb-16 pt-8 sm:pb-20 sm:pt-10">
       <div className="pointer-events-none absolute -right-32 top-10 h-80 w-80 rounded-full bg-violet-600/15 blur-[80px]" />
 
-      {/* The fox returns — brand bookend, sitting proud and looking up toward
+      {/* The fox returns: brand bookend, sitting proud and looking up toward
           the closing pitch. Gently floats in place (frozen by reduced-motion). */}
       <div className="pointer-events-none absolute -bottom-6 -left-8 z-0 hidden xl:block" aria-hidden="true">
         <div className="absolute inset-0 scale-110 rounded-full bg-[radial-gradient(circle,rgba(162,28,224,0.18),transparent_68%)] blur-2xl" />
@@ -73,7 +73,7 @@ export default function FinalCTA() {
             ))}
           </ul>
 
-          {/* What booking actually gets you — the deliverable stack */}
+          {/* What booking actually gets you: the deliverable stack */}
           <div className="relative mt-9 max-w-md space-y-3">
             {deliverables.map((d, i) => {
               const Icon = d.icon;

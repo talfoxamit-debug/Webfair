@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Self-hosted display face — a clean, modern condensed poster grotesque used
+/* Self-hosted display face: a clean, modern condensed poster grotesque used
    only for headlines & big stats. Self-hosted (no build-time font fetch, no
    render-blocking round-trip). Latin + latin-ext subsets, swap so text paints
    immediately in the fallback and upgrades when the file lands. */
@@ -48,11 +48,11 @@
 
   body {
     @apply text-white/90 font-sans antialiased;
-    /* Deep near-black base — cinematic, not a purple wash. */
+    /* Deep near-black base: cinematic, not a purple wash. */
     background-color: #070312;
   }
 
-  /* Ambient glow pinned to the viewport via a composited fixed layer — far
+  /* Ambient glow pinned to the viewport via a composited fixed layer: far
      cheaper on mobile than `background-attachment: fixed`, which repaints on
      every scroll frame. Restrained + top-anchored so the bulk of the page
      stays deep black; a couple of glows just keep it from feeling flat. */
@@ -67,7 +67,7 @@
       radial-gradient(34rem 30rem at 6% 0%, rgba(46, 107, 255, 0.09), transparent 60%);
   }
 
-  /* Film-grain overlay — kills the "flat digital black" and gives every glow a
+  /* Film-grain overlay: kills the "flat digital black" and gives every glow a
      subtle texture. A tiny tiled SVG noise, composited once (fixed layer). */
   body::after {
     content: "";
@@ -94,7 +94,7 @@
     border-radius: 2px;
   }
 
-  /* Skip-to-content link — hidden until a keyboard user tabs to it. */
+  /* Skip-to-content link: hidden until a keyboard user tabs to it. */
   .skip-link {
     @apply sr-only;
   }
@@ -135,7 +135,7 @@
     @apply mx-auto w-full max-w-content px-5 sm:px-8;
   }
 
-  /* CRM theme tokens — light (day) by default, dark (night) under a `.dark` root.
+  /* CRM theme tokens: light (day) by default, dark (night) under a `.dark` root.
      Keeps the /prospects tool readable as a work surface in either mode. */
   .crm-page   { @apply bg-slate-100 text-slate-800 dark:bg-[#0b0f14] dark:text-slate-100; }
   .crm-card   { @apply border border-slate-200 bg-white dark:border-white/10 dark:bg-[#11161d]; }
@@ -159,7 +159,7 @@
     text-shadow: 0 0 24px rgba(203, 255, 60, 0.45);
   }
 
-  /* Primary lime CTA button — soft glow + a shine sweep on hover. */
+  /* Primary lime CTA button: soft glow + a shine sweep on hover. */
   .btn-primary {
     @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-lg
       bg-lime px-7 py-4 font-sans text-[0.95rem] font-semibold tracking-tight text-ink shadow-glow-lime
@@ -186,7 +186,7 @@
     transform: skewX(-20deg) translateX(340%);
   }
 
-  /* Secondary / ghost button — glassy. */
+  /* Secondary / ghost button: glassy. */
   .btn-ghost {
     @apply inline-flex items-center justify-center gap-2 rounded-lg border border-white/25
       bg-white/[0.06] px-7 py-4 font-sans text-[0.95rem] font-semibold tracking-tight text-white/90
@@ -230,7 +230,7 @@
   }
 }
 
-/* Gentle idle float — used on the hero fox so it breathes/hovers in place.
+/* Gentle idle float: used on the hero fox so it breathes/hovers in place.
    Applied to an inner wrapper so the outer layer keeps its cursor-parallax
    transform. Frozen by the global reduced-motion rule. */
 @keyframes float-y {

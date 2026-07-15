@@ -1,7 +1,7 @@
-# Stackwrk — Business Plan & Strategy (Level 1)
+# Stackwrk: Business Plan & Strategy (Level 1)
 
 Owner: Tal · Solo, side-hustle (scale if proven) · Delivery leverage: AI-assisted development
-Status: Level 1 of 4. Living document — update as reality teaches us.
+Status: Level 1 of 4. Living document, update as reality teaches us.
 
 ---
 
@@ -15,7 +15,7 @@ the binding constraint (solo + side hustle), not skill and not delivery capacity
 (AI coding removes that ceiling).
 
 **The unfair advantage / positioning:**
-> "I'm not a web designer. I've built and operate 4 companies — CRMs, scrapers,
+> "I'm not a web designer. I've built and operate 4 companies, CRMs, scrapers,
 > marketing automation, the works. I don't sell you a website; I build you the
 > same money-making systems I run my own businesses on."
 
@@ -23,7 +23,7 @@ No agency can say that. No freelancer can say that. This is the brand.
 
 ---
 
-## 1. Goal (recommended — Tal asked "what do you think?")
+## 1. Goal (recommended: Tal asked "what do you think?")
 
 Staged, with explicit gates and kill criteria. Don't skip stages.
 
@@ -33,25 +33,25 @@ Staged, with explicit gates and kill criteria. Don't skip stages.
 | **B. Prove MRR** | Months 3–9 | **$8–10k MRR** (care plans + retainers + 1–2 app/automation projects/mo) | This is the "go full-time?" gate. MRR at this level ≈ replaces a salary with an *asset attached*. |
 | **C. Scale decision** | Months 9–18 | **$25k+/mo blended**, delivery productized | Fork: grow as a lean agency, or spin the best proprietary tool into vertical SaaS. |
 
-**North star:** build a **sellable asset** — a book of MRR + proprietary tools —
+**North star:** build a **sellable asset**, a book of MRR + proprietary tools
 not a second job. Agencies with clean MRR books sell for 2.5–4× ARR; a job sells for nothing.
 
 ---
 
 ## 2. Who we serve (ICP) & what actually hurts
 
-### Primary ICP — "The successful-but-manual SMB"
+### Primary ICP: "The successful-but-manual SMB"
 - Established local/regional service business, **$300k–$5M revenue, 2–25 staff**
 - Owner-operated; has money, has no time; website is 5+ years old or a template
 - Verticals to beachhead first (where proof already exists): **real estate / marine-boating**
-  (SeaTop, YatHub) and **local services** (classes/health/trades — Capoeira Auê pattern)
+  (SeaTop, YatHub) and **local services** (classes/health/trades, Capoeira Auê pattern)
 - Buying trigger: lost a deal to a competitor with a better web presence, or drowning in manual admin
 
-### Secondary ICP — Tal's operator network
+### Secondary ICP: Tal's operator network
 Business partners and owner friends across 4 companies → **warm intros**. Highest
 close-rate channel available; use it first, not last.
 
-### Tertiary (later) — agencies needing white-label dev muscle
+### Tertiary (later): agencies needing white-label dev muscle
 Only after delivery is productized (Level 4). Don't chase now.
 
 ### Pain-point map → offer (sell the pain, not the tech)
@@ -63,12 +63,12 @@ Only after delivery is productized (Level 4). Don't chase now.
 | "My week disappears into admin" | Owner hours burned on $15/h work | Workflow automations |
 | "I pay for 6 tools that don't talk" | SaaS sprawl, double data entry | Custom CRM / integrations |
 | "No idea which marketing works" | Spend without feedback loop | Dashboards, tracking, scrapers/lead-gen |
-| "My last web guy vanished" | Fear — biggest objection to buying at all | **Care plan** (reliability = retention moat) |
+| "My last web guy vanished" | Fear, biggest objection to buying at all | **Care plan** (reliability = retention moat) |
 
 **Learning system (how we keep learning clients):** every audit call is logged as
 discovery (pain, current tools, $ impact, objection) in the CRM (Level 3); win/loss
 note after every proposal; ICP + messaging reviewed against this data monthly.
-The audit tool itself is a research instrument — every URL entered tells us who's shopping.
+The audit tool itself is a research instrument, every URL entered tells us who's shopping.
 
 ---
 
@@ -99,8 +99,8 @@ APEX      Fractional CTO     $2,000–$4,000/mo  (operator-credibility makes thi
 
 **Rules that protect the model:**
 1. **Care plan is the default at handoff** (opt-out, not opt-in). Target ≥60% attach rate.
-2. Fixed-scope packages only — scope creep is death for a solo operator.
-3. Every build must include at least one *tool* (booking, calculator, chat) — that's
+2. Fixed-scope packages only, scope creep is death for a solo operator.
+3. Every build must include at least one *tool* (booking, calculator, chat), that's
    the differentiator AND what makes the care plan sticky.
 4. Price on value/outcome, never hours. AI speed is margin, not a discount.
 
@@ -115,28 +115,28 @@ APEX      Fractional CTO     $2,000–$4,000/mo  (operator-credibility makes thi
 
 Ranked by fit with solo + AI-leverage + operator brand:
 
-1. **Productized recurring services** (care plans, AI receptionist, automation subscriptions) — do now; it's the core.
-2. **Vertical SaaS spin-out** — after Stage B, take the best-performing proprietary tool
+1. **Productized recurring services** (care plans, AI receptionist, automation subscriptions), do now; it's the core.
+2. **Vertical SaaS spin-out**, after Stage B, take the best-performing proprietary tool
    (e.g., dock/rental booking engine from YatHub, or the audit tool itself) and license it
    as standalone software to the whole vertical. This is where the asymmetric upside lives.
-3. **White-label dev for agencies** — sell overflow capacity at productized prices. Only after Level 4 systems.
-4. **Templates/boilerplate licensing** — the internal component library (audit tool, booking, CRM core) sold to other devs. Passive-ish; low lift once library exists.
-5. **Build-for-equity** — Tal already partners in businesses; formalize it: only with operators he'd invest cash in, only with MRR-style terms attached. High variance; cap exposure.
+3. **White-label dev for agencies**, sell overflow capacity at productized prices. Only after Level 4 systems.
+4. **Templates/boilerplate licensing**, the internal component library (audit tool, booking, CRM core) sold to other devs. Passive-ish; low lift once library exists.
+5. **Build-for-equity**, Tal already partners in businesses; formalize it: only with operators he'd invest cash in, only with MRR-style terms attached. High variance; cap exposure.
 
 ---
 
 ## 5. The moat (honest version)
 
-Truth: at day 0 the moat is thin — it gets built deliberately, in this order:
+Truth: at day 0 the moat is thin, it gets built deliberately, in this order:
 
-1. **Cost/speed structure** — AI-assisted delivery ships in days at margins agencies
+1. **Cost/speed structure**, AI-assisted delivery ships in days at margins agencies
    can't match. (Erodes over time as everyone adopts AI → don't rely on it alone.)
-2. **Operator credibility** — "I run 4 companies" is rare and un-fakeable. Compounds with content/case studies.
-3. **Proprietary tool library** — every project deposits reusable IP (audit engine,
+2. **Operator credibility**, "I run 4 companies" is rare and un-fakeable. Compounds with content/case studies.
+3. **Proprietary tool library**, every project deposits reusable IP (audit engine,
    booking widget, CRM core, scrapers). Each build makes the next one cheaper/faster: a compounding advantage competitors can't copy from outside.
-4. **Switching costs** — we host, maintain, integrate, and hold the data relationship.
+4. **Switching costs**, we host, maintain, integrate, and hold the data relationship.
    A care-plan client with 3 automations wired into their operations does not churn casually.
-5. **Vertical depth** (end-state) — own one niche's entire stack (sites + booking + CRM
+5. **Vertical depth** (end-state), own one niche's entire stack (sites + booking + CRM
    + benchmarks across clients). Data network effects; the true durable moat.
 
 ---
@@ -155,36 +155,36 @@ Truth: at day 0 the moat is thin — it gets built deliberately, in this order:
 
 ## 7. 90-day action plan (Stage A)
 
-**Weeks 1–2 — arm the machine**
+**Weeks 1–2, arm the machine**
 - [ ] Approve pricing above (Tal) → build tiers/services into stackwrk.com (Level 2)
 - [ ] Stripe for care-plan billing; Supabase leads CRM + pipeline stages (Level 3/4 slice)
 - [ ] List 20 warm network contacts + 200 targets across the 2 beachhead verticals
 
-**Weeks 3–8 — sell**
+**Weeks 3–8, sell**
 - [ ] 30 personalized cold emails/day using `stackwrk.com/?for=<industry>` links + their own audit result as the hook
 - [ ] Ask every business partner for 1 intro ("who has an embarrassing website and money?")
 - [ ] Target: 10+ audit calls, 3–5 closed builds
 
-**Weeks 6–12 — deliver & convert**
+**Weeks 6–12, deliver & convert**
 - [ ] Ship builds in ≤3 weeks; care plan presented as default at handoff
 - [ ] Collect testimonial + a hard number from every launch (replaces sample quotes on site)
 - [ ] Log every pain point / objection in CRM → refine ICP & messaging monthly
 
-**Day 90 — decision gate:** ≥5 clients & ≥3 care plans → push to Stage B. Below that → reposition and rerun (do not add services; narrow instead).
+**Day 90, decision gate:** ≥5 clients & ≥3 care plans → push to Stage B. Below that → reposition and rerun (do not add services; narrow instead).
 
 ---
 
 ## Level tracker (mission 2)
 
-- **Level 1 — Strategy: ☑ this document** (+ `PRICING-BENCHMARKS.md` market validation)
-- **Level 2 — Productize offers into the site: ☑** — public Plans section (#plans,
+- **Level 1, Strategy: ☑ this document** (+ `PRICING-BENCHMARKS.md` market validation)
+- **Level 2, Productize offers into the site: ☑**, public Plans section (#plans,
   care tiers + services grid w/ founding-rate anchoring), nav "Pricing" link, and the
   internal quote builder at `/quote` (noindex). Price book: `src/lib/pricing.ts`.
-- **Level 3 — Go-to-market engine: ☑ (code complete)** — `MARKETING.md` (channels,
+- **Level 3, Go-to-market engine: ☑ (code complete)**, `MARKETING.md` (channels,
   audit-led sequences, cadence, metrics) + internal CRM pipeline at `/crm`
   (key-gated, statuses, notes) + audit-run logging (warm-lead signal).
   *Activation needs Tal:* Supabase env vars + `CRM_ACCESS_KEY`, sending-domain warmup.
-- **Level 4 — Scale systems & moat: ☑ (code complete)** — `DELIVERY.md` (delivery
+- **Level 4, Scale systems & moat: ☑ (code complete)**, `DELIVERY.md` (delivery
   checklists, retention system, tool-library moat ledger), Stripe care-plan
   subscriptions via config-driven Payment Links ("Subscribe now" appears when a
   link is pasted into `src/lib/pricing.ts`), client portal deliberately deferred

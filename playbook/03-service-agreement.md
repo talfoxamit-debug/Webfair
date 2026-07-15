@@ -1,6 +1,6 @@
 # Website Design & Development Agreement
 
-> **Template — not legal advice.** Have a Florida attorney review once before you
+> **Template, not legal advice.** Have a Florida attorney review once before you
 > use it for real. Fill every `[BRACKET]`. For e-signatures use a free tool
 > (Docusign free tier, PandaDoc, or Dropbox Sign). Send it *after* the prospect
 > verbally says yes and you've collected the deposit link.
@@ -16,7 +16,7 @@
 Developer will design, build, and launch a website for Client per the **`[Launch / Growth / Market Leader]`** package:
 
 - `[# ]` pages, mobile-responsive, custom design (no template resale).
-- Lead capture: quote form + click-to-call. `[Online booking / financing page / service-area pages — per package]`
+- Lead capture: quote form + click-to-call. `[Online booking / financing page / service-area pages, per package]`
 - On-page SEO basics, Google Business Profile setup assistance, analytics.
 - One (1) round of revisions at design stage and one (1) round before launch.
 - Target launch: **within 10 business days** of receiving all Client content (Section 4).
@@ -67,6 +67,6 @@ This Agreement is governed by the laws of the **State of Florida**. It is the en
 
 **Accepted & agreed:**
 
-Developer — Fox Solutions LLC (Stackwrk)  ____________________  Date ________
+Developer, Fox Solutions LLC (Stackwrk)  ____________________  Date ________
 
-Client — `[CLIENT NAME]`  ____________________  Date ________
+Client, `[CLIENT NAME]`  ____________________  Date ________

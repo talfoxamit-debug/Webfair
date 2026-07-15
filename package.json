@@ -2,7 +2,7 @@
   "name": "stackwrk",
   "version": "1.0.0",
   "private": true,
-  "description": "Stackwrk — bold websites, real results. Marketing landing page.",
+  "description": "Stackwrk: bold websites, real results. Marketing landing page.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

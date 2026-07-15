@@ -1,4 +1,4 @@
-/** Shared CRM pipeline definitions — used by /api/leads and the /crm board. */
+/** Shared CRM pipeline definitions, used by /api/leads and the /crm board. */
 
 export const LEAD_STATUSES = [
   "new",

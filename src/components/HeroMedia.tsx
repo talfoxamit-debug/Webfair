@@ -12,7 +12,7 @@ import { hero } from "@/lib/content";
  *  - "panel"  (mobile): the contained block with glow + abstract-visual
  *    fallback, stacked in the normal flow.
  *
- * Served as pre-optimized static webp via srcset (127 KB / 333 KB) — no
+ * Served as pre-optimized static webp via srcset (127 KB / 333 KB): no
  * image-optimizer round-trip, eager + high priority for LCP.
  */
 export default function HeroMedia({ variant = "panel" }: { variant?: "panel" | "bleed" }) {

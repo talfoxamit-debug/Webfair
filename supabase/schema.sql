@@ -22,7 +22,7 @@ create index if not exists leads_created_at_idx on public.leads (created_at desc
 create index if not exists leads_status_idx     on public.leads (status);
 
 alter table public.leads enable row level security;
--- (No policies on purpose — only the service-role key may touch this table.)
+-- (No policies on purpose, only the service-role key may touch this table.)
 
 -- ---------------------------------------------------------------- audits
 -- Every audit run is logged here (a warm-lead signal: who's checking their score).
@@ -38,4 +38,4 @@ create table if not exists public.audits (
 create index if not exists audits_created_at_idx on public.audits (created_at desc);
 
 alter table public.audits enable row level security;
--- (No policies — service-role only.)
+-- (No policies, service-role only.)

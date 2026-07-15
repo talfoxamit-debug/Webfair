@@ -5,7 +5,7 @@
  *  - a compact text summary stored on the CRM lead so Tal sees the score
  *    and top issues at a glance.
  *
- * Pure/serializable — safe to import in both the API route and the client.
+ * Pure/serializable: safe to import in both the API route and the client.
  */
 
 export type CheckStatus = "pass" | "warn" | "fail";
@@ -65,7 +65,7 @@ function scoreColor(score: number): string {
 }
 
 /**
- * The full report email. Inline styles + table layout only — that's what
+ * The full report email. Inline styles + table layout only: that's what
  * survives Gmail/Outlook/Apple Mail. Dark header, clean light body.
  */
 export function renderReportEmailHtml(opts: {

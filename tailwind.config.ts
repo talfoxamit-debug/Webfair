@@ -15,7 +15,7 @@ const config: Config = {
           500: "#241640", // raised card
           400: "#2E1C50",
         },
-        // Electric chartreuse / lime — the single accent
+        // Electric chartreuse / lime, the single accent
         lime: {
           DEFAULT: "#CBFF3C",
           400: "#D6FF3E",
@@ -38,10 +38,10 @@ const config: Config = {
         },
       },
       fontFamily: {
-        // Poster/display face — self-hosted Anton, falls back to condensed
+        // Poster/display face, self-hosted Anton, falls back to condensed
         // system faces only if the woff2 ever fails to load.
         display: ["Anton", "Haettenschweiler", "Impact", "sans-serif"],
-        // Clean UI/body face — the native Apple system font (San Francisco) on
+        // Clean UI/body face, the native Apple system font (San Francisco) on
         // Apple devices, graceful platform equivalents everywhere else.
         sans: [
           "-apple-system",

@@ -19,7 +19,7 @@ const fmtDur = (s: number | null) => (s == null ? "" : `${Math.floor(s / 60)}:${
 
 /**
  * Past calls and texts with this lead, synced from Quo. Shows nothing if
- * Quo isn't connected yet or this number has no history — no error banner,
+ * Quo isn't connected yet or this number has no history: no error banner,
  * so it stays invisible until it's actually wired up (see /api/quo/webhook).
  */
 export default function CallHistory({ phone }: { phone: string }) {
@@ -40,7 +40,7 @@ export default function CallHistory({ phone }: { phone: string }) {
 
   return (
     <div className="mt-5 rounded-lg p-3 crm-stat">
-      <p className="text-xs font-bold uppercase tracking-wide crm-muted">📞 Activity ({items.length}) — via Quo</p>
+      <p className="text-xs font-bold uppercase tracking-wide crm-muted">📞 Activity ({items.length}), via Quo</p>
       <div className="mt-2 space-y-1.5">
         {items.map((c) => (
           <div key={c.id} className="rounded-md border border-black/5 p-2 dark:border-white/10">

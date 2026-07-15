@@ -2,7 +2,7 @@ import JsonLd from "./JsonLd";
 import Reveal from "./Reveal";
 
 /**
- * Home FAQ — plain-language answers to the questions buyers actually ask.
+ * Home FAQ: plain-language answers to the questions buyers actually ask.
  * Doubles as AIO content: emits FAQPage schema so search + AI answer engines
  * can quote Stackwrk directly. Server component (native <details>, no JS).
  */

@@ -1,5 +1,5 @@
 /**
- * Animated electric wave lines for the hero — magenta / purple / electric blue
+ * Animated electric wave lines for the hero: magenta / purple / electric blue
  * energy flowing from the lower-right corner toward the center.
  *
  * Performance: pure SVG strokes, no filters. The "glow" is a wider low-opacity
@@ -37,7 +37,7 @@ export default function HeroWaves() {
         </defs>
         {waves.map(([d, , delay], i) => (
           <g key={i} className="animate-pulse-glow" style={{ animationDelay: delay }}>
-            {/* Faint only — the waves should read as ambient energy, not hard
+            {/* Faint only: the waves should read as ambient energy, not hard
                 lines that make the fox look pasted on top of the page. */}
             <path d={d} stroke={`url(#wave-${i})`} strokeWidth="6" strokeLinecap="round" fill="none" opacity="0.09" />
             <path d={d} stroke={`url(#wave-${i})`} strokeWidth="1.3" strokeLinecap="round" fill="none" opacity="0.28" />

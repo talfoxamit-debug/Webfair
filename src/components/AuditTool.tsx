@@ -195,7 +195,7 @@ function SampleScorecard() {
 type CapturePhase = "idle" | "sending" | "sent" | "error";
 
 /** The funnel: after the visitor sees their score, trade their details for the
- *  full emailed report — and drop them straight into the CRM. */
+ *  full emailed report, and drop them straight into the CRM. */
 function ReportCapture({ result }: { result: Result }) {
   const [phase, setPhase] = useState<CapturePhase>("idle");
   const [emailed, setEmailed] = useState(false);
@@ -412,7 +412,7 @@ export default function AuditTool() {
             )}
           </div>
 
-          {/* Right: what they get — the animated sample report */}
+          {/* Right: what they get (the animated sample report) */}
           <SampleScorecard />
         </div>
       )}

@@ -1,7 +1,7 @@
 /**
  * Renders a signed Website Agreement into a self-contained HTML email so both
  * the client and Tal get a permanent copy the moment it's signed. Inline styles
- * only — email clients strip <style>/external CSS.
+ * only: email clients strip <style>/external CSS.
  */
 import { buildAgreement, resolveAgreement, type AgreementConfig } from "@/lib/agreement";
 

@@ -1,5 +1,5 @@
 /**
- * Abstract hero visual — no mascot. A faceted gradient shard sitting inside a
+ * Abstract hero visual, no mascot. A faceted gradient shard sitting inside a
  * soft warm→cool glow, echoing the Direction B illustration palette
  * (orange → red → purple → blue) without any literal imagery. Pure SVG/CSS,
  * so it costs no image payload and stays crisp at any size.
@@ -49,7 +49,7 @@ export default function HeroVisual({ className = "" }: { className?: string }) {
         filter="url(#hvBlur)"
       />
 
-      {/* Faceted gradient shard — the crisp focal shape */}
+      {/* Faceted gradient shard: the crisp focal shape */}
       <g className="animate-float">
         <polygon points="300,120 430,210 400,360 250,430 150,300 200,180" fill="url(#hvGrad)" />
         {/* facet shading, low opacity so it reads as one object */}

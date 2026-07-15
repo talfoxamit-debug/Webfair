@@ -10,7 +10,7 @@ const DIAL_GOAL = 20;
 
 /**
  * The daily driver. Opens to exactly what to do today: follow-ups that are due,
- * then a capped queue of fresh 🟢 CALL-tier leads to dial — each with one-tap
+ * then a capped queue of fresh 🟢 CALL-tier leads to dial, each with one-tap
  * actions. Everything writes back through the same `patch` the board uses.
  */
 export default function TodayDriver({
@@ -34,7 +34,7 @@ export default function TodayDriver({
     [items, today],
   );
 
-  // Fresh dials: real, local CALL-tier leads not yet contacted — and skip
+  // Fresh dials: real, local CALL-tier leads not yet contacted, and skip
   // numbers that won't reach the owner (toll-free / invalid / missing).
   const dialQueue = useMemo(
     () => items.filter((p) => {
@@ -59,7 +59,7 @@ export default function TodayDriver({
   const snooze = (p: Prospect) => patch(p.id, { nextFollowUp: plusDays(3) });
 
   const tel = (phone: string) => `tel:${phoneCheck(phone).dial || phone.replace(/[^0-9]/g, "")}`;
-  const copyNum = (phone: string) => { navigator.clipboard?.writeText(phoneCheck(phone).pretty || phone); onCopy("Number copied — paste into Quo to call"); };
+  const copyNum = (phone: string) => { navigator.clipboard?.writeText(phoneCheck(phone).pretty || phone); onCopy("Number copied, paste into Quo to call"); };
   const CopyNum = ({ phone }: { phone: string }) => {
     const pc = phoneCheck(phone);
     return (
@@ -124,7 +124,7 @@ export default function TodayDriver({
             ⏰ Follow-ups due <span className="crm-subtle">({followUps.length})</span>
           </h2>
           {followUps.length === 0 ? (
-            <p className="rounded-xl p-4 text-sm crm-card crm-muted">Nothing due today. Nice — go make fresh calls. →</p>
+            <p className="rounded-xl p-4 text-sm crm-card crm-muted">Nothing due today. Nice, go make fresh calls. →</p>
           ) : (
             <div className="space-y-2">
               {followUps.map((p) => (

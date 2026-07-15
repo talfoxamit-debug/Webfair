@@ -1,6 +1,6 @@
 # Stackwrk
 
-> Stackwrk builds fast, conversion-focused websites and web apps for small businesses — sites engineered to turn visitors into bookings, leads, and revenue. Built with Next.js, TypeScript, Tailwind CSS, Supabase, and deployed on Vercel.
+> Stackwrk builds fast, conversion-focused websites and web apps for small businesses: sites engineered to turn visitors into bookings, leads, and revenue. Built with Next.js, TypeScript, Tailwind CSS, Supabase, and deployed on Vercel.
 
 Stackwrk is a solo web-development studio (legal entity: Fox Solutions LLC). It designs and builds custom websites and web applications, then keeps them fast and converting with optional monthly care plans.
 
@@ -15,13 +15,13 @@ Stackwrk is a solo web-development studio (legal entity: Fox Solutions LLC). It 
 
 ## Free tools
 
-- [Instant Website Audit](https://stackwrk.com/tools/website-audit): Free 0–100 scorecard for any website — speed, mobile, SEO, and conversion. No signup to see the score.
+- [Instant Website Audit](https://stackwrk.com/tools/website-audit): Free 0–100 scorecard for any website: speed, mobile, SEO, and conversion. No signup to see the score.
 - [Website ROI Calculator](https://stackwrk.com/tools/roi-calculator): Estimate the monthly revenue a faster, higher-converting website could recover, based on your real traffic and average sale value.
 
 ## Pricing
 
 - Projects typically start around $2,000 and scale with scope.
-- Care plans (monthly): Essential $99, Growth $249, Partner $499 — hosting, updates, security, backups, monitoring, and ongoing changes.
+- Care plans (monthly): Essential $99, Growth $249, Partner $499: hosting, updates, security, backups, monitoring, and ongoing changes.
 
 ## Contact
 

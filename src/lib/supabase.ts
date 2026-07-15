@@ -2,7 +2,7 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 /**
  * Server-side Supabase client used by API routes to write to the `leads` table.
- * Uses the service-role key, which must stay server-only — never expose it to
+ * Uses the service-role key, which must stay server-only. Never expose it to
  * the browser. Returns null when env is not configured so callers can degrade
  * gracefully (the build/deploy still succeeds before creds are wired up).
  *

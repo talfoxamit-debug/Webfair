@@ -1,5 +1,5 @@
 /**
- * Blog / resources content for the fence demo site. Real, SEO-shaped articles —
+ * Blog / resources content for the fence demo site. Real, SEO-shaped articles:
  * the exact questions South-Florida homeowners search before hiring. Rendered by
  * /demos/apex-fence/guides (index) and /guides/[slug] (article), with Article
  * JSON-LD for search + AI answer engines.

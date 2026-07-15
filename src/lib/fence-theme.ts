@@ -24,7 +24,7 @@ export const MATERIALS: Material[] = [
   { key: "chain", name: "Chain-Link", costLow: 15, costHigh: 26, cost: "$15–26/ft", maintenance: "Low", lifespan: "15–20 yrs", privacy: "Open (none)", storm: "Good", bestFor: "Pets & perimeters, lowest cost" },
 ];
 
-/** Typical South-Florida residential fence rules. Generalized — always verify with
+/** Typical South-Florida residential fence rules. Generalized: always verify with
  *  the city; that's exactly the headache we take off the homeowner's plate. */
 export type CityRule = { city: string; county: string; back: string; front: string };
 export const CITY_RULES: CityRule[] = [

@@ -15,7 +15,7 @@ const barColor = (n: number) =>
 /**
  * Runs the same public audit on a prospect's site, right inside the CRM drawer,
  * so you can see exactly where they're falling behind before you dial. Reuses
- * /api/audit — no new backend.
+ * /api/audit, no new backend.
  */
 export default function LeadAudit({ url }: { url: string }) {
   const [phase, setPhase] = useState<"idle" | "loading" | "done" | "error">("idle");
@@ -32,7 +32,7 @@ export default function LeadAudit({ url }: { url: string }) {
       const j = await r.json().catch(() => ({}));
       if (r.ok && j.ok) { setRes(j as Result); setPhase("done"); }
       else { setErr(j.message || "Couldn't reach that site."); setPhase("error"); }
-    } catch { setErr("Network error — try again."); setPhase("error"); }
+    } catch { setErr("Network error: try again."); setPhase("error"); }
   }
 
   // The "where they're falling behind" list: fails first, then warns.
@@ -45,7 +45,7 @@ export default function LeadAudit({ url }: { url: string }) {
   return (
     <div className="mt-5 rounded-lg p-3 crm-stat">
       <div className="flex items-center justify-between">
-        <p className="text-xs font-bold uppercase tracking-wide crm-muted">Their site — where it's falling behind</p>
+        <p className="text-xs font-bold uppercase tracking-wide crm-muted">Their site: where it's falling behind</p>
         {phase !== "loading" && (
           <button onClick={run} className="rounded-md bg-lime px-2.5 py-1 text-[0.7rem] font-bold text-ink">
             {phase === "done" ? "Re-run" : "🔍 Run audit"}
@@ -53,7 +53,7 @@ export default function LeadAudit({ url }: { url: string }) {
         )}
       </div>
 
-      {phase === "idle" && <p className="mt-1 text-[0.68rem] crm-subtle">Scores their live site 0–100 so you have a concrete opener (“your site scored 41 — here’s why”).</p>}
+      {phase === "idle" && <p className="mt-1 text-[0.68rem] crm-subtle">Scores their live site 0–100 so you have a concrete opener (“your site scored 41: here’s why”).</p>}
       {phase === "loading" && <p className="mt-2 text-xs crm-muted">Scanning {url}…</p>}
       {phase === "error" && <p className="mt-2 text-xs text-rose-500 dark:text-rose-400">{err}</p>}
 
@@ -75,7 +75,7 @@ export default function LeadAudit({ url }: { url: string }) {
               </div>
             ))}
           </div>
-          {/* top problems — talking points for the call */}
+          {/* top problems: talking points for the call */}
           {problems.length > 0 && (
             <div className="mt-3">
               <p className="text-[0.65rem] font-bold uppercase tracking-wide crm-subtle">Talking points</p>

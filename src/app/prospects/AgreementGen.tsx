@@ -14,7 +14,7 @@ const presetDiscount = (pkg: AgreementConfig["pkg"]) => {
 
 /**
  * Per-client agreement link generator. Mounted with key={prospect.id} so all
- * state resets when you open a different lead — no discount bleeds between
+ * state resets when you open a different lead, no discount bleeds between
  * clients. Fee is rounded to a clean $50 so quotes never drift off the preset.
  */
 export default function AgreementGen({ prospect, onCopy }: { prospect: Prospect; onCopy: (msg: string) => void }) {
@@ -41,7 +41,7 @@ export default function AgreementGen({ prospect, onCopy }: { prospect: Prospect;
     });
     const url = `${window.location.origin}/agreement?d=${d}`;
     navigator.clipboard?.writeText(url);
-    onCopy("Agreement link copied — send it to the client");
+    onCopy("Agreement link copied, send it to the client");
   }
 
   return (
@@ -66,7 +66,7 @@ export default function AgreementGen({ prospect, onCopy }: { prospect: Prospect;
         <span className="text-[0.66rem] crm-subtle">saves ${savings.toLocaleString()}</span>
       </div>
       <button onClick={copyLink} className="mt-2 w-full rounded-lg bg-lime px-3 py-2 text-xs font-bold text-ink">📄 Copy e-sign agreement link</button>
-      <p className="mt-1 text-[0.6rem] crm-subtle">Send the link after they say yes — they review, sign &amp; pay online. The discount shows on their agreement.</p>
+      <p className="mt-1 text-[0.6rem] crm-subtle">Send the link after they say yes: they review, sign &amp; pay online. The discount shows on their agreement.</p>
     </div>
   );
 }

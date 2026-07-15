@@ -139,7 +139,7 @@ export async function POST(req: Request) {
         const u = new URL(m[1], finalUrl);
         if (u.host && u.host !== new URL(finalUrl).host) ext++;
       } catch {
-        /* relative — same origin */
+        /* relative: same origin */
       }
     }
     return ext;
@@ -310,7 +310,7 @@ export async function POST(req: Request) {
     { key: "conversion", label: "Conversion", score: scoreOf(conversion), checks: conversion },
   ];
 
-  // Weighted overall — performance & conversion carry the most business weight.
+  // Weighted overall: performance & conversion carry the most business weight.
   let score = Math.round(
     0.28 * categories[0].score +
       0.22 * categories[1].score +
@@ -341,7 +341,7 @@ export async function POST(req: Request) {
       await supabase.from("audits").insert({ url: finalUrl, score, load_ms: loadMs, page_kb: pageKb });
     }
   } catch {
-    /* table missing or env unset — ignore */
+    /* table missing or env unset: ignore */
   }
 
   return NextResponse.json({

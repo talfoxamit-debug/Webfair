@@ -9,7 +9,7 @@ type LeadBody = {
   email?: string;
   website?: string;
   message?: string;
-  company?: string; // honeypot — real users never fill this
+  company?: string; // honeypot: real users never fill this
 };
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -106,7 +106,7 @@ export async function POST(req: Request) {
 
   const supabase = getSupabaseAdmin();
   if (!supabase) {
-    // Env not configured yet — don't 500 the site, tell the client cleanly.
+    // Env not configured yet: don't 500 the site, tell the client cleanly.
     console.warn("[leads] Supabase env not configured; lead not stored.");
     return NextResponse.json({ ok: false, error: "not_configured" }, { status: 503 });
   }

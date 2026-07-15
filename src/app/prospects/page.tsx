@@ -3,7 +3,7 @@ import { verifyToken, getUsers, SESSION_COOKIE } from "@/lib/crm-auth";
 import Gate from "./Gate";
 import Board from "./Board";
 
-// Read the session cookie on the server — the board and lead data are never
+// Read the session cookie on the server: the board and lead data are never
 // sent to the browser unless there's a valid team session.
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

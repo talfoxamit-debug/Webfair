@@ -18,4 +18,4 @@ create index if not exists quo_messages_phone_idx on public.quo_messages (phone_
 create index if not exists quo_messages_occurred_idx on public.quo_messages (occurred_at desc);
 
 alter table public.quo_messages enable row level security;
--- (No policies on purpose — only the service-role key may read/write.)
+-- (No policies on purpose, only the service-role key may read/write.)

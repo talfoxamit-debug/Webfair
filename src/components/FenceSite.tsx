@@ -37,7 +37,7 @@ function Wordmark({ business }: { business: string }) {
 
 const tel = (p: string) => `tel:${p.replace(/[^0-9]/g, "")}`;
 
-/** Services showcase — each card maps to one of our real project photos, so the
+/** Services showcase: each card maps to one of our real project photos, so the
  *  labels and imagery always match (no stock-photo mismatch). */
 const services = [
   { t: "Wood Privacy Fences", d: "Cedar & pine privacy fencing, warm, classic, built for South-Florida yards.", img: "/demo/fence/g-cedar.webp" },
@@ -70,7 +70,7 @@ export default function FenceSite({ config, demo = false }: { config?: Partial<F
     <div className="bg-[#FAFAF7] text-[#0C2333]" style={{ fontFeatureSettings: '"ss01"' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
 
-      {/* DEMO BANNER — only on the showcase, never on a prospect's mockup */}
+      {/* DEMO BANNER: only on the showcase, never on a prospect's mockup */}
       {demo && (
         <div className="text-white" style={{ background: `linear-gradient(90deg, ${NAVY}, #123a52)` }}>
           <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-1.5 px-5 py-2 text-center sm:flex-row sm:px-8 sm:text-left">
@@ -282,7 +282,7 @@ export default function FenceSite({ config, demo = false }: { config?: Partial<F
         </div>
       </section>
 
-      {/* RESOURCES / BLOG — demo only */}
+      {/* RESOURCES / BLOG: demo only */}
       {demo && (
         <section className="mx-auto max-w-6xl px-5 py-16 sm:px-8">
           <div className="flex items-end justify-between">

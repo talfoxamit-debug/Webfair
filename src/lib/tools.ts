@@ -1,5 +1,5 @@
 /**
- * Free-tools registry — the single source of truth for the /tools hub, each
+ * Free-tools registry: the single source of truth for the /tools hub, each
  * standalone tool page, the sitemap, and nav. Data-only (no JSX) so it can be
  * imported from both server and client components.
  *

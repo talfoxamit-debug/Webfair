@@ -1,10 +1,10 @@
 /**
- * Client agreement — data model + content. A personalized link is generated from
+ * Client agreement: data model + content. A personalized link is generated from
  * the CRM (config encoded in the URL), the client reviews and e-signs at
  * /agreement, and the signature is recorded server-side. Doubles as the "close
  * kit": project summary + sign + (once Stripe is live) pay, in one link.
  *
- * Not legal advice — have a Florida attorney review the template once.
+ * Not legal advice: have a Florida attorney review the template once.
  */
 
 export type AgreementPkg = "Launch" | "Growth" | "Market Leader";
@@ -26,7 +26,7 @@ export type AgreementConfig = {
 };
 
 /**
- * Plan presets — the one place the agreement generator reads default pricing
+ * Plan presets: the one place the agreement generator reads default pricing
  * from. `listFee` is the standard rate (shown struck-through) and `fee` is the
  * founding-client rate the client actually pays, so the built-in "founding
  * discount" appears automatically. These mirror the founding/standard ladder in

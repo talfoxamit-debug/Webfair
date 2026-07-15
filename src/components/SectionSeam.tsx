@@ -1,5 +1,5 @@
 /**
- * A full-bleed luminous seam between major sections — a hairline gradient with
+ * A full-bleed luminous seam between major sections: a hairline gradient with
  * a soft glow bleeding across the boundary, so sections hand off to each other
  * instead of hard-cutting between near-identical dark blocks.
  */

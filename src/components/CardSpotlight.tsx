@@ -4,11 +4,11 @@ import { useEffect, useRef } from "react";
 
 /**
  * A cursor-following spotlight glow. Drop it as the first child of any
- * `relative overflow-hidden` container — it attaches pointer listeners to its
+ * `relative overflow-hidden` container. It attaches pointer listeners to its
  * parent and moves a soft radial highlight under the cursor. Pure
  * transform/opacity + a CSS-variable-driven gradient, so it stays cheap and is
  * frozen by the global reduced-motion rule. Purely decorative (aria-hidden,
- * pointer-events-none) — never blocks clicks or screen readers.
+ * pointer-events-none), never blocks clicks or screen readers.
  */
 export default function CardSpotlight({
   color = "rgba(203,255,60,0.12)",

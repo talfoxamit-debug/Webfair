@@ -92,7 +92,7 @@ export default function Hero() {
           the scene rather than reading as a flat sticker. */}
       <div className="pointer-events-none absolute bottom-[8%] right-[8%] z-[1] hidden h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(circle,rgba(255,90,40,0.18),rgba(162,28,224,0.14)_44%,transparent_70%)] blur-3xl lg:block" />
 
-      {/* Fox — desktop: bleeds across the right side, nudged left + larger so it
+      {/* Fox. Desktop: bleeds across the right side, nudged left + larger so it
           reads as one composition with the code card instead of floating far off.
           Drifts gently with the cursor (deepest parallax layer). */}
       <div
@@ -141,7 +141,7 @@ export default function Hero() {
             </a>
           </div>
 
-          {/* Built with — infinite marquee (pauses on hover, frozen by the
+          {/* Built with: infinite marquee (pauses on hover, frozen by the
               global reduced-motion rule) */}
           <div className="mt-10 flex max-w-md animate-fade-up items-center gap-x-5" style={{ animationDelay: "320ms" }}>
             <span className="shrink-0 text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-white/40">
@@ -186,7 +186,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Strengths row — the reasons to pick me, as cards. The 2-week speed
+      {/* Strengths row: the reasons to pick me, as cards. The 2-week speed
           strength is accented so it reads first. */}
       <div id="stack" className="container-content relative z-10 mt-14">
         <ul className="grid gap-4 sm:grid-cols-3">

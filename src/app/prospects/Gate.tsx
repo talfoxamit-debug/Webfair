@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useTheme } from "./useTheme";
 
 /** Full-screen login wall. Nothing else on /prospects renders until a valid
- *  session exists — the board and lead data never reach an anonymous visitor. */
+ *  session exists: the board and lead data never reach an anonymous visitor. */
 export default function Gate({ configured }: { configured: boolean }) {
   useTheme(); // applies the saved day/night theme to the document root
   const [err, setErr] = useState("");
@@ -25,7 +25,7 @@ export default function Gate({ configured }: { configured: boolean }) {
       setErr(j.error === "not_configured"
         ? "CRM isn't activated yet. Add the CRM_USERS env var in Vercel and redeploy."
         : "Wrong username or password.");
-    } catch { setErr("Network error — try again."); }
+    } catch { setErr("Network error: try again."); }
     setBusy(false);
   }
 
@@ -35,7 +35,7 @@ export default function Gate({ configured }: { configured: boolean }) {
         <div className="mb-6 text-center">
           <div className="mx-auto mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-100 text-lg dark:bg-lime/15">🔒</div>
           <h1 className="text-xl font-extrabold tracking-tight crm-strong">Stackwrk CRM</h1>
-          <p className="mt-1 text-xs crm-muted">Private — team sign-in required.</p>
+          <p className="mt-1 text-xs crm-muted">Private: team sign-in required.</p>
         </div>
         <form onSubmit={onSubmit} className="rounded-2xl p-5 crm-card">
           <input name="username" autoFocus placeholder="Username" autoCapitalize="off" autoComplete="username"

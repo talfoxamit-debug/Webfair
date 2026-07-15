@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { NAVY, GREEN } from "@/lib/fence-theme";
 
 /** Estimates the bill of materials for a wood/privacy fence run. Great for the
- *  homeowner who wants to sanity-check a quote — and shows real craftsmanship. */
+ *  homeowner who wants to sanity-check a quote, and shows real craftsmanship. */
 export default function MaterialsCalculator() {
   const [feet, setFeet] = useState(150);
   const [spacing, setSpacing] = useState(8);

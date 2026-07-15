@@ -64,13 +64,13 @@ export type Project = {
   blurb: string;
   features: string[];
   href: string;
-  accent: string; // tailwind gradient class — fallback tint behind the screenshot
+  accent: string; // tailwind gradient class (fallback tint behind the screenshot)
   tag: string;
-  result: string; // the business outcome — the "so what"
+  result: string; // the business outcome: the "so what"
   image?: string; // real screenshot under /public/shots
   badge?: string; // overlay label on the screenshot (default "Live project")
   tier?: "featured" | "main" | "more"; // showcase prominence
-  demo?: boolean; // a demo/concept build, not a client's live site — links say "View demo site"
+  demo?: boolean; // a demo/concept build, not a client's live site (links say "View demo site")
 };
 
 export const projects: Project[] = [
@@ -220,7 +220,7 @@ export const howItWorks = {
   ],
 };
 
-// Real client testimonials. DRAFT WORDING — confirm the exact quote with each
+// Real client testimonials. DRAFT WORDING: confirm the exact quote with each
 // client and that they're OK being named publicly, then finalize here.
 export const testimonials = [
   {

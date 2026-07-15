@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import CrmBoard from "@/components/CrmBoard";
 
 export const metadata: Metadata = {
-  title: "Lead Pipeline — internal",
+  title: "Lead Pipeline (internal)",
   robots: { index: false, follow: false },
 };
 

@@ -14,7 +14,7 @@ export function useTheme(): [Theme, () => void] {
   }, []);
 
   // Toggle `dark` on the document root so every `dark:` utility (including the
-  // page background) resolves — a same-element `.dark` can't match itself.
+  // page background) resolves: a same-element `.dark` can't match itself.
   useEffect(() => {
     const root = document.documentElement;
     root.classList.toggle("dark", theme === "night");

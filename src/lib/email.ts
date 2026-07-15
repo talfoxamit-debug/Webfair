@@ -1,13 +1,13 @@
 /**
  * Minimal, dependency-free transactional email via Resend's HTTP API.
  * Gated on env: when RESEND_API_KEY is missing we return {sent:false,
- * reason:"not_configured"} so callers degrade gracefully instead of throwing —
+ * reason:"not_configured"} so callers degrade gracefully instead of throwing,
  * same pattern as the Supabase client.
  *
  * Required env (set in Vercel, never committed):
- *   RESEND_API_KEY          — from resend.com
- *   REPORT_FROM_EMAIL       — verified sender, e.g. "Stackwrk <audit@stackwrk.com>"
- *   REPORT_NOTIFY_EMAIL     — (optional) where lead alerts go, e.g. Tal's inbox
+ *   RESEND_API_KEY          : from resend.com
+ *   REPORT_FROM_EMAIL       : verified sender, e.g. "Stackwrk <audit@stackwrk.com>"
+ *   REPORT_NOTIFY_EMAIL     : (optional) where lead alerts go, e.g. Tal's inbox
  */
 
 type SendResult = { sent: boolean; reason?: string };
@@ -17,7 +17,7 @@ const EMAIL_RE = /[^\s<>@]+@[^\s<>@]+\.[^\s<>@]+/;
 
 /**
  * Resolve a Resend-valid `from` header. Resend accepts ONLY `email@domain` or
- * `Name <email@domain>` and returns a 422 on anything else — the single most
+ * `Name <email@domain>` and returns a 422 on anything else. The single most
  * common cause of "emails silently never send" is a REPORT_FROM_EMAIL typo
  * (missing angle brackets, wrapping quotes, a name with no email). Rather than
  * let one typo 422 every message, we auto-heal the common mistakes and fall
@@ -31,7 +31,7 @@ export function reportFromEmail(): string {
   const email = m[0];
   // Always rebuild from the parsed email so we emit exactly `email` or
   // `Name <email>`. Everything that isn't the email becomes the display name,
-  // with brackets/quotes/trailing punctuation stripped — this heals the common
+  // with brackets/quotes/trailing punctuation stripped. This heals the common
   // typos (missing brackets, wrapping or RFC display-name quotes) uniformly.
   const name = raw
     .replace(EMAIL_RE, "")

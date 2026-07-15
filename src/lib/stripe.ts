@@ -1,7 +1,7 @@
 import Stripe from "stripe";
 
 /**
- * Server-side Stripe client. The secret key must stay server-only — never expose
+ * Server-side Stripe client. The secret key must stay server-only. Never expose
  * it to the browser. Returns null when env isn't configured so routes degrade
  * gracefully (build/deploy succeeds before the key is wired up, and the agreement
  * page falls back to "Tal will invoice you" until Stripe is live).
@@ -18,7 +18,7 @@ export function getStripe(): Stripe | null {
   return new Stripe(key, { typescript: true });
 }
 
-/** Base URL for Stripe redirect URLs — prefers the incoming request's origin. */
+/** Base URL for Stripe redirect URLs: prefers the incoming request's origin. */
 export function siteOrigin(req: Request): string {
   const env = process.env.NEXT_PUBLIC_SITE_URL;
   if (env) return env.replace(/\/+$/, "");

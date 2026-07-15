@@ -57,7 +57,7 @@ export default function Home() {
       <JsonLd data={orgJsonLd} />
       <Hero />
       <IndustryGreeting />
-      {/* Free audit first — the highest-value, lowest-friction entry point */}
+      {/* Free audit first: the highest-value, lowest-friction entry point */}
       <AuditSection />
       <DemoSection />
       <FeaturedProjects />

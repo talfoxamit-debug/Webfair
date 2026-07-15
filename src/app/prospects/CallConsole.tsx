@@ -5,7 +5,7 @@ import { CALL_SCRIPT, type Prospect } from "@/lib/prospects";
 
 /**
  * Live-call console. Instead of one wall of script text, it's tappable
- * chapters — Opener / Gatekeeper / Objections / Voicemail — so you jump
+ * chapters (Opener / Gatekeeper / Objections / Voicemail) so you jump
  * straight to what you need mid-call. Each move shows a small "cue" (when /
  * why, or the objection you just heard) and the big line to actually say,
  * filled in for this lead, with one-tap copy.
@@ -20,7 +20,7 @@ export default function CallConsole({ p, fill, onCopy }: { p: Prospect; fill: (t
 
   return (
     <div className="mt-5 rounded-lg border border-emerald-200 bg-emerald-50/60 p-3 dark:border-lime/25 dark:bg-lime/[0.06]">
-      <p className="text-xs font-bold uppercase tracking-wide text-emerald-700 dark:text-lime">📞 Call console — {p.owner || p.name}</p>
+      <p className="text-xs font-bold uppercase tracking-wide text-emerald-700 dark:text-lime">📞 Call console: {p.owner || p.name}</p>
 
       {/* who answered? router / chapter tabs */}
       <div className="mt-2 flex flex-wrap gap-1.5">

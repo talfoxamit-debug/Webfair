@@ -3,7 +3,7 @@ import FenceSite from "@/components/FenceSite";
 import { DEFAULT_CONFIG } from "@/lib/fence-config";
 
 /**
- * Flagship demo — "Apex Fence Co." Renders the reusable <FenceSite/> with its
+ * Flagship demo: "Apex Fence Co." Renders the reusable <FenceSite/> with its
  * default config in `demo` mode (adds the demo banner + resources/blog). The same
  * component powers the /mockup generator (personalized per prospect). Noindex.
  */

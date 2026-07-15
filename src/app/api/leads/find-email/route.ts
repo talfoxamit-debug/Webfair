@@ -20,7 +20,7 @@ function stripNoise(html: string): string {
 
 function bestEmail(html: string): string | null {
   const clean = stripNoise(html);
-  // Prefer a real mailto: link — the highest-confidence signal.
+  // Prefer a real mailto: link (the highest-confidence signal).
   const mailtos = [...clean.matchAll(/mailto:([^"'?\s]+)/gi)].map((m) => { try { return decodeURIComponent(m[1]); } catch { return m[1]; } });
   const candidates = mailtos.length ? mailtos : (clean.match(EMAIL_RE) || []);
   for (const raw of candidates) {
@@ -65,7 +65,7 @@ async function fetchPage(url: URL): Promise<string> {
 /**
  * POST → best-effort: find a published contact email on a lead's website.
  * Checks the homepage, then one contact-page hop if nothing's on the
- * homepage. Never guesses or fabricates — only returns an email actually
+ * homepage. Never guesses or fabricates: only returns an email actually
  * published on the page (a mailto: link, or plain text as a fallback).
  * Team login required.
  */

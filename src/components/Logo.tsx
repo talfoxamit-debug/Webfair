@@ -1,7 +1,7 @@
 import { site } from "@/lib/content";
 
 /**
- * Stackwrk wordmark — typography only, no icon or mascot.
+ * Stackwrk wordmark: typography only, no icon or mascot.
  * `compact` renders a smaller variant used in the footer.
  */
 export default function Logo({ compact = false }: { compact?: boolean }) {

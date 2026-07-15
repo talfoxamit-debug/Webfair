@@ -54,7 +54,7 @@ export default function Reveal({
 
   return (
     <Tag
-      // @ts-expect-error — ref type varies by element tag, safe at runtime
+      // @ts-expect-error: ref type varies by element tag, safe at runtime
       ref={ref}
       style={{ transitionDelay: `${delay}ms` }}
       className={`transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${

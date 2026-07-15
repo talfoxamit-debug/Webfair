@@ -1,9 +1,9 @@
 /**
- * Pricing engine — single source of truth for ALL prices.
+ * Pricing engine: single source of truth for ALL prices.
  * Used by the public Plans section (founding rates) and the internal quote
  * builder at /quote (founding + standard toggle).
  *
- * "founding" = live launch pricing (Tal's original ladder — first-5-clients rate).
+ * "founding" = live launch pricing (Tal's original ladder, first-5-clients rate).
  * "standard" = the benchmark-informed step-up (see PRICING-BENCHMARKS.md).
  * The standard rate is ALSO shown on the site as the anchor price (struck
  * through) so the founding rate reads as a concrete, expiring deal.

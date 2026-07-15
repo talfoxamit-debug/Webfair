@@ -55,10 +55,10 @@ function quoActivityNote(calls: number, texts: number): string {
   const bits: string[] = [];
   if (calls) bits.push(`${calls} call${calls === 1 ? "" : "s"}`);
   if (texts) bits.push(`${texts} text${texts === 1 ? "" : "s"}`);
-  return `${bits.join(" + ") || "Contact"} via Quo — not yet added to the CRM.`;
+  return `${bits.join(" + ") || "Contact"} via Quo, not yet added to the CRM.`;
 }
 
-/** Push a lead's name/company/email into Quo as a contact — best-effort,
+/** Push a lead's name/company/email into Quo as a contact, best-effort,
  *  never blocks the CRM save. See /api/quo/contacts. */
 async function syncLeadToQuo(p: Prospect): Promise<boolean> {
   if (!p.phone) return false;
@@ -76,7 +76,7 @@ function quoSyncSig(p: Prospect): string {
 function gapFor(p: Prospect | null): string {
   return p?.hasSite
     ? "your website could be doing a lot more to turn visitors into quote requests"
-    : `you don't have a website yet — so you're invisible when homeowners search "fence company ${p?.city?.split(",")[0] || "near me"}"`;
+    : `you don't have a website yet, so you're invisible when homeowners search "fence company ${p?.city?.split(",")[0] || "near me"}"`;
 }
 
 function fill(t: string, p: Prospect | null) {
@@ -129,7 +129,7 @@ export default function Board({ user }: { user: string }) {
               id: uid(), name: a.domain, phone: "", email: "", website: a.url, hasSite: true,
               city: "", street: "", owner: "", stage: "new" as ProspectStage,
               nextFollowUp: "", lastContacted: "",
-              notes: a.score != null ? `Ran your site audit — scored ${a.score}/100.` : "Ran your site audit.",
+              notes: a.score != null ? `Ran your site audit: scored ${a.score}/100.` : "Ran your site audit.",
               createdAt: new Date(a.created_at).getTime() || Date.now(),
               source: "audit" as const, auditScore: a.score ?? undefined,
             }));
@@ -150,7 +150,7 @@ export default function Board({ user }: { user: string }) {
               createdAt: new Date(c.last_call).getTime() || Date.now(),
               source: "quo" as const,
             }));
-          base = [...base, ...fresh]; // append — these already had activity, not fresh inbound
+          base = [...base, ...fresh]; // append: these already had activity, not fresh inbound
         }
       } catch { /* quo sync optional */ }
       setItems(base);
@@ -183,14 +183,14 @@ export default function Board({ user }: { user: string }) {
     return ok;
   };
   // Auto-sync a lead you've actually worked (has a name + you've engaged with
-  // it) when its details changed since the last push — so names land in Quo
+  // it) when its details changed since the last push, so names land in Quo
   // without pressing anything, while the raw scraped rows you never touch stay
   // out of your Quo contacts.
   const maybeAutoSyncQuo = (p: Prospect) => {
     const engaged = Boolean(p.owner?.trim() || p.stage !== "new" || p.lastContacted || p.source === "manual" || p.source === "quo");
     if (phoneDigits(p.phone).length === 10 && engaged && quoSyncSig(p) !== (p.quoSyncedSig || "")) void pushToQuo(p);
   };
-  // Closing the drawer is the natural "I'm done with this lead" moment — sync then.
+  // Closing the drawer is the natural "I'm done with this lead" moment: sync then.
   const closeDrawer = () => {
     if (sel) { const cur = items.find((x) => x.id === sel.id); if (cur) maybeAutoSyncQuo(cur); }
     setSel(null);
@@ -255,7 +255,7 @@ export default function Board({ user }: { user: string }) {
     const fresh: Prospect[] = [];
     for (const d of parsed) {
       const pc = phoneCheck(d.phone);
-      if (pc.flag === "tollfree") { tollfree++; continue; } // chains/aggregators — never enter the CRM
+      if (pc.flag === "tollfree") { tollfree++; continue; } // chains/aggregators, never enter the CRM
       const dial = phoneDigits(d.phone);
       const isDup = existingKeys.has((d.name + d.phone).toLowerCase())
         || (dial.length === 10 && (existingDials.has(dial) || seenDials.has(dial)));
@@ -286,7 +286,7 @@ export default function Board({ user }: { user: string }) {
     };
     setItems((xs) => [lead, ...xs]);
     setShowAdd(false); setDraft(emptyLead());
-    pushToQuo(lead); // a lead added because you just called/dealt with them directly — worth naming in Quo right away
+    pushToQuo(lead); // a lead added because you just called/dealt with them directly, worth naming in Quo right away
     flash(`Added ${name}`);
   }
 
@@ -316,7 +316,7 @@ export default function Board({ user }: { user: string }) {
   function exportInstantlyCSV(newOnly = true) {
     const withEmail = items.filter((p) => p.email && p.email.includes("@") && (!newOnly || !p.exportedAt));
     // Same email on 2+ businesses is either a shared inbox or a templated /
-    // fake listing (both common in scraped directory data) — either way it's
+    // fake listing (both common in scraped directory data), either way it's
     // not a distinct contact worth a second send, so keep the first and skip
     // the rest instead of letting Instantly catch it after the fact.
     const seen = new Set<string>();
@@ -328,7 +328,7 @@ export default function Board({ user }: { user: string }) {
       seen.add(key);
       rows.push(p);
     }
-    if (!rows.length) { flash(newOnly ? "Nothing new — every emailed lead has already been exported" : "No emails on file yet"); return; }
+    if (!rows.length) { flash(newOnly ? "Nothing new: every emailed lead has already been exported" : "No emails on file yet"); return; }
     const cols = ["email", "first_name", "company_name", "phone", "city", "website", "icebreaker"];
     const esc = (v: unknown) => `"${String(v ?? "").replace(/"/g, '""')}"`;
     const body = [cols.join(","), ...rows.map((p) => [
@@ -345,7 +345,7 @@ export default function Board({ user }: { user: string }) {
   }
 
   // Checks each lead's own website for a published contact email (mailto:
-  // link or plain text, homepage then one contact-page hop) — never guesses,
+  // link or plain text, homepage then one contact-page hop), never guesses,
   // only fills in what's actually published. Runs a handful of sites at once
   // client-side rather than one big server request, since checking 100+
   // external sites can take a few minutes. Every scanned lead is stamped
@@ -370,7 +370,7 @@ export default function Board({ user }: { user: string }) {
             method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ url: p.website }),
           }).then((res) => res.json());
           if (r.ok && r.email) email = r.email;
-        } catch { /* site unreachable or blocked — leave email blank, still mark checked */ }
+        } catch { /* site unreachable or blocked, leave email blank, still mark checked */ }
         // Stamp emailCheckedAt whether or not we found one, so it isn't re-scanned.
         patch(p.id, email ? { email, emailCheckedAt: now } : { emailCheckedAt: now });
         if (email) found++;
@@ -412,7 +412,7 @@ export default function Board({ user }: { user: string }) {
           </div>
         </div>
 
-        {/* view toggle — Today (daily driver) vs the full board */}
+        {/* view toggle: Today (daily driver) vs the full board */}
         <div className="mt-4 inline-flex rounded-lg border border-slate-300 p-0.5 dark:border-white/12">
           <button onClick={() => setView("today")} className={`rounded-md px-4 py-1.5 text-xs font-bold ${view === "today" ? "bg-lime text-ink" : "crm-muted"}`}>▶ Today</button>
           <button onClick={() => setView("board")} className={`rounded-md px-4 py-1.5 text-xs font-bold ${view === "board" ? "bg-lime text-ink" : "crm-muted"}`}>Full board</button>
@@ -436,13 +436,13 @@ export default function Board({ user }: { user: string }) {
           <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search name, city, phone…" className="w-56 rounded-lg px-3 py-2 text-sm crm-input" />
           <button onClick={() => setHotOnly((v) => !v)} className={`rounded-lg px-3 py-2 text-xs font-semibold ${hotOnly ? "bg-rose-100 text-rose-700 ring-1 ring-rose-300 dark:bg-rose-500/20 dark:text-rose-300 dark:ring-rose-500/40" : "crm-btn"}`}>🔥 No-website only</button>
           {newLeadsCount > 0 && (
-            <button onClick={() => setNewLeadsOnly((v) => !v)} className={`rounded-lg px-3 py-2 text-xs font-bold ${newLeadsOnly ? "bg-violet-100 text-violet-700 ring-1 ring-violet-300 dark:bg-violet-500/20 dark:text-violet-300 dark:ring-violet-500/40" : "crm-btn"}`} title="Leads the system collected for you — inbound site audits + numbers you dialed/texted in Quo">🆕 New leads {newLeadsCount}</button>
+            <button onClick={() => setNewLeadsOnly((v) => !v)} className={`rounded-lg px-3 py-2 text-xs font-bold ${newLeadsOnly ? "bg-violet-100 text-violet-700 ring-1 ring-violet-300 dark:bg-violet-500/20 dark:text-violet-300 dark:ring-violet-500/40" : "crm-btn"}`} title="Leads the system collected for you: inbound site audits + numbers you dialed/texted in Quo">🆕 New leads {newLeadsCount}</button>
           )}
           {auditCount > 0 && (
-            <button onClick={() => setAuditOnly((v) => !v)} className={`rounded-lg px-3 py-2 text-xs font-bold ${auditOnly ? "bg-sky-100 text-sky-700 ring-1 ring-sky-300 dark:bg-sky-500/20 dark:text-sky-300 dark:ring-sky-500/40" : "crm-btn"}`} title="People who ran your site audit — warm inbound leads">🔎 Audited {auditCount}</button>
+            <button onClick={() => setAuditOnly((v) => !v)} className={`rounded-lg px-3 py-2 text-xs font-bold ${auditOnly ? "bg-sky-100 text-sky-700 ring-1 ring-sky-300 dark:bg-sky-500/20 dark:text-sky-300 dark:ring-sky-500/40" : "crm-btn"}`} title="People who ran your site audit: warm inbound leads">🔎 Audited {auditCount}</button>
           )}
           {badPhoneCount > 0 && (
-            <button onClick={() => setBadPhoneOnly((v) => !v)} className={`rounded-lg px-3 py-2 text-xs font-bold ${badPhoneOnly ? "bg-amber-100 text-amber-700 ring-1 ring-amber-300 dark:bg-amber-500/20 dark:text-amber-300 dark:ring-amber-500/40" : "crm-btn"}`} title="Toll-free, out-of-area, duplicate or missing numbers — these usually won't reach the local owner">⚠ Check numbers {badPhoneCount}</button>
+            <button onClick={() => setBadPhoneOnly((v) => !v)} className={`rounded-lg px-3 py-2 text-xs font-bold ${badPhoneOnly ? "bg-amber-100 text-amber-700 ring-1 ring-amber-300 dark:bg-amber-500/20 dark:text-amber-300 dark:ring-amber-500/40" : "crm-btn"}`} title="Toll-free, out-of-area, duplicate or missing numbers: these usually won't reach the local owner">⚠ Check numbers {badPhoneCount}</button>
           )}
           {badPhoneOnly && badPhoneCount > 0 && (
             <button onClick={skipBadNumbers} className="rounded-lg bg-rose-500/90 px-3 py-2 text-xs font-bold text-white hover:bg-rose-600">Move {badPhoneCount} → Skip tier</button>
@@ -458,7 +458,7 @@ export default function Board({ user }: { user: string }) {
               {t === "call" ? "🟢" : t === "verify" ? "🟡" : "🔴"} {TIER_META[t].short} {tierCounts[t]}
             </button>
           ))}
-          {ready && !items.length && <span className="text-sm crm-muted">Empty — use <b className="crm-accent">Import CSV</b> to add leads.</span>}
+          {ready && !items.length && <span className="text-sm crm-muted">Empty: use <b className="crm-accent">Import CSV</b> to add leads.</span>}
         </div>
 
         {/* board */}
@@ -497,7 +497,7 @@ export default function Board({ user }: { user: string }) {
                         {p.nextFollowUp && <div className={`mt-1 text-[0.62rem] ${p.nextFollowUp <= todayISO() ? "text-amber-600 dark:text-amber-400" : "crm-subtle"}`}>⏰ {p.nextFollowUp}</div>}
                       </button>
                     ))}
-                    {!cards.length && <div className="px-2 py-3 text-center text-[0.65rem] crm-subtle">—</div>}
+                    {!cards.length && <div className="px-2 py-3 text-center text-[0.65rem] crm-subtle">-</div>}
                   </div>
                 </div>
               );
@@ -522,12 +522,12 @@ export default function Board({ user }: { user: string }) {
               </div>
 
               {p.tier
-                ? <div className={`mt-3 rounded-lg px-3 py-2 text-xs font-semibold ${TIER_META[p.tier].cls}`}>{p.tier === "call" ? "🟢" : p.tier === "verify" ? "🟡" : "🔴"} {TIER_META[p.tier].label} — {TIER_META[p.tier].hint}</div>
+                ? <div className={`mt-3 rounded-lg px-3 py-2 text-xs font-semibold ${TIER_META[p.tier].cls}`}>{p.tier === "call" ? "🟢" : p.tier === "verify" ? "🟡" : "🔴"} {TIER_META[p.tier].label}: {TIER_META[p.tier].hint}</div>
                 : p.source === "audit"
-                ? <div className="mt-3 rounded-lg bg-sky-100 px-3 py-2 text-xs font-semibold text-sky-700 dark:bg-sky-500/15 dark:text-sky-300">🔎 Inbound — ran your site audit{p.auditScore != null ? ` (scored ${p.auditScore}/100)` : ""}. Warm lead, reach out fast.</div>
+                ? <div className="mt-3 rounded-lg bg-sky-100 px-3 py-2 text-xs font-semibold text-sky-700 dark:bg-sky-500/15 dark:text-sky-300">🔎 Inbound: ran your site audit{p.auditScore != null ? ` (scored ${p.auditScore}/100)` : ""}. Warm lead, reach out fast.</div>
                 : p.source === "quo"
-                ? <div className="mt-3 rounded-lg bg-violet-100 px-3 py-2 text-xs font-semibold text-violet-700 dark:bg-violet-500/15 dark:text-violet-300">📞 Synced from a Quo call — not yet in the CRM by name. Fill in what you know below.</div>
-                : !p.hasSite && <div className="mt-3 rounded-lg bg-rose-100 px-3 py-2 text-xs font-semibold text-rose-700 dark:bg-rose-500/15 dark:text-rose-300">🔥 No website — top prospect. Call first.</div>}
+                ? <div className="mt-3 rounded-lg bg-violet-100 px-3 py-2 text-xs font-semibold text-violet-700 dark:bg-violet-500/15 dark:text-violet-300">📞 Synced from a Quo call, not yet in the CRM by name. Fill in what you know below.</div>
+                : !p.hasSite && <div className="mt-3 rounded-lg bg-rose-100 px-3 py-2 text-xs font-semibold text-rose-700 dark:bg-rose-500/15 dark:text-rose-300">🔥 No website: top prospect. Call first.</div>}
 
               {/* contact quick actions */}
               {p.phone && (() => {
@@ -536,12 +536,12 @@ export default function Board({ user }: { user: string }) {
                 return (
                   <>
                     <div className="mt-4 grid grid-cols-2 gap-2">
-                      <button onClick={() => { navigator.clipboard?.writeText(pc.pretty || p.phone); flash("Number copied — paste into Quo to call"); }} className="rounded-lg bg-lime px-3 py-2 text-center text-sm font-bold text-ink">📋 Copy {pc.pretty || p.phone}</button>
+                      <button onClick={() => { navigator.clipboard?.writeText(pc.pretty || p.phone); flash("Number copied, paste into Quo to call"); }} className="rounded-lg bg-lime px-3 py-2 text-center text-sm font-bold text-ink">📋 Copy {pc.pretty || p.phone}</button>
                       <a href={`tel:${pc.dial || p.phone.replace(/[^0-9]/g, "")}`} className="rounded-lg px-3 py-2 text-center text-sm font-semibold crm-btn">📞 Dial (tel:)</a>
                     </div>
                     {(pc.flag !== "ok" || dupe) && (
                       <div className="mt-2 rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-[0.7rem] font-semibold text-amber-700 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-300">
-                        ⚠ {dupe ? "Duplicate number — the same number is on another lead (double listing or aggregator). Skip the twin." : pc.label}
+                        ⚠ {dupe ? "Duplicate number: the same number is on another lead (double listing or aggregator). Skip the twin." : pc.label}
                       </div>
                     )}
                   </>
@@ -549,7 +549,7 @@ export default function Board({ user }: { user: string }) {
               })()}
               {p.email && <button onClick={() => copy(p.email)} className="mt-2 w-full rounded-lg px-3 py-2 text-sm font-semibold crm-btn">Copy email</button>}
 
-              {/* contact on file — confirm it's really them before you dial */}
+              {/* contact on file: confirm it's really them before you dial */}
               <div className="mt-4 rounded-lg p-3 crm-stat">
                 <p className="text-[0.7rem] font-bold uppercase tracking-wide crm-subtle">Contact on file</p>
                 <div className="mt-1.5 space-y-1 text-xs">
@@ -563,19 +563,19 @@ export default function Board({ user }: { user: string }) {
                     <span className="crm-subtle">🌐</span>
                     {p.website
                       ? <a href={href(p.website)} target="_blank" rel="noopener noreferrer" className="truncate font-semibold text-emerald-700 underline underline-offset-2 dark:text-lime">{prettyUrl(p.website)} ↗</a>
-                      : <span className="crm-subtle">No website on file — that&rsquo;s your pitch.</span>}
+                      : <span className="crm-subtle">No website on file: that&rsquo;s your pitch.</span>}
                   </div>
                 </div>
                 {p.website
-                  ? <p className="mt-2 text-[0.66rem] crm-subtle">⚠️ Confirm it&rsquo;s them: the phone on the site should match the number above. If it doesn&rsquo;t, it may be a different business or a directory listing — verify before you pitch.</p>
-                  : <p className="mt-2 text-[0.66rem] crm-subtle">Tip: if you find a site on Google, check its phone matches the number above before assuming it&rsquo;s theirs — namesakes and Yelp/BBB listings are common.</p>}
+                  ? <p className="mt-2 text-[0.66rem] crm-subtle">⚠️ Confirm it&rsquo;s them: the phone on the site should match the number above. If it doesn&rsquo;t, it may be a different business or a directory listing, verify before you pitch.</p>
+                  : <p className="mt-2 text-[0.66rem] crm-subtle">Tip: if you find a site on Google, check its phone matches the number above before assuming it&rsquo;s theirs: namesakes and Yelp/BBB listings are common.</p>}
                 <div className="mt-2 flex flex-wrap gap-1.5">
                   <a href={lookup(p, "maps")} target="_blank" rel="noopener noreferrer" className="rounded-lg px-2.5 py-1.5 text-xs font-semibold crm-btn">📍 Reviews ↗</a>
                   <a href={lookup(p, "google")} target="_blank" rel="noopener noreferrer" className="rounded-lg px-2.5 py-1.5 text-xs font-semibold crm-btn">🔍 Google ↗</a>
                   <a href={lookup(p, "fb")} target="_blank" rel="noopener noreferrer" className="rounded-lg px-2.5 py-1.5 text-xs font-semibold crm-btn">📘 Facebook ↗</a>
                   {p.phone && (
                     <button
-                      onClick={async () => flash((await pushToQuo(p)) ? "Synced to Quo" : "Couldn't sync to Quo — check it's connected")}
+                      onClick={async () => flash((await pushToQuo(p)) ? "Synced to Quo" : "Couldn't sync to Quo: check it's connected")}
                       className="rounded-lg px-2.5 py-1.5 text-xs font-semibold crm-btn"
                       title="Push this name into Quo as a contact"
                     >
@@ -591,7 +591,7 @@ export default function Board({ user }: { user: string }) {
               {/* past calls with this number, synced from Quo */}
               {p.phone && <CallHistory key={p.phone} phone={p.phone} />}
 
-              {/* live call console — tappable chapters, filled in for this lead */}
+              {/* live call console: tappable chapters, filled in for this lead */}
               <CallConsole p={p} fill={fill} onCopy={copy} />
 
               {/* tags */}
@@ -631,7 +631,7 @@ export default function Board({ user }: { user: string }) {
                   <input type="date" value={p.nextFollowUp} onChange={(e) => patch(p.id, { nextFollowUp: e.target.value })} className="mt-1 w-full rounded-lg px-2 py-2 text-sm crm-input" />
                 </label>
               </div>
-              {/* structured contact details — fill these from the call, not freeform */}
+              {/* structured contact details: fill these from the call, not freeform */}
               <div className="mt-4">
                 <p className="text-[0.7rem] font-bold uppercase tracking-wide crm-subtle">Contact details</p>
                 <div className="mt-1.5 grid grid-cols-2 gap-3">
@@ -640,7 +640,7 @@ export default function Board({ user }: { user: string }) {
                   </label>
                   <label className="text-xs font-semibold crm-muted">Best time to reach
                     <select value={p.bestTime || ""} onChange={(e) => patch(p.id, { bestTime: e.target.value })} className="mt-1 w-full rounded-lg px-2 py-2 text-sm crm-input">
-                      <option value="">—</option>
+                      <option value="">-</option>
                       {BEST_TIMES.map((t) => <option key={t} value={t}>{t}</option>)}
                     </select>
                   </label>
@@ -653,7 +653,7 @@ export default function Board({ user }: { user: string }) {
                 </div>
                 <label className="mt-3 block text-xs font-semibold crm-muted">Call outcome
                   <select value={p.callOutcome || ""} onChange={(e) => patch(p.id, { callOutcome: e.target.value })} className="mt-1 w-full rounded-lg px-2 py-2 text-sm crm-input">
-                    <option value="">— not called yet —</option>
+                    <option value="">(not called yet)</option>
                     {CALL_OUTCOMES.map((o) => <option key={o} value={o}>{o}</option>)}
                   </select>
                 </label>
@@ -661,7 +661,7 @@ export default function Board({ user }: { user: string }) {
 
               {/* log actions */}
               <div className="mt-3 flex gap-2">
-                <button onClick={() => { patch(p.id, { lastContacted: todayISO(), stage: p.stage === "new" ? "contacted" : p.stage, nextFollowUp: p.nextFollowUp || new Date(Date.now() + 3 * 864e5).toISOString().slice(0, 10) }); flash("Logged — follow-up in 3 days"); }} className="flex-1 rounded-lg px-3 py-2 text-xs font-semibold crm-btn">📞 Log call/email</button>
+                <button onClick={() => { patch(p.id, { lastContacted: todayISO(), stage: p.stage === "new" ? "contacted" : p.stage, nextFollowUp: p.nextFollowUp || new Date(Date.now() + 3 * 864e5).toISOString().slice(0, 10) }); flash("Logged: follow-up in 3 days"); }} className="flex-1 rounded-lg px-3 py-2 text-xs font-semibold crm-btn">📞 Log call/email</button>
                 <button onClick={() => patch(p.id, { stage: "call_booked" })} className="flex-1 rounded-lg border border-emerald-300 bg-emerald-50 px-3 py-2 text-xs font-semibold text-emerald-700 dark:border-lime/40 dark:bg-lime/10 dark:text-lime">📅 Booked a call</button>
               </div>
 
@@ -669,10 +669,10 @@ export default function Board({ user }: { user: string }) {
                 <textarea value={p.notes} onChange={(e) => patch(p.id, { notes: e.target.value })} rows={3} className="mt-1 w-full rounded-lg px-3 py-2 text-sm crm-input" placeholder="Call notes, objections, next steps…" />
               </label>
 
-              {/* client agreement — generate a personalized e-sign link with a shown discount */}
+              {/* client agreement: generate a personalized e-sign link with a shown discount */}
               <AgreementGen key={p.id} prospect={p} onCopy={flash} />
 
-              {/* templates — grouped into the two pipelines (phone-first / email-first) */}
+              {/* templates: grouped into the two pipelines (phone-first / email-first) */}
               <div className="mt-5">
                 <p className="text-xs font-bold uppercase tracking-wide crm-muted">Templates (auto-filled for {p.name})</p>
                 {TEMPLATE_FLOWS.map((flow) => {
@@ -722,7 +722,7 @@ export default function Board({ user }: { user: string }) {
         </div>
       )}
 
-      {/* add-lead modal — for a business you called or found that isn't in the list */}
+      {/* add-lead modal: for a business you called or found that isn't in the list */}
       {showAdd && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4" onClick={() => setShowAdd(false)}>
           <div className="w-full max-w-md rounded-2xl border p-5 crm-drawer" onClick={(e) => e.stopPropagation()}>
@@ -745,7 +745,7 @@ export default function Board({ user }: { user: string }) {
                 <input type="email" value={draft.email} onChange={(e) => setDraft({ ...draft, email: e.target.value })} placeholder="optional" className="mt-1 w-full rounded-lg px-3 py-2 text-sm crm-input" />
               </label>
               <label className="col-span-2 text-xs font-semibold crm-muted">Website
-                <input value={draft.website} onChange={(e) => setDraft({ ...draft, website: e.target.value })} placeholder="leave blank if they have no site — that's your pitch" className="mt-1 w-full rounded-lg px-3 py-2 text-sm crm-input" />
+                <input value={draft.website} onChange={(e) => setDraft({ ...draft, website: e.target.value })} placeholder="leave blank if they have no site: that's your pitch" className="mt-1 w-full rounded-lg px-3 py-2 text-sm crm-input" />
               </label>
             </div>
             <div className="mt-4 flex justify-end gap-2">

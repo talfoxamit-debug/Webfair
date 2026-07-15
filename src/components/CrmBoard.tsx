@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { LEAD_STATUSES, STATUS_LABELS, type Lead, type LeadStatus } from "@/lib/crm";
 
 /**
- * Internal CRM board (/crm — noindex, unlinked). Key-gated: requires the
+ * Internal CRM board (/crm: noindex, unlinked). Key-gated: requires the
  * CRM_ACCESS_KEY set in the environment; the key is kept in sessionStorage so
  * a browser tab stays signed in. Reads/writes via /api/leads GET & PATCH.
  */
@@ -32,7 +32,7 @@ export default function CrmBoard() {
         res.status === 401
           ? "Wrong access key (or CRM_ACCESS_KEY not set in the environment)."
           : res.status === 503
-            ? "Supabase isn't configured yet — set SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY."
+            ? "Supabase isn't configured yet. Set SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY."
             : "Couldn't load leads.",
       );
       setState("error");
@@ -136,7 +136,7 @@ export default function CrmBoard() {
 
       {leads.length === 0 ? (
         <p className="mt-10 text-center text-sm text-white/45">
-          No leads yet — they'll appear here the moment someone submits the audit form.
+          No leads yet. They'll appear here the moment someone submits the audit form.
         </p>
       ) : (
         <div className="mt-6 space-y-3">

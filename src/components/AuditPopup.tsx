@@ -67,16 +67,16 @@ export default function AuditPopup() {
           method: "POST", headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             name: name.trim(), email: email.trim(), result: audit,
-            source: "popup_audit", note: "Popup — wants 10% founding discount",
+            source: "popup_audit", note: "Popup: wants 10% founding discount",
           }),
         });
       } else {
-        // Site unreachable — still capture the lead so we can follow up.
+        // Site unreachable, still capture the lead so we can follow up.
         await fetch("/api/leads", {
           method: "POST", headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             name: name.trim(), email: email.trim(), website: url.trim(),
-            message: "Free-audit popup — wants 10% founding discount (site unreachable at submit).",
+            message: "Free-audit popup: wants 10% founding discount (site unreachable at submit).",
           }),
         });
       }

@@ -2,13 +2,13 @@ import crypto from "crypto";
 import { phoneDigits } from "@/lib/prospects";
 
 /**
- * Server-side client for the Quo API (formerly OpenPhone) — pulls call
+ * Server-side client for the Quo API (formerly OpenPhone): pulls call
  * history/transcripts on demand and verifies inbound webhook signatures.
  * Env-gated throughout so the build/deploy succeeds before it's wired up.
  *
  * Setup (see /api/quo/webhook for the webhook side):
  *   QUO_API_KEY            Quo → Settings → API → generate key
- *   QUO_PHONE_NUMBER_ID    optional — your Quo number's id (starts "PN…").
+ *   QUO_PHONE_NUMBER_ID    optional, your Quo number's id (starts "PN…").
  *                          Auto-resolved via /phone-numbers if omitted.
  */
 const API_BASE = "https://api.quo.com/v1";
@@ -21,7 +21,7 @@ async function quoFetch(path: string, init?: RequestInit): Promise<Response | nu
   const key = getQuoKey();
   if (!key) return null;
   try {
-    // Quo's API key goes directly in Authorization — no "Bearer" prefix.
+    // Quo's API key goes directly in Authorization, no "Bearer" prefix.
     return await fetch(`${API_BASE}${path}`, {
       ...init,
       headers: { Authorization: key, ...(init?.body ? { "Content-Type": "application/json" } : {}), ...init?.headers },
@@ -52,7 +52,7 @@ export type QuoCall = {
   durationSeconds: number | null;
 };
 
-/** On-demand call history for one lead's number — used by the CRM drawer. */
+/** On-demand call history for one lead's number, used by the CRM drawer. */
 export async function fetchCallHistory(leadPhone: string): Promise<QuoCall[]> {
   const digits = phoneDigits(leadPhone);
   if (digits.length !== 10) return [];
@@ -72,7 +72,7 @@ export async function fetchCallHistory(leadPhone: string): Promise<QuoCall[]> {
   }));
 }
 
-/** Best-effort transcript — only present on Quo Business/Scale plans. */
+/** Best-effort transcript, only present on Quo Business/Scale plans. */
 export async function fetchCallTranscript(callId: string): Promise<string | null> {
   const res = await quoFetch(`/call-transcripts/${callId}`);
   const j = res && res.ok ? await res.json().catch(() => null) : null;
@@ -81,7 +81,7 @@ export async function fetchCallTranscript(callId: string): Promise<string | null
   return j?.data?.text ?? null;
 }
 
-/** Best-effort AI call summary — only present on Quo Business/Scale plans. */
+/** Best-effort AI call summary, only present on Quo Business/Scale plans. */
 export async function fetchCallSummary(callId: string): Promise<string | null> {
   const res = await quoFetch(`/call-summaries/${callId}`);
   const j = res && res.ok ? await res.json().catch(() => null) : null;
@@ -90,10 +90,10 @@ export async function fetchCallSummary(callId: string): Promise<string | null> {
 }
 
 // ---- Webhook signature verification --------------------------------------
-// Quo has two incompatible webhook systems: legacy (created in the Quo app —
+// Quo has two incompatible webhook systems: legacy (created in the Quo app,
 // `openphone-signature` header) and the newer API-registered one (Standard
 // Webhooks-compatible `webhook-signature` header). Setup happens by pasting
-// our URL into Quo's own dashboard, which controls which scheme we get — so
+// our URL into Quo's own dashboard, which controls which scheme we get, so
 // we accept either and verify against whichever secret is configured.
 
 function timingSafeEqualB64(a: string, b: string): boolean {
@@ -145,7 +145,7 @@ export function verifyQuoWebhook(rawBody: string, headers: Headers): boolean {
 // So a lead's name shows up in Quo's own call/text UI, not just a raw number.
 // Keyed by our own lead id as Quo's externalId. POST always creates a new
 // contact (it doesn't upsert), so we look one up by externalId first and
-// PATCH it if found. Best-effort throughout — the write schema below is
+// PATCH it if found. Best-effort throughout: the write schema below is
 // reconstructed from Quo's docs, not a verified example, so failures
 // degrade to "wasn't pushed" rather than a broken-looking error in the CRM.
 

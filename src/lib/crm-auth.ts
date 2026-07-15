@@ -2,7 +2,7 @@ import crypto from "crypto";
 
 /**
  * Tiny team auth for the CRM. Users live in the CRM_USERS env var
- * (format: "tal:pass1|othman:pass2") — never in code. Sessions are signed with
+ * (format: "tal:pass1|othman:pass2"). Never in code. Sessions are signed with
  * an HMAC of the username using CRM_ACCESS_KEY as the secret, so the cookie
  * can't be forged and no password is ever stored client-side.
  */

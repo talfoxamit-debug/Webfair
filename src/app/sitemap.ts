@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { freeTools } from "@/lib/tools";
 import { site } from "@/lib/content";
 
-/** Generated at /sitemap.xml — lists every public, indexable route. */
+/** Generated at /sitemap.xml: lists every public, indexable route. */
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = `https://${site.domain}`;
   const lastModified = new Date();

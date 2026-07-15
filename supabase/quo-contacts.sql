@@ -11,4 +11,4 @@ create table if not exists public.quo_contacts (
 );
 
 alter table public.quo_contacts enable row level security;
--- (No policies on purpose — only the service-role key may read/write.)
+-- (No policies on purpose, only the service-role key may read/write.)

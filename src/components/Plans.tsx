@@ -27,7 +27,7 @@ export default function Plans() {
           </p>
         </Reveal>
 
-        {/* Care plans — the recurring core */}
+        {/* Care plans: the recurring core */}
         <div className="mt-10 grid gap-5 md:grid-cols-3">
           {carePlans.map((plan, i) => (
             <Reveal as="div" key={plan.id} delay={i * 110} className="relative">

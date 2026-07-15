@@ -1,7 +1,7 @@
 # Stackwrk
 
-Marketing landing page for **Stackwrk** — bold websites, real results.
-Single-page, dark-mode, conversion-focused. Design direction: "Direction B —
+Marketing landing page for **Stackwrk**: bold websites, real results.
+Single-page, dark-mode, conversion-focused. Design direction: "Direction B:
 Bold, Electric, Modern."
 
 > Public brand: **Stackwrk** (stackwrk.com). Legal entity: Fox Solutions LLC
@@ -11,8 +11,8 @@ Bold, Electric, Modern."
 
 - **Next.js** (App Router) + **TypeScript**
 - **Tailwind CSS**
-- **Supabase** — `leads` table for audit-request submissions (via `/api/leads`)
-- **Vercel** — deploy target
+- **Supabase**: `leads` table for audit-request submissions (via `/api/leads`)
+- **Vercel**: deploy target
 - Fonts: **Anton** (display) + **Inter** (body), self-hosted via `next/font`
 
 ## Getting started
@@ -36,7 +36,7 @@ npm run dev                  # http://localhost:3000
 
 The audit form posts to `POST /api/leads`, which inserts into the Supabase
 `leads` table using the server-only service-role key. Without env vars set the
-route returns `503` and the form shows a friendly "email me instead" message —
+route returns `503` and the form shows a friendly "email me instead" message,
 so the site builds and deploys before Supabase is wired up. See `.env.example`
 for the expected table schema.
 

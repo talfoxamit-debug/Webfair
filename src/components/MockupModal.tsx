@@ -5,7 +5,7 @@ import AuditForm from "./AuditForm";
 import { site } from "@/lib/content";
 
 /**
- * Global "Get a Free Mockup" modal. Any link to `#mockup` opens it — so the hero
+ * Global "Get a Free Mockup" modal. Any link to `#mockup` opens it, so the hero
  * and nav CTAs pop the request form right where the visitor is, instead of
  * scrolling them all the way to the bottom of the page. Mounted once on the home
  * page. Closing clears the hash without jumping.
