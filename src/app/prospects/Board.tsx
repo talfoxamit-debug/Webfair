@@ -87,6 +87,43 @@ function fill(t: string, p: Prospect | null) {
     .replaceAll("{{gap}}", gapFor(p));
 }
 
+// Presentation mode: swap every sensitive field for stable fake data so the
+// CRM can be screenshotted or demoed without ever leaking a real customer.
+// Structure stays real (stage, tier, source, badges, dates, tags) so it still
+// shows the product; only the PII is faked, and the same lead always maps to
+// the same fake identity so a screenshot stays internally consistent.
+const FAKE_COMPANIES = ["Ridgeline Fence Co.", "Coastal Exteriors", "Summit Outdoor", "BlueLine Contracting", "Evergreen Fence & Deck", "Harbor Point Services", "Ironwood Builders", "Cypress Home Pros", "Anchor Exterior Group", "Sunstate Fencing", "Trailhead Renovations", "Meridian Outdoor Living", "Copperfield Contracting", "Northgate Fence", "Palmetto Exteriors", "Vanguard Home Services"];
+const FAKE_FIRST = ["Mike", "Dave", "Chris", "Tony", "Sam", "Rob", "Nick", "Alex", "Joe", "Ray", "Luis", "Carlos", "Frank", "Pete", "Dan", "Steve"];
+const FAKE_CITIES = ["Fort Lauderdale, FL", "Coral Springs, FL", "Pompano Beach, FL", "Plantation, FL", "Davie, FL", "Boca Raton, FL", "Sunrise, FL", "Hollywood, FL"];
+const FAKE_STREETS = ["1420 Oak Ridge Rd", "88 Palmetto Ave", "305 Harbor Dr", "742 Sunset Ln", "19 Birchwood Ct", "560 Coral Way", "231 Meadow St", "77 Anchor Blvd"];
+
+function hashStr(s: string): number {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0;
+  return Math.abs(h);
+}
+
+function maskProspect(p: Prospect): Prospect {
+  const h = hashStr(p.id || p.name || "x");
+  const company = FAKE_COMPANIES[h % FAKE_COMPANIES.length];
+  const first = FAKE_FIRST[(h >> 3) % FAKE_FIRST.length];
+  const city = FAKE_CITIES[(h >> 5) % FAKE_CITIES.length];
+  const street = FAKE_STREETS[(h >> 7) % FAKE_STREETS.length];
+  const last4 = String(1000 + (h % 9000));
+  const dom = (company.toLowerCase().replace(/[^a-z]+/g, "") || "example").slice(0, 14);
+  return {
+    ...p,
+    name: company,
+    owner: p.owner ? first : "",
+    phone: p.phone ? `(954) 555-${last4}` : "",
+    email: p.email ? `${first.toLowerCase()}@${dom}.com` : "",
+    website: p.website ? `${dom}.com` : "",
+    city,
+    street: p.street ? street : "",
+    notes: p.notes ? "Sample note (hidden in presentation mode)." : "",
+  };
+}
+
 export default function Board({ user }: { user: string }) {
   const [theme, toggleTheme] = useTheme();
   const [items, setItems] = useState<Prospect[]>([]);
@@ -106,6 +143,7 @@ export default function Board({ user }: { user: string }) {
   const [toast, setToast] = useState("");
   const [tagDraft, setTagDraft] = useState("");
   const [emailHunt, setEmailHunt] = useState<{ done: number; total: number; found: number } | null>(null);
+  const [presenting, setPresenting] = useState(false);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Load the shared team pipeline + merge in inbound audited sites (page is
@@ -390,9 +428,10 @@ export default function Board({ user }: { user: string }) {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <h1 className="text-xl font-extrabold tracking-tight crm-strong">Prospects <span className="crm-subtle">· Stackwrk CRM</span></h1>
-            <p className="text-xs crm-muted">👥 Shared team pipeline. Signed in as <b className="crm-accent">{user}</b>.</p>
+            <p className="text-xs crm-muted">👥 Shared team pipeline. Signed in as <b className="crm-accent">{presenting ? "you" : user}</b>.</p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
+            <button onClick={() => setPresenting((v) => !v)} title="Hide every customer's name, phone, email and address behind fake data so you can safely screenshot or demo the CRM" className={`rounded-lg px-3 py-2 text-xs font-bold ${presenting ? "bg-violet-600 text-white" : "crm-btn"}`}>{presenting ? "🕶 Presenting" : "🕶 Present"}</button>
             <button onClick={toggleTheme} title="Toggle day / night" className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn">{theme === "day" ? "🌙 Night" : "☀️ Day"}</button>
             <button onClick={() => { setDraft(emptyLead()); setShowAdd(true); }} className="rounded-lg bg-lime px-3 py-2 text-xs font-bold text-ink">+ Add lead</button>
             <button onClick={() => setShowImport(true)} className="rounded-lg px-3 py-2 text-xs font-semibold crm-btn">Import CSV</button>
@@ -412,13 +451,19 @@ export default function Board({ user }: { user: string }) {
           </div>
         </div>
 
+        {presenting && (
+          <div className="mt-3 rounded-lg border border-violet-300 bg-violet-50 px-3 py-2 text-xs font-semibold text-violet-700 dark:border-violet-500/30 dark:bg-violet-500/10 dark:text-violet-300">
+            🕶 Presentation mode on. Every customer name, phone, email and address is replaced with fake data, so this screen is safe to screenshot or share. Editing is paused. Turn it off to work.
+          </div>
+        )}
+
         {/* view toggle: Today (daily driver) vs the full board */}
         <div className="mt-4 inline-flex rounded-lg border border-slate-300 p-0.5 dark:border-white/12">
           <button onClick={() => setView("today")} className={`rounded-md px-4 py-1.5 text-xs font-bold ${view === "today" ? "bg-lime text-ink" : "crm-muted"}`}>▶ Today</button>
           <button onClick={() => setView("board")} className={`rounded-md px-4 py-1.5 text-xs font-bold ${view === "board" ? "bg-lime text-ink" : "crm-muted"}`}>Full board</button>
         </div>
 
-        {view === "today" && <TodayDriver items={items} patch={patch} onOpen={setSel} onCopy={flash} />}
+        {view === "today" && <TodayDriver items={presenting ? items.map(maskProspect) : items} patch={patch} onOpen={setSel} onCopy={flash} />}
 
         {view === "board" && (<>
         {/* stats */}
@@ -473,8 +518,8 @@ export default function Board({ user }: { user: string }) {
                     <span className="text-xs tabular-nums crm-subtle">{cards.length}</span>
                   </div>
                   <div className="space-y-2 rounded-xl p-1.5 crm-col">
-                    {cards.map((p) => (
-                      <button key={p.id} onClick={() => setSel(p)} className="block w-full rounded-lg p-2.5 text-left transition-colors crm-card hover:border-emerald-400 dark:hover:border-lime/40">
+                    {cards.map((real) => { const p = presenting ? maskProspect(real) : real; return (
+                      <button key={real.id} onClick={() => setSel(real)} className="block w-full rounded-lg p-2.5 text-left transition-colors crm-card hover:border-emerald-400 dark:hover:border-lime/40">
                         <div className="flex items-start justify-between gap-1">
                           <span className="truncate text-[0.8rem] font-semibold crm-strong">{p.name}</span>
                           {p.tier
@@ -496,7 +541,7 @@ export default function Board({ user }: { user: string }) {
                         )}
                         {p.nextFollowUp && <div className={`mt-1 text-[0.62rem] ${p.nextFollowUp <= todayISO() ? "text-amber-600 dark:text-amber-400" : "crm-subtle"}`}>⏰ {p.nextFollowUp}</div>}
                       </button>
-                    ))}
+                    ); })}
                     {!cards.length && <div className="px-2 py-3 text-center text-[0.65rem] crm-subtle">-</div>}
                   </div>
                 </div>
@@ -509,7 +554,8 @@ export default function Board({ user }: { user: string }) {
 
       {/* detail drawer */}
       {sel && (() => {
-        const p = items.find((x) => x.id === sel.id) || sel;
+        const real = items.find((x) => x.id === sel.id) || sel;
+        const p = presenting ? maskProspect(real) : real;
         return (
           <div className="fixed inset-0 z-50 flex justify-end bg-black/50" onClick={closeDrawer}>
             <div className="h-full w-full max-w-md overflow-y-auto border-l p-5 crm-drawer" onClick={(e) => e.stopPropagation()}>
@@ -575,8 +621,9 @@ export default function Board({ user }: { user: string }) {
                   <a href={lookup(p, "fb")} target="_blank" rel="noopener noreferrer" className="rounded-lg px-2.5 py-1.5 text-xs font-semibold crm-btn">📘 Facebook ↗</a>
                   {p.phone && (
                     <button
-                      onClick={async () => flash((await pushToQuo(p)) ? "Synced to Quo" : "Couldn't sync to Quo: check it's connected")}
-                      className="rounded-lg px-2.5 py-1.5 text-xs font-semibold crm-btn"
+                      onClick={async () => flash((await pushToQuo(real)) ? "Synced to Quo" : "Couldn't sync to Quo: check it's connected")}
+                      disabled={presenting}
+                      className="rounded-lg px-2.5 py-1.5 text-xs font-semibold crm-btn disabled:opacity-40"
                       title="Push this name into Quo as a contact"
                     >
                       🔄 Sync to Quo
@@ -623,12 +670,12 @@ export default function Board({ user }: { user: string }) {
               {/* stage + follow-up */}
               <div className="mt-4 grid grid-cols-2 gap-3">
                 <label className="text-xs font-semibold crm-muted">Stage
-                  <select value={p.stage} onChange={(e) => patch(p.id, { stage: e.target.value as ProspectStage })} className="mt-1 w-full rounded-lg px-2 py-2 text-sm crm-input">
+                  <select value={p.stage} disabled={presenting} onChange={(e) => patch(p.id, { stage: e.target.value as ProspectStage })} className="mt-1 w-full rounded-lg px-2 py-2 text-sm crm-input">
                     {PROSPECT_STAGES.map((s) => <option key={s.key} value={s.key}>{s.label}</option>)}
                   </select>
                 </label>
                 <label className="text-xs font-semibold crm-muted">Next follow-up
-                  <input type="date" value={p.nextFollowUp} onChange={(e) => patch(p.id, { nextFollowUp: e.target.value })} className="mt-1 w-full rounded-lg px-2 py-2 text-sm crm-input" />
+                  <input type="date" value={p.nextFollowUp} disabled={presenting} onChange={(e) => patch(p.id, { nextFollowUp: e.target.value })} className="mt-1 w-full rounded-lg px-2 py-2 text-sm crm-input" />
                 </label>
               </div>
               {/* structured contact details: fill these from the call, not freeform */}
@@ -636,23 +683,23 @@ export default function Board({ user }: { user: string }) {
                 <p className="text-[0.7rem] font-bold uppercase tracking-wide crm-subtle">Contact details</p>
                 <div className="mt-1.5 grid grid-cols-2 gap-3">
                   <label className="text-xs font-semibold crm-muted">Contact name
-                    <input value={p.owner} onChange={(e) => patch(p.id, { owner: e.target.value })} placeholder="e.g. Mike" className="mt-1 w-full rounded-lg px-2 py-2 text-sm crm-input" />
+                    <input value={p.owner} readOnly={presenting} onChange={(e) => patch(p.id, { owner: e.target.value })} placeholder="e.g. Mike" className="mt-1 w-full rounded-lg px-2 py-2 text-sm crm-input" />
                   </label>
                   <label className="text-xs font-semibold crm-muted">Best time to reach
-                    <select value={p.bestTime || ""} onChange={(e) => patch(p.id, { bestTime: e.target.value })} className="mt-1 w-full rounded-lg px-2 py-2 text-sm crm-input">
+                    <select value={p.bestTime || ""} disabled={presenting} onChange={(e) => patch(p.id, { bestTime: e.target.value })} className="mt-1 w-full rounded-lg px-2 py-2 text-sm crm-input">
                       <option value="">-</option>
                       {BEST_TIMES.map((t) => <option key={t} value={t}>{t}</option>)}
                     </select>
                   </label>
                   <label className="text-xs font-semibold crm-muted">Email
-                    <input type="email" value={p.email} onChange={(e) => patch(p.id, { email: e.target.value })} placeholder="add from call" className="mt-1 w-full rounded-lg px-2 py-2 text-sm crm-input" />
+                    <input type="email" value={p.email} readOnly={presenting} onChange={(e) => patch(p.id, { email: e.target.value })} placeholder="add from call" className="mt-1 w-full rounded-lg px-2 py-2 text-sm crm-input" />
                   </label>
                   <label className="text-xs font-semibold crm-muted">Phone
-                    <input type="tel" value={p.phone} onChange={(e) => patch(p.id, { phone: e.target.value })} placeholder="add / fix number" className="mt-1 w-full rounded-lg px-2 py-2 text-sm crm-input" />
+                    <input type="tel" value={p.phone} readOnly={presenting} onChange={(e) => patch(p.id, { phone: e.target.value })} placeholder="add / fix number" className="mt-1 w-full rounded-lg px-2 py-2 text-sm crm-input" />
                   </label>
                 </div>
                 <label className="mt-3 block text-xs font-semibold crm-muted">Call outcome
-                  <select value={p.callOutcome || ""} onChange={(e) => patch(p.id, { callOutcome: e.target.value })} className="mt-1 w-full rounded-lg px-2 py-2 text-sm crm-input">
+                  <select value={p.callOutcome || ""} disabled={presenting} onChange={(e) => patch(p.id, { callOutcome: e.target.value })} className="mt-1 w-full rounded-lg px-2 py-2 text-sm crm-input">
                     <option value="">(not called yet)</option>
                     {CALL_OUTCOMES.map((o) => <option key={o} value={o}>{o}</option>)}
                   </select>
@@ -666,7 +713,7 @@ export default function Board({ user }: { user: string }) {
               </div>
 
               <label className="mt-4 block text-xs font-semibold crm-muted">Notes
-                <textarea value={p.notes} onChange={(e) => patch(p.id, { notes: e.target.value })} rows={3} className="mt-1 w-full rounded-lg px-3 py-2 text-sm crm-input" placeholder="Call notes, objections, next steps…" />
+                <textarea value={p.notes} readOnly={presenting} onChange={(e) => patch(p.id, { notes: e.target.value })} rows={3} className="mt-1 w-full rounded-lg px-3 py-2 text-sm crm-input" placeholder="Call notes, objections, next steps…" />
               </label>
 
               {/* client agreement: generate a personalized e-sign link with a shown discount */}
