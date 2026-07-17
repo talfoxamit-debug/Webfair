@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { normalizeUrl, guardedFetch, readBodyCapped } from "@/lib/safe-fetch";
+import { getClientIp, rateLimit } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 export const maxDuration = 20;
@@ -24,24 +25,32 @@ const scoreOf = (checks: Check[]) =>
   Math.round(checks.reduce((s, c) => s + WEIGHT[c.status], 0) / Math.max(checks.length, 1));
 
 async function fetchRobots(origin: string): Promise<{ ok: boolean; hasSitemap: boolean }> {
+  const c = new AbortController();
+  const t = setTimeout(() => c.abort(), ROBOTS_TIMEOUT_MS);
   try {
-    const c = new AbortController();
-    const t = setTimeout(() => c.abort(), ROBOTS_TIMEOUT_MS);
-    const r = await fetch(`${origin}/robots.txt`, {
-      signal: c.signal,
-      redirect: "manual", // never follow a robots.txt redirect to another host
-      headers: { "User-Agent": "StackwrkAuditBot/1.0 (+https://stackwrk.com)" },
-    });
-    clearTimeout(t);
+    // Route through the SSRF guard so a robots.txt redirect can't reach an
+    // internal host, same as the main page fetch.
+    const r = await guardedFetch(new URL(`${origin}/robots.txt`), c.signal, "StackwrkAuditBot/1.0 (+https://stackwrk.com)");
     if (!r.ok) return { ok: false, hasSitemap: false };
     const txt = (await r.text()).slice(0, 20000);
     return { ok: true, hasSitemap: /sitemap\s*:/i.test(txt) };
   } catch {
     return { ok: false, hasSitemap: false };
+  } finally {
+    clearTimeout(t);
   }
 }
 
 export async function POST(req: Request) {
+  // Public, expensive endpoint (outbound fetch up to 2.5MB, up to 20s): throttle
+  // per client IP so it cannot be used as a cost/amplification DoS or SSRF probe.
+  if (!rateLimit(`audit:${getClientIp(req)}`, 8, 60_000)) {
+    return NextResponse.json(
+      { ok: false, error: "rate_limited", message: "Too many audits from your network. Please wait a minute and try again." },
+      { status: 429 },
+    );
+  }
+
   let body: { url?: string };
   try {
     body = await req.json();

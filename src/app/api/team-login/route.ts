@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { checkLogin, makeToken, verifyToken, getUsers, SESSION_COOKIE } from "@/lib/crm-auth";
+import { checkLogin, makeToken, getSessionUser, isConfigured, SESSION_COOKIE } from "@/lib/crm-auth";
 
 export const runtime = "nodejs";
 
@@ -8,12 +8,12 @@ const cookieOpts = {
   secure: process.env.NODE_ENV === "production",
   sameSite: "lax" as const,
   path: "/",
-  maxAge: 60 * 60 * 24 * 30,
+  maxAge: 60 * 60 * 24 * 14, // matches the token TTL in crm-auth.ts
 };
 
 /** POST { username, password } → set session cookie. */
 export async function POST(req: Request) {
-  if (!Object.keys(getUsers()).length) {
+  if (!isConfigured()) {
     return NextResponse.json({ ok: false, error: "not_configured" }, { status: 503 });
   }
   let body: { username?: string; password?: string };
@@ -22,16 +22,19 @@ export async function POST(req: Request) {
   if (!checkLogin(username, password)) {
     return NextResponse.json({ ok: false, error: "invalid" }, { status: 401 });
   }
+  const token = makeToken(username);
+  if (!token) {
+    return NextResponse.json({ ok: false, error: "not_configured" }, { status: 503 });
+  }
   const res = NextResponse.json({ ok: true, username });
-  res.cookies.set(SESSION_COOKIE, makeToken(username), cookieOpts);
+  res.cookies.set(SESSION_COOKIE, token, cookieOpts);
   return res;
 }
 
 /** GET → who am I (used on page load to detect a session). */
 export async function GET(req: Request) {
-  const token = req.headers.get("cookie")?.match(/(?:^|;\s*)crm_session=([^;]+)/)?.[1];
-  const user = verifyToken(token ? decodeURIComponent(token) : null);
-  return NextResponse.json({ ok: Boolean(user), username: user, configured: Object.keys(getUsers()).length > 0 });
+  const user = getSessionUser(req);
+  return NextResponse.json({ ok: Boolean(user), username: user, configured: isConfigured() });
 }
 
 /** DELETE → log out. */

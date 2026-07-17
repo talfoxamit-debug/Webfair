@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import crypto from "crypto";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { LEAD_STATUSES } from "@/lib/crm";
 
@@ -17,12 +18,18 @@ const clamp = (v: unknown, max: number) =>
   typeof v === "string" ? v.trim().slice(0, max) : "";
 
 
-/** Internal endpoints (GET/PATCH) require the CRM access key. */
+/** Internal endpoints (GET/PATCH) require the CRM access key in a header.
+ *  Header-only (never a URL query param, which would leak the secret into
+ *  access logs, browser history, and the Referer header) and compared in
+ *  constant time. */
 function authorized(req: Request): boolean {
   const key = process.env.CRM_ACCESS_KEY;
   if (!key) return false; // locked until configured
-  const url = new URL(req.url);
-  return req.headers.get("x-crm-key") === key || url.searchParams.get("key") === key;
+  const provided = req.headers.get("x-crm-key");
+  if (!provided) return false;
+  const a = Buffer.from(provided);
+  const b = Buffer.from(key);
+  return a.length === b.length && crypto.timingSafeEqual(a, b);
 }
 
 export async function GET(req: Request) {

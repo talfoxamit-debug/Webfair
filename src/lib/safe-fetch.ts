@@ -10,11 +10,31 @@ import dnsp from "dns/promises";
 
 const BLOCKED_NAMES = /(^|\.)(localhost|internal|metadata\.google\.internal|instance-data)$|\.local$/i;
 
+/** Decode an IPv4-mapped IPv6 address (::ffff:...) in any of its textual forms
+ *  (dotted, two hex groups, or a single hex group) to dotted IPv4, else null.
+ *  new URL() canonicalizes [::ffff:127.0.0.1] to the hex form [::ffff:7f00:1],
+ *  so blocking only the dotted form leaves an SSRF hole. */
+function mappedV4(ip: string): string | null {
+  let m = ip.match(/^::ffff:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})$/i);
+  if (m) return m[1];
+  m = ip.match(/^::ffff:([0-9a-f]{1,4}):([0-9a-f]{1,4})$/i);
+  if (m) {
+    const hi = parseInt(m[1], 16), lo = parseInt(m[2], 16);
+    return `${(hi >> 8) & 255}.${hi & 255}.${(lo >> 8) & 255}.${lo & 255}`;
+  }
+  m = ip.match(/^::ffff:([0-9a-f]{1,4})$/i);
+  if (m) {
+    const lo = parseInt(m[1], 16);
+    return `0.0.${(lo >> 8) & 255}.${lo & 255}`;
+  }
+  return null;
+}
+
 /** True if a resolved IP (v4 or v6) is loopback / private / link-local. */
 export function isPrivateIp(raw: string): boolean {
   let ip = raw.replace(/%.*$/, "").toLowerCase(); // drop IPv6 zone id
-  const mapped = ip.match(/^::ffff:(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})$/i);
-  if (mapped) ip = mapped[1];
+  const mapped = mappedV4(ip);
+  if (mapped) ip = mapped;
   const v4 = ip.match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/);
   if (v4) {
     const [a, b] = [Number(v4[1]), Number(v4[2])];
