@@ -47,7 +47,7 @@ export default function MaterialsCalculator() {
           <div>
             <label className="text-xs font-bold uppercase tracking-wide text-slate-500">Gates</label>
             <div className="mt-2 flex items-center gap-2">
-              <button onClick={() => setGates((g) => Math.max(0, g - 1))} className="h-9 w-9 rounded-lg border border-black/10 text-lg font-bold text-slate-600">–</button>
+              <button onClick={() => setGates((g) => Math.max(0, g - 1))} aria-label="Fewer gates" className="h-9 w-9 rounded-lg border border-black/10 text-lg font-bold text-slate-600">-</button>
               <span className="flex-1 text-center text-sm font-bold" style={{ color: NAVY }}>{gates}</span>
               <button onClick={() => setGates((g) => Math.min(6, g + 1))} className="h-9 w-9 rounded-lg border border-black/10 text-lg font-bold text-slate-600">+</button>
             </div>

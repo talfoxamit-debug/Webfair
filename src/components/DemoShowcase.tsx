@@ -275,7 +275,7 @@ const QUICK = [
  * answer FAQs and route anything it can't answer into a captured lead.
  */
 const INTENTS: { keys: string[]; a: string }[] = [
-  { keys: ["hour", "open", "close", "time", "when"], a: "We're open Mon–Sat, 9am–6pm. Want me to book you the next available slot?" },
+  { keys: ["hour", "open", "close", "time", "when"], a: "We're open Mon to Sat, 9am to 6pm. Want me to book you the next available slot?" },
   { keys: ["quote", "estimate", "free"], a: "Yes. Free, no-obligation quotes. Drop your name and I'll have someone reach out within the hour." },
   { keys: ["price", "cost", "how much", "budget", "pricing", "rate"], a: "Most projects start around $2,000 and scale with what you need. Want a tailored quote in 2 minutes?" },
   { keys: ["where", "located", "location", "address", "area"], a: "We serve the whole metro area and work with clients remotely. Want directions or a callback?" },
@@ -573,7 +573,7 @@ function BeforeAfterDemo() {
                   <div className="flex h-16 w-20 shrink-0 items-center justify-center border-2 border-[#a8a498] bg-[#e6e4dc] text-[0.75rem] text-[#8899aa]">[ photo.jpg ]</div>
                   <span className="text-[0.75rem] leading-relaxed text-[#445566]">
                     We are a family-owned company providing the BEST service in town! Call us during business
-                    hours Mon–Fri 9–5. We fix drains, pipes &amp; water heaters. Ask about our specials!
+                    hours Mon to Fri 9 to 5. We fix drains, pipes &amp; water heaters. Ask about our specials!
                   </span>
                 </div>
                 <div className="mt-2 flex items-center gap-2">

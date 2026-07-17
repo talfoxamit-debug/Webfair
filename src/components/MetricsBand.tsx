@@ -7,7 +7,7 @@ import CountUp from "./CountUp";
 const stats: { value?: number; text?: string; label: string }[] = [
   { value: 5, label: "products live in production" },
   { value: 4, label: "companies I build & operate" },
-  { text: "2–4", label: "weeks from kickoff to launch" },
+  { text: "2 to 4", label: "weeks from kickoff to launch" },
   { text: "24/7", label: "booking & AI tools working" },
 ];
 

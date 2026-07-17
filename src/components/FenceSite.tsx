@@ -50,7 +50,7 @@ const services = [
 
 const faqs = [
   { q: "Do I need a permit for a fence in South Florida?", a: "Almost always, yes. Most Broward and Miami-Dade cities require a permit, and we pull it for you (plus the survey and inspection) so your install passes the first time." },
-  { q: "How long does installation take?", a: "Most residential fences are installed in 1–3 days once materials arrive and the permit clears. We give you a firm timeline in writing before we start." },
+  { q: "How long does installation take?", a: "Most residential fences are installed in 1 to 3 days once materials arrive and the permit clears. We give you a firm timeline in writing before we start." },
   { q: "What does a new fence cost?", a: "Most projects land between $3,000 and $12,000 depending on material, height and length. Use our instant estimator above for a ballpark, then we confirm it free on-site." },
   { q: "Do you offer financing?", a: "Yes, $0-down plans spread over 12 to 60 months, so you can start now and pay monthly. Ask us to check your rate; it won't affect your credit." },
   { q: "Is your work warrantied?", a: "Every install is backed by a 5-year workmanship warranty on top of the manufacturer's material warranty. If anything shifts or fails, we make it right." },
@@ -329,7 +329,7 @@ export default function FenceSite({ config, demo = false }: { config?: Partial<F
       {/* FINANCING */}
       <section className="px-5 py-6 sm:px-8">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 rounded-2xl px-7 py-6 text-white sm:flex-row" style={{ background: `linear-gradient(100deg,${NAVY},#123a52)` }}>
-          <p className="text-center text-lg font-bold sm:text-left">$0-down financing available. Spread it over 12–60 months.</p>
+          <p className="text-center text-lg font-bold sm:text-left">$0-down financing available. Spread it over 12 to 60 months.</p>
           <a href="#quote" className="shrink-0 rounded-lg px-6 py-3 text-sm font-bold text-white" style={{ background: GREEN_BRIGHT }}>Check my rate</a>
         </div>
       </section>
@@ -367,7 +367,7 @@ export default function FenceSite({ config, demo = false }: { config?: Partial<F
           <div>
             <p className="text-base font-extrabold"><Wordmark business={c.business} /></p>
             <p className="mt-2">Licensed &amp; Insured · {c.license}</p>
-            <p>Mon–Sat 7am–6pm · {c.phone}</p>
+            <p>Mon to Sat 7am to 6pm · {c.phone}</p>
           </div>
           <div className="sm:text-right">
             <p className="font-semibold text-slate-700">Serving {c.region}</p>

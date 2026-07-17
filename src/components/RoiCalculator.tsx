@@ -48,7 +48,7 @@ export default function RoiCalculator() {
             className="mt-2 w-full accent-lime"
           />
           <span className="mt-1 block text-xs font-normal text-white/40">
-            Most small-business sites convert 1–2%. A fast, focused site targets ~{improved.toFixed(1)}%.
+            Most small-business sites convert 1 to 2%. A fast, focused site targets ~{improved.toFixed(1)}%.
           </span>
         </label>
       </div>

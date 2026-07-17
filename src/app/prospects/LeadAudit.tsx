@@ -53,7 +53,7 @@ export default function LeadAudit({ url }: { url: string }) {
         )}
       </div>
 
-      {phase === "idle" && <p className="mt-1 text-[0.68rem] crm-subtle">Scores their live site 0–100 so you have a concrete opener (“your site scored 41: here’s why”).</p>}
+      {phase === "idle" && <p className="mt-1 text-[0.68rem] crm-subtle">Scores their live site 0 to 100 so you have a concrete opener (“your site scored 41: here’s why”).</p>}
       {phase === "loading" && <p className="mt-2 text-xs crm-muted">Scanning {url}…</p>}
       {phase === "error" && <p className="mt-2 text-xs text-rose-500 dark:text-rose-400">{err}</p>}
 

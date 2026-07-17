@@ -21,7 +21,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Do you offer ongoing support after launch?",
-    a: "Yes. Care plans run $99–$499/mo and cover managed hosting, updates, security, daily backups, uptime monitoring, and a set amount of changes each month.",
+    a: "Yes. Care plans run $99 to $499/mo and cover managed hosting, updates, security, daily backups, uptime monitoring, and a set amount of changes each month.",
   },
   {
     q: "Can you redesign my existing website?",
