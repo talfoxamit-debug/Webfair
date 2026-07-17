@@ -68,9 +68,11 @@ export default function HeroMedia({ variant = "panel" }: { variant?: "panel" | "
           srcSet="/fox-620.webp 620w, /fox.webp 1000w"
           sizes="(max-width: 640px) 300px, 384px"
           alt=""
-          loading="eager"
+          // This "panel" variant is hidden on desktop (where the "bleed" variant
+          // is the LCP). Lazy so desktop does not redundantly download it; on
+          // mobile it is in-viewport and still loads promptly.
+          loading="lazy"
           decoding="async"
-          fetchPriority="high"
           onError={() => setFailed(true)}
           className="relative h-full w-full animate-float select-none object-contain drop-shadow-[0_0_55px_rgba(162,28,224,0.45)]"
         />

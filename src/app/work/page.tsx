@@ -23,7 +23,7 @@ export default function WorkPage() {
         <div className="pointer-events-none absolute right-[8%] top-24 h-72 w-72 rounded-full bg-violet-600/15 blur-[90px]" />
         <div className="pointer-events-none absolute -right-6 top-14 z-0 hidden w-[20%] max-w-[220px] xl:block" aria-hidden="true">
           {/* eslint-disable-next-line @next/next/no-img-element -- static decorative asset */}
-          <img src="/fox-proud.webp" alt="" loading="eager" decoding="async" className="w-full animate-float-y opacity-90 drop-shadow-[0_0_40px_rgba(203,255,60,0.16)]" />
+          <img src="/fox-proud.webp" alt="" loading="lazy" decoding="async" className="w-full animate-float-y opacity-90 drop-shadow-[0_0_40px_rgba(203,255,60,0.16)]" />
         </div>
         <div className="container-content relative z-10 text-center">
           <Reveal className="mx-auto max-w-2xl">

@@ -45,7 +45,7 @@ export default function ServicesPage() {
         {/* floating fox mascot (desktop) */}
         <div className="pointer-events-none absolute -left-4 top-16 z-0 hidden w-[20%] max-w-[220px] xl:block" aria-hidden="true">
           {/* eslint-disable-next-line @next/next/no-img-element -- static decorative asset */}
-          <img src="/fox-run.webp" alt="" loading="eager" decoding="async" className="w-full animate-float-y opacity-90 drop-shadow-[0_0_40px_rgba(255,90,40,0.16)]" />
+          <img src="/fox-run.webp" alt="" loading="lazy" decoding="async" className="w-full animate-float-y opacity-90 drop-shadow-[0_0_40px_rgba(255,90,40,0.16)]" />
         </div>
         <div className="container-content relative z-10 text-center">
           <Reveal className="mx-auto max-w-2xl">

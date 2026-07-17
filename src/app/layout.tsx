@@ -48,6 +48,11 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        {/* Preload the display font used in the LCP headline so it is not
+            discovered only after CSS parse (cuts the swap window / CLS). */}
+        <link rel="preload" href="/fonts/anton-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      </head>
       <body>
         <a href="#main" className="skip-link">Skip to content</a>
         <ScrollProgress />
