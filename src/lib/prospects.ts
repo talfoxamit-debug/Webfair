@@ -74,7 +74,9 @@ export const BEST_TIMES = ["Morning", "Afternoon", "Evening", "Weekend"] as cons
 // South-Florida area codes we actually sell into. A local fence contractor
 // has a local number; toll-free / out-of-area numbers are usually a chain,
 // aggregator, or answering service, not the owner you want on the phone.
-export const SOFLA_AREA_CODES = new Set(["954", "754", "561", "786", "305", "472", "645"]);
+// South Florida area codes: Broward (954/754), Palm Beach (561, overlay 728),
+// Miami-Dade (305/786, overlay 645). 472 was never assigned, so it is not here.
+export const SOFLA_AREA_CODES = new Set(["954", "754", "561", "728", "786", "305", "645"]);
 const TOLLFREE_CODES = new Set(["800", "888", "877", "866", "855", "844", "833"]);
 
 export type PhoneFlag = "ok" | "tollfree" | "outarea" | "invalid" | "empty";

@@ -10,9 +10,12 @@ export const site = {
   legalEntity: "Fox Solutions LLC",
   email: "hello@stackwrk.com",
   calendlyUrl: "https://calendly.com/tal-foxamit-seatophomes/30min",
+  // TODO(Tal): drop in the real Stackwrk LinkedIn / GitHub profile URLs. Left
+  // blank on purpose so the footer does not link to bare linkedin.com/github.com
+  // homepages (which read as broken placeholders). Blank links are hidden.
   socials: {
-    linkedin: "https://www.linkedin.com/",
-    github: "https://github.com/",
+    linkedin: "",
+    github: "",
     email: "mailto:hello@stackwrk.com",
   },
 };
@@ -164,7 +167,7 @@ export const whatYouGet = {
     {
       icon: "bolt",
       title: "Fast Delivery",
-      body: "Most projects go live in 2–4 weeks, with no drawn-out timelines or ghosting.",
+      body: "Most projects go live in 2 to 4 weeks, with no drawn-out timelines or ghosting.",
     },
     {
       icon: "stack",
@@ -236,13 +239,9 @@ export const testimonials = [
     name: "Saar",
     role: "Fort Lauderdale Dock Rental",
   },
-  {
-    // TODO(Tal): add a third real client quote here.
-    quote:
-      "Fast, on time, and it works on every phone. Would recommend to anyone who needs a real website.",
-    name: "Client",
-    role: "Local service business",
-  },
+  // TODO(Tal): add a third real, named, permission-granted client quote here.
+  // The previous placeholder card (attributed to "Client") was removed because
+  // an invented testimonial is a fabricated-review / FTC exposure.
 ];
 
 // NOTE(Tal): confirm these guarantee terms reflect what you actually offer.

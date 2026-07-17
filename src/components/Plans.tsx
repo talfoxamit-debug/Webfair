@@ -68,7 +68,7 @@ export default function Plans() {
                     <ArrowRight width={16} height={16} />
                   </a>
                   <a
-                    href="#audit"
+                    href="/#audit"
                     className="mt-3 block text-center text-xs text-white/50 underline-offset-4 hover:text-lime hover:underline"
                   >
                     or start with a free audit
@@ -76,7 +76,7 @@ export default function Plans() {
                 </>
               ) : (
                 <a
-                  href="#audit"
+                  href="/#audit"
                   className={`${plan.highlight ? "btn-primary" : "btn-ghost"} mt-7 w-full !rounded-md`}
                 >
                   Start with a free audit

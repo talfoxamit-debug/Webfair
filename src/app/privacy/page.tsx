@@ -4,6 +4,7 @@ import LegalDoc, { type LegalBlock } from "@/components/LegalDoc";
 export const metadata: Metadata = {
   title: "Privacy Policy | Stackwrk",
   description: "How Stackwrk (Fox Solutions LLC) collects, uses, and protects your information.",
+  alternates: { canonical: "https://stackwrk.com/privacy" },
 };
 
 const UPDATED = "July 14, 2026";

@@ -29,7 +29,7 @@ export default function Footer() {
         <p className="order-last text-xs text-white/40 sm:order-none">{footer.tagline}</p>
 
         <div className="flex items-center gap-2">
-          {socials.map(({ href, label, Icon, external }) => (
+          {socials.filter((s) => s.href).map(({ href, label, Icon, external }) => (
             <a
               key={label}
               href={href}

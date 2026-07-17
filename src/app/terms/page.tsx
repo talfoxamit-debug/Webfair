@@ -4,6 +4,7 @@ import LegalDoc, { type LegalBlock } from "@/components/LegalDoc";
 export const metadata: Metadata = {
   title: "Terms of Service | Stackwrk",
   description: "The terms that govern your use of the Stackwrk website.",
+  alternates: { canonical: "https://stackwrk.com/terms" },
 };
 
 const UPDATED = "July 14, 2026";
