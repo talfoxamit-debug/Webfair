@@ -8,6 +8,8 @@
  * Pure/serializable: safe to import in both the API route and the client.
  */
 
+import { site } from "@/lib/content";
+
 export type CheckStatus = "pass" | "warn" | "fail";
 export type AuditCheck = { label: string; status: CheckStatus; detail: string };
 export type AuditCategory = { key: string; label: string; score: number; checks: AuditCheck[] };
@@ -168,24 +170,34 @@ export function renderReportEmailHtml(opts: {
       }
     </td></tr>
 
-    <!-- CTA -->
-    <tr><td style="padding:28px 32px 32px;">
+    <!-- where we come in -->
+    <tr><td style="padding:24px 32px 4px;">
+      <div style="font:700 12px -apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#8b81a0;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">Where we come in</div>
+      <div style="font:400 15px -apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#3a3450;line-height:1.6;">
+        Here is the good news: <strong style="color:#1a0f2e;">every issue above is fixable, and we can fix all of it.</strong>
+        Stackwrk builds fast, custom, mobile-first sites and the systems behind them (lead capture, automations,
+        a custom CRM, even a 24/7 AI assistant) that turn "near me" searches into booked jobs. Whatever your audit
+        flagged, we do not just patch it, we rebuild it to convert and keep improving it month after month.
+      </div>
+    </td></tr>
+
+    <!-- dual CTA: book OR call -->
+    <tr><td style="padding:20px 32px 32px;">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f2f8;border-radius:12px;"><tr>
         <td style="padding:22px 24px;">
-          <div style="font:700 17px -apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#1a0f2e;">Want me to fix these for you?</div>
-          <div style="font:400 14px -apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#6b6480;margin:6px 0 16px;">I turn audits like this into fast, custom sites that book customers. Grab a free 30-minute call, no obligation.</div>
-          <a href="${esc(
-            bookUrl,
-          )}" style="display:inline-block;background:#cbff3c;color:#12081f;font:700 15px -apple-system,Segoe UI,Roboto,Arial,sans-serif;text-decoration:none;padding:12px 22px;border-radius:9px;">Book my free call →</a>
+          <div style="font:700 17px -apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#1a0f2e;">Let's fix it. Two easy ways to start:</div>
+          <div style="font:400 14px -apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#6b6480;margin:6px 0 16px;">Book a free 30-minute call, or just call or text me directly. Whatever is easier for you, no obligation either way.</div>
+          <a href="${esc(bookUrl)}" style="display:inline-block;background:#cbff3c;color:#12081f;font:700 15px -apple-system,Segoe UI,Roboto,Arial,sans-serif;text-decoration:none;padding:12px 22px;border-radius:9px;margin:0 8px 8px 0;">Book my free call &rarr;</a>
+          <a href="${esc(site.phoneHref)}" style="display:inline-block;background:#ffffff;color:#12081f;border:1px solid #d8d3e4;font:700 15px -apple-system,Segoe UI,Roboto,Arial,sans-serif;text-decoration:none;padding:12px 22px;border-radius:9px;margin:0 0 8px 0;">Call or text ${esc(site.phone)}</a>
         </td>
       </tr></table>
     </td></tr>
 
     <!-- footer -->
     <tr><td style="padding:20px 32px 28px;border-top:1px solid #eceaf2;">
-      <div style="font:400 12px -apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#a49dbb;">Stackwrk · <a href="${esc(
+      <div style="font:400 12px -apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#a49dbb;">Tal at Stackwrk · <a href="${esc(
         siteUrl,
-      )}" style="color:#7c3aed;">stackwrk.com</a><br/>You got this because you ran a free audit on stackwrk.com.</div>
+      )}" style="color:#7c3aed;">stackwrk.com</a> · <a href="${esc(site.phoneHref)}" style="color:#7c3aed;">${esc(site.phone)}</a> · <a href="mailto:${esc(site.email)}" style="color:#7c3aed;">${esc(site.email)}</a><br/>You got this because you ran a free audit on stackwrk.com.</div>
     </td></tr>
   </table>
 </body>

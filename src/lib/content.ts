@@ -9,6 +9,8 @@ export const site = {
   domain: "stackwrk.com",
   legalEntity: "Fox Solutions LLC",
   email: "hello@stackwrk.com",
+  phone: "(754) 551-2828",
+  phoneHref: "tel:+17545512828",
   // Tal's real booking link. UTM appended so Calendly attributes the channel.
   calendlyUrl: "https://calendly.com/tal-foxamit-seatophomes/30min?utm_source=stackwrk&utm_medium=website",
   // TODO(Tal): paste your real LinkedIn profile URL into `linkedin` and it will

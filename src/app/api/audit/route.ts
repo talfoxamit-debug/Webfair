@@ -160,6 +160,7 @@ export async function POST(req: Request) {
 
   const bookingSignal = has(html, /calendly|cal\.com|acuity|squarespace-scheduling|book\s*(now|a|an|your)|appointment|schedule\s*(a|your|now)|reserve|booking/i);
   const contactSignal = has(html, /mailto:|tel:|href=["'][^"']*contact/i);
+  const clickToCall = has(html, /href=["']tel:/i);
   const ctaSignal = has(html, /get\s*started|book\s*(now|a)|buy\s*now|sign\s*up|contact\s*us|get\s*a\s*quote|shop\s*now|order\s*(now|online)|add\s*to\s*cart|request\s*a|reserve\s*(a|now|your)?|view\s*(the\s*)?menu|get\s*in\s*touch/i);
   const analyticsSignal = has(html, /googletagmanager|google-analytics|gtag\(|plausible|fathom|posthog|fbq\(|clarity\.ms/i);
   const socialProof = has(html, /testimonial|reviews?|★|⭐|rating|\d(?:\.\d)?\s*(?:\/\s*5|stars?)|trusted by|as seen (?:in|on)|our clients|what .* say/i);
@@ -277,6 +278,11 @@ export async function POST(req: Request) {
       status: robots.ok && robots.hasSitemap ? "pass" : robots.ok ? "warn" : "fail",
       detail: robots.ok ? (robots.hasSitemap ? "robots.txt + sitemap found" : "robots.txt found, but no sitemap listed") : "No robots.txt. Crawlers get no guidance",
     },
+    {
+      label: "Favicon",
+      status: hasFavicon ? "pass" : "warn",
+      detail: hasFavicon ? "Site icon set, looks finished in browser tabs and bookmarks" : "No favicon, the site looks unfinished in browser tabs",
+    },
   ];
 
   const conversion: Check[] = [
@@ -299,6 +305,11 @@ export async function POST(req: Request) {
       label: "Easy to contact",
       status: contactSignal ? "pass" : "warn",
       detail: contactSignal ? "Phone/email/contact link present" : "Hard to find how to reach you",
+    },
+    {
+      label: "Click-to-call on mobile",
+      status: clickToCall ? "pass" : "warn",
+      detail: clickToCall ? "Tap-to-dial phone link found, mobile visitors can call in one tap" : "No tap-to-dial link, mobile visitors cannot call you in one tap",
     },
     {
       label: "Social proof",

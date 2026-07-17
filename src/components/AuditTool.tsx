@@ -259,10 +259,15 @@ function ReportCapture({ result }: { result: Result }) {
             </>
           )}
         </p>
-        <a href={site.calendlyUrl} target="_blank" rel="noopener noreferrer" className="btn-primary mt-2 !rounded-md">
-          Book my free call
-          <ArrowRight width={18} height={18} />
-        </a>
+        <div className="mt-2 flex flex-col gap-2.5 sm:flex-row">
+          <a href={site.calendlyUrl} target="_blank" rel="noopener noreferrer" className="btn-primary !rounded-md">
+            Book my free call
+            <ArrowRight width={18} height={18} />
+          </a>
+          <a href={site.phoneHref} className="btn-ghost !rounded-md">
+            Or call / text {site.phone}
+          </a>
+        </div>
       </div>
     );
   }
@@ -467,6 +472,29 @@ export default function AuditTool() {
                 </ul>
               </div>
             ))}
+          </div>
+
+          {/* Where we come in: reassure + sell + dual CTA (book or call) */}
+          <div className="mt-6 overflow-hidden rounded-2xl border border-lime/25 bg-gradient-to-br from-lime/[0.08] via-transparent to-transparent p-6 sm:p-7">
+            <p className="text-xs uppercase tracking-widest text-lime">Where we come in</p>
+            <h4 className="mt-2 font-display text-xl uppercase leading-tight text-white sm:text-2xl">
+              Every issue above is fixable, and we fix all of it.
+            </h4>
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/70">
+              Stackwrk builds fast, custom, mobile-first sites and the systems behind them: lead capture,
+              automations, a custom CRM, even a 24/7 AI assistant that books jobs while you work. We don&rsquo;t
+              just patch what your audit flagged, we rebuild it to convert and keep improving it every month.
+            </p>
+            <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <a href={site.calendlyUrl} target="_blank" rel="noopener noreferrer" className="btn-primary !rounded-md">
+                Book a free 30-min call
+                <ArrowRight width={18} height={18} />
+              </a>
+              <a href={site.phoneHref} className="btn-ghost !rounded-md">
+                Or call / text {site.phone}
+              </a>
+            </div>
+            <p className="mt-3 text-xs text-white/55">Do whichever is easier, you can do both. No obligation either way.</p>
           </div>
 
           {/* Lead funnel: full report by email → straight into the CRM */}

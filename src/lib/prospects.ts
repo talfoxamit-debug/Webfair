@@ -391,9 +391,10 @@ Stackwrk · stackwrk.com · (754) 551-2828`,
 
 Here's a live example of the kind of site I build for fence pros: stackwrk.com/demos/apex-fence, with an instant quote form, reviews, financing, the works. Yours would have your name, your photos, your number.
 
-Worth a 10-minute call this week?
+Worth a 10-minute call this week? Reply here, or call or text me at (754) 551-2828.
 
-Tal`,
+Tal
+Stackwrk · stackwrk.com · (754) 551-2828`,
   },
   {
     key: "email_3",
@@ -403,9 +404,10 @@ Tal`,
     subject: "should I close your file?",
     body: `Hi {{owner}}, I don't want to be a pest. If a better website isn't a priority right now, no problem and I'll stop reaching out.
 
-If it is, I'll build you a free homepage mockup from your own project photos, no cost, no obligation. Just reply "mockup" and I'll get started.
+If it is, I'll build you a free homepage mockup from your own project photos, no cost, no obligation. Just reply "mockup" and I'll get started, or call or text me at (754) 551-2828.
 
-Tal`,
+Tal
+Stackwrk · stackwrk.com · (754) 551-2828`,
   },
 
   // ---------- DELIVERY (either pipeline) ----------
@@ -417,8 +419,9 @@ Tal`,
     subject: "your new homepage for {{business}}",
     body: `Hi {{owner}}, here's the mockup I built for {{business}}: [link].
 
-I rebuilt your homepage around your best work with an instant-quote form front and center. If you like it, I can have the full site live in about 10 business days. Want to hop on a quick call to walk through it?
+I rebuilt your homepage around your best work with an instant-quote form front and center. If you like it, I can have the full site live in about 14 business days. Want to hop on a quick call to walk through it, or just call or text me at (754) 551-2828?
 
-Tal`,
+Tal
+Stackwrk · stackwrk.com · (754) 551-2828`,
   },
 ];

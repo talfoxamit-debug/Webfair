@@ -118,6 +118,10 @@ export default function FinalCTA() {
           >
             {finalCta.calendlyLabel} →
           </a>
+          <p className="mt-2 text-center text-sm text-white/60">
+            Prefer to talk now? Call or text{" "}
+            <a href={site.phoneHref} className="font-semibold text-lime underline-offset-4 hover:underline">{site.phone}</a>
+          </p>
 
           <div className="mt-6 flex items-center gap-3 border-t border-white/[0.08] pt-6">
             <div className="flex -space-x-2.5">

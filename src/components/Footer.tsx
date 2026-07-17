@@ -22,6 +22,7 @@ export default function Footer() {
           <a href={site.calendlyUrl} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-lime">
             Book a call
           </a>
+          <a href={site.phoneHref} className="font-semibold text-white/75 transition-colors hover:text-lime">{site.phone}</a>
           <a href="/privacy" className="transition-colors hover:text-lime">Privacy</a>
           <a href="/terms" className="transition-colors hover:text-lime">Terms</a>
         </nav>

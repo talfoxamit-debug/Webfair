@@ -33,7 +33,7 @@ function confirmationHtml(name: string, when: string, calUrl: string): string {
       <a href="${esc(
         calUrl,
       )}" style="display:inline-block;margin-top:18px;background:#cbff3c;color:#12081f;font:700 15px -apple-system,Segoe UI,Roboto,Arial,sans-serif;text-decoration:none;padding:12px 22px;border-radius:9px;">Add to Google Calendar</a>
-      <p style="font:400 13px -apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#8b81a0;margin:22px 0 0;">Need to reschedule? Just reply to this email.</p>
+      <p style="font:400 13px -apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#8b81a0;margin:22px 0 0;">Need to reschedule, or want to talk sooner? Just reply to this email or call / text me at <a href="${site.phoneHref}" style="color:#7c3aed;font-weight:600;">${site.phone}</a>.</p>
     </td></tr>
   </table></body></html>`;
 }
