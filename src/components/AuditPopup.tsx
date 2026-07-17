@@ -131,8 +131,12 @@ export default function AuditPopup() {
             </span>
             <h2 className="mt-3 font-display text-3xl uppercase leading-[0.95] text-white">
               Free website audit
-              <span className="block text-accent-glow">+ 10% off your new site</span>
             </h2>
+            <div className="mt-2 flex flex-wrap items-baseline gap-x-2 font-display uppercase leading-none">
+              <span className="text-2xl text-white/40">+</span>
+              <span className="text-accent-glow text-5xl">10% off</span>
+              <span className="text-2xl text-white">your new site</span>
+            </div>
             <p className="mt-3 text-sm leading-relaxed text-white/65">
               See exactly what&rsquo;s costing you jobs, sent to your inbox. Start with us and take{" "}
               <span className="font-semibold text-white">10% off your build</span>.
