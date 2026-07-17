@@ -109,6 +109,550 @@ export const clusterById = (id: string) => CLUSTERS.find((c) => c.id === id);
 
 export const GUIDES: Guide[] = [
   {
+    slug: "do-i-need-a-website-if-i-have-google-business-profile",
+    clusterId: "websites",
+    title: "Do I Need a Website If I Have a Google Business Profile?",
+    metaTitle: "Do I Need a Website If I Have a Google Business Profile?",
+    description:
+      "Short answer: yes. A Google Business Profile gets you on the map, but it is rented space you cannot fully control or convert. Here is what a profile does well, where it loses the job, and why the two work best together.",
+    targetQuery: "do i need a website if i have a google business profile",
+    intent: "informational",
+    readMins: 6,
+    date: "2026-07-17",
+    updated: "2026-07-17",
+    takeaways: [
+      "Yes. A Google Business Profile gets you found, but it is rented space you do not control and cannot fully sell on. A website is the part that turns a searcher into a booked job.",
+      "The two work together. Your profile ranks better and converts more when it links to a real, fast website. The profile is the front door; the site is the room people actually buy in.",
+      "A profile alone loses every searcher who is comparing you on details: pricing, financing, real project photos, service specifics, and trust. That decision happens on a website.",
+      "You own a website and the leads it captures. You only borrow a Google profile, and Google can change, suspend, or bury it without warning.",
+    ],
+    body: [
+      {
+        type: "p",
+        text: "This question comes up a lot, and the honest answer is yes: you still need a website even with a strong Google Business Profile. A profile is necessary, but it is not enough on its own. Think of it this way: the profile helps people find you, and the website is where they decide to hire you. Here is what each one is actually for, and why skipping the website leaves jobs on the table.",
+      },
+      { type: "h2", text: "What a Google Business Profile does well" },
+      {
+        type: "ul",
+        items: [
+          "It puts you in the local map pack, the three businesses shown above the regular results for 'near me' searches. That is prime real estate and it is free.",
+          "It shows the essentials at a glance: reviews, hours, phone, directions, and a few photos.",
+          "It captures the ready-to-call searcher who just wants a number and is not comparing much. One tap and they are calling you.",
+          "It is one of the highest-value free listings a local business can have, so yes, you absolutely want it claimed and filled out.",
+        ],
+      },
+      { type: "h2", text: "Where a profile alone loses the job" },
+      {
+        type: "ul",
+        items: [
+          "There is no room to sell. You are stuck inside Google's template; you cannot lay out your services, your process, your financing, or your story the way a real page can.",
+          "It only shows up for local searches. It cannot rank for the questions people type on the way to hiring ('vinyl vs aluminum fence cost', 'how long does a fence install take'). A website can own those.",
+          "There is no instant quote. The comparer who wants a price and a next step has nothing to do except call, so a lot of them keep scrolling to a competitor who made it easy.",
+          "Your competitors sit right next to you. The map pack shows three businesses side by side; the one with the stronger website usually wins the click and the call.",
+          "You do not control it. Google can suspend a profile over a policy technicality, merge duplicate listings, or change the layout, and your leads go with it.",
+        ],
+      },
+      {
+        type: "callout",
+        title: "The reframe",
+        text: "Your Google profile is the front door. Your website is the room where people actually decide to buy. A great front door with no room behind it still loses the sale.",
+      },
+      { type: "h2", text: "The part people miss: they work better together" },
+      {
+        type: "p",
+        text: "This is not profile versus website, it is profile plus website. A profile that links to a real, fast site tends to rank higher, because Google can confirm you are a legitimate, consistent business (matching name, address, phone, and real service pages). The ready buyer taps call straight from the profile. The comparer clicks through to your site, and that is exactly where a quote form, real project photos, and reviews turn them into a booked estimate. Take the website away and you keep the first buyer but lose the second, and the second is usually the bigger, more considered job.",
+      },
+      {
+        type: "table",
+        caption: "What each one is for.",
+        head: ["Job to be done", "Google profile", "Website"],
+        rows: [
+          ["Show up for 'near me'", "Yes, the map pack", "Supports it"],
+          ["Rank for how-to and cost searches", "No", "Yes"],
+          ["Give an instant quote", "No", "Yes"],
+          ["Show full services, financing, story", "Barely", "Yes"],
+          ["Capture leads you own", "Limited", "Yes"],
+          ["Who controls it", "Google", "You"],
+        ],
+      },
+      { type: "h2", text: "A quick worked example" },
+      {
+        type: "p",
+        text: "Two fence companies in the same town both have solid Google profiles, so both get found. Company A stops there. Company B also runs a fast site with an instant quote request, real photos, reviews, and a page for each town it serves. When a homeowner is choosing between them, Company A only captures the people ready to call on the spot. Company B captures those too, plus the comparers who wanted a price first, plus the people searching 'fence cost in [town]' who never see Company A at all. Same map ranking, meaningfully more booked jobs, because the website did the converting the profile cannot.",
+      },
+      {
+        type: "callout",
+        title: "Bottom line",
+        text: "Keep the Google Business Profile, it is essential. Just do not mistake it for a website. The profile gets you found; the website gets you hired. You want both, and they make each other stronger.",
+      },
+      {
+        type: "p",
+        text: "If you have a great profile but no site (or a site that is just a brochure), tell me the towns you serve and I will show you what a lead-capturing version looks like next to your listing, free.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Do I still need a website if my Google Business Profile ranks well?",
+        a: "Yes. A profile that ranks well gets you found, but it cannot fully sell for you: there is no room to lay out your services and financing, no instant quote, and it does not rank for the how-to and cost searches people run on the way to hiring. The website is where a found visitor becomes a booked job, so the two work together rather than one replacing the other.",
+      },
+      {
+        q: "Does having a website help my Google Business Profile rank higher?",
+        a: "It helps. Linking your profile to a real, fast website with consistent name, address, and phone plus genuine service pages gives Google more signals that you are a legitimate, relevant local business. It is not the only ranking factor, but a solid website generally supports your local ranking rather than competing with it.",
+      },
+      {
+        q: "Can I just use a Facebook page instead of a website?",
+        a: "Not really. A Facebook page has the same core problem as a profile alone: it is rented space you do not control, it is built to keep people on Facebook rather than to convert them into your leads, and it cannot rank on Google for the searches that bring in work. It is a fine supplement, but it is not a substitute for a site you own.",
+      },
+      {
+        q: "What is the minimum website I need alongside my profile?",
+        a: "A fast, mobile-first site with a short instant-quote request, real project photos, visible reviews and license or insured badges, and a page for each town you serve. That covers the comparer who wants a price and the local searcher who wants to know you serve their area, which are exactly the jobs the profile cannot do on its own.",
+      },
+    ],
+    related: [
+      "website-for-a-fence-company-that-generates-leads",
+      "traffic-but-no-leads-conversion-killers",
+      "every-lead-source-in-one-inbox",
+    ],
+    cta: {
+      heading: "Great listing, no website? You are leaving jobs on the table.",
+      body: "Send me your Google profile and the towns you serve. I will show you what a lead-capturing website looks like next to it, free.",
+      button: "Get a free mockup",
+    },
+  },
+
+  {
+    slug: "traffic-but-no-leads-conversion-killers",
+    clusterId: "websites",
+    title: "Traffic but No Leads: The 6 Silent Conversion Killers",
+    metaTitle: "My Website Gets Traffic but No Leads: How to Fix It",
+    description:
+      "If people find your site and leave without calling, the leak is on the page, not in your ad budget. Here are the six silent conversion killers that quietly waste your traffic, and how to fix each one without spending another dollar.",
+    targetQuery: "my website gets traffic but no leads",
+    intent: "commercial",
+    readMins: 7,
+    date: "2026-07-17",
+    updated: "2026-07-17",
+    takeaways: [
+      "Traffic is rarely the problem. If people arrive and leave, the leak is on the page, not in your ad spend, and that is good news because page problems are cheap to fix.",
+      "Six silent killers do most of the damage: slow mobile pages, no obvious next step, a form that asks too much, thin trust, a message that does not match the search, and leads that vanish after they submit.",
+      "Most are fixable in days, not months, and none require buying more traffic.",
+      "The math is dramatic: going from a 1% to a 3% conversion rate triples your leads on the exact same visitors.",
+    ],
+    body: [
+      {
+        type: "p",
+        text: "It is one of the most frustrating things in business: the analytics say people are visiting, but the phone is not ringing and the inbox is empty. Before you spend more on ads, know this: getting more of the traffic you already have to convert is almost always cheaper and faster than buying more of it. If visitors arrive and leave, the problem is on the page. Here are the six silent killers that quietly waste traffic, in the order they usually do the most damage.",
+      },
+      { type: "h2", text: "First, rule out fake traffic" },
+      {
+        type: "p",
+        text: "A quick sanity check before you blame the page: make sure the traffic is real and relevant. Bot traffic, clicks from the wrong keywords, or visitors from places you do not serve will never convert no matter how good the site is. If your real, in-market traffic is landing and leaving, then it is one of the six below.",
+      },
+      { type: "h2", text: "The 6 silent conversion killers" },
+      {
+        type: "ol",
+        items: [
+          "Slow on mobile. Most local searches happen on a phone mid-task. A page that takes several seconds to load has already lost a chunk of visitors before they see a word, and slow pages rank worse too.",
+          "No single obvious next step. If the phone number is buried in a header and there is no sticky call button or clear button, you are asking a ready buyer to go hunting. Most will not.",
+          "A form that asks for everything. A long 'contact us' form is work with no reward. Swap it for a short, guided quote request (a few taps, then a number) and far more people finish it.",
+          "Thin or missing trust. No reviews, no license or insured badge, stock photos instead of your real work. Homeowners are wary of contractors; with nothing to lower the risk, they bounce to someone who feels safer.",
+          "A message that does not match the search. Someone searched 'fence repair in [town]' and landed on a generic homepage that never says 'fence repair' or names their town. The mismatch reads as 'not quite what I wanted' and they leave.",
+          "Leads that vanish after they submit. The form emails you, the email gets buried, and you reply hours later when the lead has already booked someone else. A slow reply is the same as a lost lead.",
+        ],
+      },
+      {
+        type: "callout",
+        title: "The one that hurts most",
+        text: "Reply speed. Studies of service businesses consistently find that whoever responds first wins a large share of the jobs. A lead that lands in a CRM and triggers an instant reply beats a faster, prettier site that emails you and waits.",
+      },
+      {
+        type: "table",
+        caption: "The math of conversion (same traffic, different rate).",
+        head: ["Monthly visitors", "At 1%", "At 2%", "At 3%"],
+        rows: [
+          ["500", "5 leads", "10 leads", "15 leads"],
+          ["1,000", "10 leads", "20 leads", "30 leads"],
+          ["2,500", "25 leads", "50 leads", "75 leads"],
+        ],
+      },
+      {
+        type: "p",
+        text: "This is why conversion beats traffic for return on effort. You do not need to double your visitors to double your leads; you need to move the rate from 1% to 2%. On 1,000 visits a month that is 10 extra leads for the price of a few page fixes, not a bigger ad budget.",
+      },
+      { type: "h2", text: "The order to fix them" },
+      {
+        type: "ol",
+        items: [
+          "Make it fast on mobile and add a sticky tap-to-call. Biggest, cheapest wins.",
+          "Replace the generic form with a short instant-quote request.",
+          "Add real photos, reviews, and license or insured badges near the call to action.",
+          "Match the page to the search with service and per-town pages.",
+          "Route every lead into one inbox or CRM that triggers an instant reply.",
+        ],
+      },
+      {
+        type: "callout",
+        title: "Where this connects",
+        text: "Fixing the page captures more leads; making sure none of them go cold afterward is a separate, equally important job. The follow-up between a form fill and a booked estimate can be automated so a fast reply happens even at 9pm on a Saturday.",
+      },
+      {
+        type: "p",
+        text: "Not sure which of the six is costing you the most? Run our free website audit or send me the link. I will tell you exactly where your traffic is leaking and what to fix first, in plain English.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Why does my website get traffic but no leads?",
+        a: "Almost always because of a conversion problem on the page, not a traffic problem. The usual culprits are slow mobile load times, no obvious next step, a long form instead of an instant quote, weak trust signals, a message that does not match what the visitor searched for, and leads that get missed after they submit. Each one quietly sends ready buyers to a competitor, and each is fixable without buying more traffic.",
+      },
+      {
+        q: "How do I know if it is a traffic problem or a conversion problem?",
+        a: "Check whether the traffic is real and in-market first: filter out bots, wrong-keyword clicks, and visitors from outside your service area. If genuine local visitors are landing and leaving without acting, it is a conversion problem on the page. If you have almost no relevant visitors at all, then it is a traffic and visibility problem, which is a different fix.",
+      },
+      {
+        q: "What conversion rate should a small-business website get?",
+        a: "For a service business with a clear offer and an easy way to act, roughly 2 to 5 percent of visitors taking action (calling or requesting a quote) is a healthy range, and strong pages do better. If you are sitting at well under 1 percent with real traffic, one or more of the silent killers is almost certainly in play.",
+      },
+      {
+        q: "How fast can I fix low conversion?",
+        a: "Most of the high-impact fixes (mobile speed, a sticky call button, an instant-quote form, adding reviews and real photos) take days, not months, because they are page-level changes rather than a rebuild. Routing leads into one inbox with an instant auto-reply is also quick. You typically see more calls from the same traffic within the first week or two.",
+      },
+    ],
+    related: [
+      "website-for-a-fence-company-that-generates-leads",
+      "do-i-need-a-website-if-i-have-google-business-profile",
+      "automate-inquiry-to-booked-estimate-follow-up",
+    ],
+    cta: {
+      heading: "Find out exactly where your traffic is leaking.",
+      body: "Send me your site or run the free audit. I will show you the biggest conversion killer on your page and what to fix first, no charge.",
+      button: "Get a free audit",
+    },
+  },
+
+  {
+    slug: "signs-you-have-outgrown-off-the-shelf-software",
+    clusterId: "own-it",
+    title: "Signs Your Business Has Outgrown Off-the-Shelf Software",
+    metaTitle: "Signs You Have Outgrown Off-the-Shelf Software",
+    description:
+      "Outgrowing your software rarely announces itself. It shows up as spreadsheets next to the app, manual re-entry, and rules the tool will not bend to. Here are the signs, plus how to tell the difference between a real ceiling and a fixable habit.",
+    targetQuery: "signs your business has outgrown off-the-shelf software",
+    intent: "commercial",
+    readMins: 7,
+    date: "2026-07-17",
+    updated: "2026-07-17",
+    takeaways: [
+      "Outgrowing software rarely announces itself. It shows up as workarounds: a spreadsheet next to the app, manual re-entry, and features you pay for but cannot use.",
+      "The clearest tell is direction: you have started changing how you work to fit the tool, instead of the tool fitting how you work.",
+      "Outgrown does not always mean 'buy custom software.' Sometimes it means one system shaped to you replacing three that half-fit, and sometimes it means staying put a while longer.",
+      "The real cost is not the sticker price. It is the hours lost to workarounds plus per-seat fees on tools you have outgrown, and that number is usually much bigger than owners expect.",
+    ],
+    body: [
+      {
+        type: "p",
+        text: "Most businesses do not notice the day they outgrow their software. There is no alarm. Instead the workarounds pile up quietly until running the business feels heavier than it should. If you are wondering whether you have hit that point, here are the signs, followed by an honest test for whether it is time to move or whether you are better off staying put.",
+      },
+      { type: "h2", text: "The 7 signs you have outgrown it" },
+      {
+        type: "ol",
+        items: [
+          "You keep a spreadsheet next to the software to make it usable. The app holds the data, but the real work happens in a sheet beside it. That sheet is a symptom.",
+          "You pay for seats or features you never touch, and lack the one you actually need. Off-the-shelf tools bundle for the average customer, not for you.",
+          "Everyone has a personal workaround. Onboarding a new hire means teaching them the hacks, not the software, and the knowledge lives in people's heads.",
+          "Your data lives in three places and never matches. The app, the spreadsheet, and the accounting tool all disagree, and someone reconciles by hand.",
+          "You have hit a wall the vendor will not move. A report you cannot get, a field you cannot add, a rule the software refuses to bend to, and support says 'that is not how it works.'",
+          "Per-seat fees punish you for growing. Every hire raises the bill for the same software you have already outgrown.",
+          "You export to a spreadsheet to answer any real question. If getting a straight answer means dumping data into Excel, the software is storing your work but not helping you run the business.",
+        ],
+      },
+      {
+        type: "callout",
+        title: "The real test",
+        text: "Ask which way the shaping runs. If you are bending your process to fit the software's limits, you have outgrown it. If the software still bends to you, you have not. Everything else is detail.",
+      },
+      {
+        type: "table",
+        caption: "What each sign is quietly costing you.",
+        head: ["Sign", "Hidden cost"],
+        rows: [
+          ["Spreadsheet beside the app", "Hours of manual upkeep, and errors"],
+          ["Data in three places", "Time reconciling, and decisions on bad numbers"],
+          ["Vendor will not budge", "Work you simply cannot do, or do by hand"],
+          ["Per-seat fees", "A bill that grows every time you hire"],
+          ["Export to answer questions", "No real-time view of your own business"],
+        ],
+      },
+      { type: "h2", text: "Outgrown does not always mean custom (when to stay)" },
+      {
+        type: "p",
+        text: "Being honest cuts both ways. If the software is cheap, mostly fits, and the workarounds are minor, stay. Do not rebuild a tool that is doing 90 percent of the job for $30 a month; that is a waste of money and time. Outgrowing is worth acting on when the tool is expensive (especially per-seat), only half-fits, and the workarounds are eating real hours every week. That combination is the tipping point, and it is covered in depth in the guide on how many subscriptions it takes before custom software is worth it.",
+      },
+      { type: "h2", text: "A quick worked example" },
+      {
+        type: "p",
+        text: "Say you run three tools at a combined $600 a month across your team, and between them your staff spends about five hours a week on re-entry and reconciling numbers that do not match. That is roughly $7,200 a year in software plus, at a modest $30 an hour loaded cost, about $7,800 a year in wasted labor: $15,000 a year to keep a stack you have outgrown limping along. Set the cost of one system shaped to you against that yearly total, not against zero, and the picture usually changes fast.",
+      },
+      {
+        type: "callout",
+        title: "The move, done safely",
+        text: "You do not rip everything out at once. Replace the single most painful, most expensive, worst-fitting tool first, prove it, then move the next. Each piece pays for itself before you fund the following one.",
+      },
+      {
+        type: "p",
+        text: "Tell me which tools you run and what they cost, and I will tell you honestly whether you have actually outgrown them or just need to fix a habit, and which one is worth moving first.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How do I know if I have outgrown my software?",
+        a: "The clearest sign is direction: you have started changing how you work to fit the software, instead of the software fitting you. In practice that shows up as spreadsheets kept next to the app, manual re-entry, data that lives in several places and never matches, features you pay for but cannot use, and limits the vendor will not move. When those add up to real lost hours every week, you have outgrown it.",
+      },
+      {
+        q: "Does outgrowing my software mean I need custom software?",
+        a: "Not always. If the tool is cheap and mostly fits, stay put. Outgrowing is worth acting on when the software is expensive (especially per-seat), only half-fits, and the workarounds cost real hours weekly. In that case one system shaped to how you work, replacing the tools that half-fit, usually wins, but the honest answer depends on your specific numbers.",
+      },
+      {
+        q: "Is it cheaper to add more tools or replace them with one system?",
+        a: "Adding another tool is cheaper this month and often more expensive over the year, because each new tool adds another subscription, another place your data lives, and more re-entry between systems. Replacing several half-fitting tools with one system shaped to you removes that overhead. Compare the yearly cost of the whole stack plus the labor it wastes, not just the next tool's price.",
+      },
+      {
+        q: "What is the risk of switching off software I have outgrown?",
+        a: "The main risk is disruption, and you manage it by moving gradually instead of all at once. Replace the single most painful, most expensive, worst-fitting tool first, run the old and new side by side until the new one proves itself, then cancel the old one and move to the next. That way you never bet the business on one big switch.",
+      },
+    ],
+    related: [
+      "how-many-saas-subscriptions-before-custom-software-is-worth-it",
+      "stop-paying-monthly-software-fees-own-your-software",
+      "outgrown-spreadsheets-custom-internal-tools",
+      "outgrew-jobber-or-housecall-pro",
+    ],
+    cta: {
+      heading: "Have you actually outgrown it, or just built a habit?",
+      body: "Tell me which tools you run and what they cost. I will tell you honestly which you have outgrown and which one is worth moving first, free.",
+      button: "Get an honest read",
+    },
+  },
+
+  {
+    slug: "automate-overdue-invoice-reminders",
+    clusterId: "automation",
+    title: "Automate Overdue Invoice Reminders So You Stop Chasing Payments",
+    metaTitle: "Automate Overdue Invoice Reminders and Get Paid Faster",
+    description:
+      "Chasing late payments by hand is slow, awkward, and inconsistent, which is exactly why invoices go late. Here is how an automated reminder sequence gets you paid faster without the nagging, and what it does to your cash flow.",
+    targetQuery: "automate overdue invoice reminders",
+    intent: "commercial",
+    readMins: 6,
+    date: "2026-07-17",
+    updated: "2026-07-17",
+    takeaways: [
+      "Chasing payments by hand is slow, awkward, and inconsistent, which is exactly why invoices slide. The reminders that would collect the money are the ones you dread sending.",
+      "An automated sequence sends the right nudge at the right time (before due, on due, then a polite escalating cadence after) so you get paid faster without lifting a finger.",
+      "Automation is consistent and unemotional, so it collects more while preserving the relationship. It never forgets and never sounds annoyed.",
+      "The cash impact is real: cutting your average days-to-pay from 45 to 30 on $40,000 a month of receivables frees up roughly $20,000 in cash that was stuck in limbo.",
+    ],
+    body: [
+      {
+        type: "p",
+        text: "Most late invoices are not late because the customer refuses to pay. They are late because nobody reminded them at the right moment, and the reminder never went out because chasing money is the task everyone puts off. Automating those reminders removes the awkwardness and the forgetting in one move, and it is one of the fastest automations to pay for itself. Here is how it works and what it does to your cash flow.",
+      },
+      { type: "h2", text: "Why overdue invoices pile up" },
+      {
+        type: "ul",
+        items: [
+          "Reminding people feels awkward, so it gets delayed, and a delayed reminder means a delayed payment.",
+          "It is inconsistent. Some customers get chased, some slip through, and the ones who slip learn they can pay late.",
+          "It is manual. Someone has to check what is overdue, find the contact, write the message, and send it, every week, forever.",
+          "There is no cadence. A single reminder that goes out whenever someone remembers is far weaker than a steady, expected rhythm.",
+        ],
+      },
+      { type: "h2", text: "What an automated reminder system does" },
+      {
+        type: "ol",
+        items: [
+          "Sends a friendly heads-up a few days before the invoice is due, so payment is on the customer's radar.",
+          "Sends a polite reminder on the due date with a one-click pay link.",
+          "Follows up gently at a few days overdue, then again at about a week, each time keeping the tone professional and easy to act on.",
+          "Escalates firmly but respectfully around 14 and 30 days, still with the pay link front and center.",
+          "Flags the small number that ignore every reminder so you can make one human call, instead of chasing everyone by hand.",
+        ],
+      },
+      {
+        type: "callout",
+        title: "Tone is the whole game",
+        text: "Automated does not mean robotic or rude. The messages are warm, brief, and make paying easy. Because a system sends them on schedule rather than a frustrated human at day 40, they collect more and cost you nothing in goodwill.",
+      },
+      {
+        type: "table",
+        caption: "Chasing by hand versus an automated sequence.",
+        head: ["", "By hand", "Automated"],
+        rows: [
+          ["Who remembers", "You, if you have time", "The system, always"],
+          ["Consistency", "Hit or miss", "Every invoice, every time"],
+          ["Tone at day 40", "Tense", "Steady and professional"],
+          ["Your time spent", "Hours a week", "Near zero"],
+          ["Pay link included", "Sometimes", "Every message"],
+        ],
+      },
+      { type: "h2", text: "A quick worked example" },
+      {
+        type: "p",
+        text: "Say you invoice about $40,000 a month and your customers currently take an average of 45 days to pay. A steady reminder cadence commonly pulls that average down toward 30 days. Shaving 15 days off how long your money sits unpaid frees up roughly $20,000 in cash that used to be stuck in limbo, and it does it without a single awkward phone call or a dollar of new revenue. On top of the cash, you get back the hours you were spending as your own collections department.",
+      },
+      {
+        type: "callout",
+        title: "It plugs into what you already use",
+        text: "This does not require ripping out your accounting. A reminder sequence can sit on top of QuickBooks, Stripe, or whatever you invoice with, watch what is outstanding, and send on schedule. If your invoicing lives in several places, the same project can pull it into one view first.",
+      },
+      {
+        type: "p",
+        text: "Tell me how you invoice today and roughly how long customers take to pay, and I will map out a reminder cadence that fits your business and show you what it does to your cash flow.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How do I automate overdue invoice reminders?",
+        a: "You set up a sequence that watches your outstanding invoices and sends timed messages on its own: a heads-up before the due date, a reminder on the due date, and a polite escalating cadence at a few days, a week, two weeks, and a month overdue, each with a one-click pay link. It can run on top of the accounting or payment tool you already use, so you are not replacing your invoicing, just adding the follow-up.",
+      },
+      {
+        q: "Will automated payment reminders annoy my customers?",
+        a: "Not when they are written well. The messages are short, warm, and make paying easy, and because a system sends them on a steady schedule rather than a frustrated human at day 40, they usually read as helpful rather than pushy. Most customers appreciate the nudge, since a forgotten invoice is more often an oversight than a refusal to pay.",
+      },
+      {
+        q: "Does this work with QuickBooks or Stripe?",
+        a: "Yes. A reminder sequence can sit on top of QuickBooks, Stripe, or most invoicing tools, read what is outstanding, and send reminders with a pay link automatically. If your invoices are spread across more than one system, the same setup can consolidate them into a single view first so nothing overdue slips through the cracks.",
+      },
+      {
+        q: "How much faster will I get paid?",
+        a: "It varies, but a consistent reminder cadence commonly pulls average days-to-pay down by one to two weeks, because most late payments are simple oversights that a timely nudge fixes. On meaningful monthly receivables, shaving 10 to 15 days off how long invoices sit unpaid frees up a real chunk of cash that was previously stuck.",
+      },
+    ],
+    related: [
+      "automate-recurring-service-rebooking-reminders",
+      "automate-inquiry-to-booked-estimate-follow-up",
+      "consolidate-business-apps-into-one-system",
+    ],
+    cta: {
+      heading: "Stop being your own collections department.",
+      body: "Tell me how you invoice and how long customers take to pay. I will map a reminder cadence that gets you paid faster, hands-free.",
+      button: "Automate my reminders",
+    },
+  },
+
+  {
+    slug: "every-lead-source-in-one-inbox",
+    clusterId: "crm",
+    title: "One Lead Inbox: Get Every Lead Source in One Place",
+    metaTitle: "One Lead Inbox: Every Lead Source in One Place",
+    description:
+      "Leads scatter across website forms, Google, Facebook, Angi, texts, and voicemails, and the ones that slip are simply the ones nobody saw in time. Here is how one lead inbox pulls every source together so nothing is missed and every lead gets a fast reply.",
+    targetQuery: "get all my leads in one place",
+    intent: "commercial",
+    readMins: 6,
+    date: "2026-07-17",
+    updated: "2026-07-17",
+    takeaways: [
+      "Leads scatter across website forms, Google, Facebook, Angi or Thumbtack, texts, and voicemails. The ones that slip through are usually just the ones nobody saw in time.",
+      "One lead inbox pulls every source into a single, de-duplicated list, so nothing gets missed and every lead gets a fast, consistent reply.",
+      "Speed to first reply is the biggest driver of whether you win the job. A unified inbox is how you make that reply fast, every time, no matter where the lead came from.",
+      "The payback is concrete: recovering even 5 percent of leads you currently miss is real revenue on ad spend and effort you have already paid for.",
+    ],
+    body: [
+      {
+        type: "p",
+        text: "Ask most owners where their leads come from and the list is long: the website, Google, Facebook, a lead marketplace or two, texts to their cell, and voicemails. Ask where those leads live and the answer is 'everywhere,' which is the same as 'nowhere.' The leads you lose are rarely the ones you turned down; they are the ones that came in on a channel you were not watching that day. One lead inbox fixes that. Here is what it is and why it matters more than any single lead source.",
+      },
+      { type: "h2", text: "Where leads come in (and quietly get lost)" },
+      {
+        type: "ul",
+        items: [
+          "Your website form emails you, and the email gets buried under everything else.",
+          "Google and Facebook send leads into their own dashboards you have to remember to check.",
+          "Lead marketplaces like Angi or Thumbtack notify you in their app, on their clock.",
+          "Texts land on your personal phone and scroll away.",
+          "Missed calls turn into voicemails nobody transcribes or tracks.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Every one of those is a separate place to watch, and the moment you are busy on a job, one of them goes unwatched. That is not a discipline problem; it is a structure problem, and structure is fixable.",
+      },
+      { type: "h2", text: "What one lead inbox does" },
+      {
+        type: "ol",
+        items: [
+          "Pulls every source into a single list. Website, Google, Facebook, marketplaces, texts, and calls all land in one place, in the order they arrived.",
+          "De-duplicates automatically. The same person who filled the form and then called shows up once, not as two half-records you have to reconcile.",
+          "Triggers a fast first reply. A new lead can fire an instant acknowledgment and an alert to you, so nobody waits hours for a response.",
+          "Tags the source. You finally see which channels actually produce booked jobs, so you can spend where it works.",
+          "Feeds your follow-up. Every lead is captured and ready for the next step instead of sitting in five different apps.",
+        ],
+      },
+      {
+        type: "callout",
+        title: "Why speed is the whole point",
+        text: "Across service businesses, the company that replies first wins a large share of the jobs. Scattered leads make fast replies impossible, because you cannot answer quickly on a channel you are not watching. One inbox makes speed the default instead of luck.",
+      },
+      {
+        type: "table",
+        caption: "Scattered sources versus one inbox.",
+        head: ["", "Scattered", "One inbox"],
+        rows: [
+          ["Where leads live", "5+ places", "One list"],
+          ["Missed leads", "Common, unnoticed", "Rare, nothing hidden"],
+          ["First reply", "Whenever you check", "Immediate"],
+          ["Duplicate records", "Frequent", "Merged automatically"],
+          ["Know your best channel", "Guesswork", "Tagged and measured"],
+        ],
+      },
+      { type: "h2", text: "A quick worked example" },
+      {
+        type: "p",
+        text: "Say you get 60 leads a month across all your channels and, honestly, about 5 slip through unseen because they came in somewhere you were not watching. If your average job is worth $2,500 and you close even one in three, those 5 missed leads are roughly $4,000 a month, about $48,000 a year, walking out the door. And you already paid to generate them. Recovering most of that costs far less than the ad spend that created the leads in the first place; it just requires seeing them all in one place, in time.",
+      },
+      {
+        type: "callout",
+        title: "Inbox first, CRM next",
+        text: "A lead inbox is often the first step toward a real CRM. Get every lead into one de-duplicated list with fast replies, and you have the foundation; adding pipeline stages, quotes, and scheduling on top is the natural next move when you are ready.",
+      },
+      {
+        type: "p",
+        text: "Tell me every place your leads currently come in and I will show you how to pipe all of them into a single inbox that replies fast and misses nothing.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How do I get all my leads in one place?",
+        a: "You connect each source (website forms, Google, Facebook, lead marketplaces, texts, and calls) so every new lead flows into a single inbox or CRM instead of its own app. A good setup de-duplicates records, triggers an instant first reply, and tags the source, so nothing is missed and you can see which channels actually produce booked jobs.",
+      },
+      {
+        q: "Why do I keep missing leads?",
+        a: "Almost always because they arrive across too many places to watch. The website emails you, Google and Facebook have their own dashboards, marketplaces notify you in their app, and texts and voicemails land on your phone. When you are busy on a job, one of those goes unwatched, and the lead that came in there goes cold. It is a structure problem, not a discipline one, and a single inbox fixes it.",
+      },
+      {
+        q: "Is a shared email inbox enough?",
+        a: "It is better than nothing, but it usually falls short. A shared inbox still misses leads that arrive by text, phone, or a marketplace app, it does not de-duplicate the same person contacting you twice, and it does not tag sources or trigger fast automatic replies. A purpose-built lead inbox captures every channel and is built to make the first reply fast, which is what actually wins jobs.",
+      },
+      {
+        q: "Does this replace my CRM or feed it?",
+        a: "Either way works. If you do not have a CRM yet, a lead inbox is a great first step and often grows into one. If you already have a CRM, the inbox feeds it, making sure every lead from every source lands in the pipeline cleanly and quickly instead of getting entered by hand or missed entirely.",
+      },
+    ],
+    related: [
+      "stop-copying-leads-into-a-spreadsheet-by-hand",
+      "consolidate-business-apps-into-one-system",
+      "tired-of-per-user-crm-fees",
+      "custom-crm-for-fencing-exterior-contractors",
+    ],
+    cta: {
+      heading: "Stop losing leads you already paid to get.",
+      body: "Tell me every place your leads come in. I will show you how to pipe all of them into one inbox that replies fast and misses nothing.",
+      button: "Unify my leads",
+    },
+  },
+
+  {
     slug: "website-for-a-fence-company-that-generates-leads",
     clusterId: "websites",
     title: "A Website for a Fence Company That Actually Generates Leads",
