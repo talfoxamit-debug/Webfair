@@ -133,6 +133,7 @@ export default function Board({ user }: { user: string }) {
   const [auditOnly, setAuditOnly] = useState(false);
   const [newLeadsOnly, setNewLeadsOnly] = useState(false);
   const [badPhoneOnly, setBadPhoneOnly] = useState(false);
+  const [whatsappOnly, setWhatsappOnly] = useState(false);
   const [tierFilter, setTierFilter] = useState<ProspectTier | "">("");
   const [view, setView] = useState<"today" | "board">("today");
   const [sel, setSel] = useState<Prospect | null>(null);
@@ -248,7 +249,7 @@ export default function Board({ user }: { user: string }) {
   // without pressing anything, while the raw scraped rows you never touch stay
   // out of your Quo contacts.
   const maybeAutoSyncQuo = (p: Prospect) => {
-    const engaged = Boolean(p.owner?.trim() || p.stage !== "new" || p.lastContacted || p.source === "manual" || p.source === "quo");
+    const engaged = Boolean(p.owner?.trim() || p.stage !== "new" || p.lastContacted || p.source === "manual" || p.source === "quo" || p.source === "whatsapp");
     if (phoneDigits(p.phone).length === 10 && engaged && quoSyncSig(p) !== (p.quoSyncedSig || "")) void pushToQuo(p);
   };
   // Closing the drawer is the natural "I'm done with this lead" moment: sync then.
@@ -284,10 +285,11 @@ export default function Board({ user }: { user: string }) {
       (!hotOnly || !p.hasSite) &&
       (!auditOnly || p.source === "audit") &&
       (!newLeadsOnly || p.source === "audit" || p.source === "quo") &&
+      (!whatsappOnly || p.source === "whatsapp") &&
       (!badPhoneOnly || flaggedPhone(p)) &&
       (!tierFilter || p.tier === tierFilter) &&
       (!s || (p.name + p.city + p.phone + p.owner).toLowerCase().includes(s)));
-  }, [items, q, hotOnly, auditOnly, newLeadsOnly, badPhoneOnly, tierFilter, dialCounts]);
+  }, [items, q, hotOnly, auditOnly, newLeadsOnly, whatsappOnly, badPhoneOnly, tierFilter, dialCounts]);
 
   const dueToday = items.filter((p) => p.nextFollowUp && p.nextFollowUp <= todayISO() && p.stage !== "won" && p.stage !== "lost").length;
   const hot = items.filter((p) => !p.hasSite).length;
@@ -302,6 +304,7 @@ export default function Board({ user }: { user: string }) {
   // leads that appeared without you adding them.
   const newLeadsCount = items.filter((p) => p.source === "audit" || p.source === "quo").length;
   const auditCount = items.filter((p) => p.source === "audit").length;
+  const whatsappCount = items.filter((p) => p.source === "whatsapp").length;
   const won = items.filter((p) => p.stage === "won").length;
   const tierCounts = { call: 0, verify: 0, skip: 0 } as Record<ProspectTier, number>;
   items.forEach((p) => { if (p.tier) tierCounts[p.tier]++; });
@@ -343,7 +346,10 @@ export default function Board({ user }: { user: string }) {
     const lead: Prospect = {
       ...draft, name, phone: draft.phone.trim(), email: draft.email.trim(),
       website: draft.website.trim(), owner: draft.owner.trim(), city: draft.city.trim(),
-      hasSite: !!draft.website.trim(), tier: draft.website.trim() ? undefined : "call",
+      hasSite: !!draft.website.trim(),
+      // WhatsApp leads are warm inbound, not part of the cold-dial triage, so
+      // they skip the call/verify/skip tier and show their source badge instead.
+      tier: draft.source === "whatsapp" ? undefined : (draft.website.trim() ? undefined : "call"),
     };
     setItems((xs) => [lead, ...xs]);
     setShowAdd(false); setDraft(emptyLead());
@@ -509,6 +515,9 @@ export default function Board({ user }: { user: string }) {
           {auditCount > 0 && (
             <button onClick={() => setAuditOnly((v) => !v)} className={`rounded-lg px-3 py-2 text-xs font-bold ${auditOnly ? "bg-sky-100 text-sky-700 ring-1 ring-sky-300 dark:bg-sky-500/20 dark:text-sky-300 dark:ring-sky-500/40" : "crm-btn"}`} title="People who ran your site audit: warm inbound leads">🔎 Audited {auditCount}</button>
           )}
+          {whatsappCount > 0 && (
+            <button onClick={() => setWhatsappOnly((v) => !v)} className={`rounded-lg px-3 py-2 text-xs font-bold ${whatsappOnly ? "bg-emerald-100 text-emerald-700 ring-1 ring-emerald-300 dark:bg-emerald-500/20 dark:text-emerald-300 dark:ring-emerald-500/40" : "crm-btn"}`} title="Leads who replied to your WhatsApp community post: warm inbound">💬 WhatsApp {whatsappCount}</button>
+          )}
           {badPhoneCount > 0 && (
             <button onClick={() => setBadPhoneOnly((v) => !v)} className={`rounded-lg px-3 py-2 text-xs font-bold ${badPhoneOnly ? "bg-amber-100 text-amber-700 ring-1 ring-amber-300 dark:bg-amber-500/20 dark:text-amber-300 dark:ring-amber-500/40" : "crm-btn"}`} title="Toll-free, out-of-area, duplicate or missing numbers: these usually won't reach the local owner">⚠ Check numbers {badPhoneCount}</button>
           )}
@@ -551,6 +560,8 @@ export default function Board({ user }: { user: string }) {
                             ? <span className="shrink-0 rounded bg-sky-100 px-1 text-[0.55rem] font-bold text-sky-700 dark:bg-sky-500/20 dark:text-sky-300">🔎 AUDIT{p.auditScore != null ? ` ${p.auditScore}` : ""}</span>
                             : p.source === "quo"
                             ? <span className="shrink-0 rounded bg-violet-100 px-1 text-[0.55rem] font-bold text-violet-700 dark:bg-violet-500/20 dark:text-violet-300">📞 CALLED</span>
+                            : p.source === "whatsapp"
+                            ? <span className="shrink-0 rounded bg-emerald-100 px-1 text-[0.55rem] font-bold text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300">💬 WA</span>
                             : !p.hasSite && <span className="shrink-0 rounded bg-rose-100 px-1 text-[0.55rem] font-bold text-rose-700 dark:bg-rose-500/20 dark:text-rose-300">NO SITE</span>}
                         </div>
                         <div className="mt-0.5 truncate text-[0.68rem] crm-muted">{p.city}</div>
@@ -596,6 +607,8 @@ export default function Board({ user }: { user: string }) {
                 ? <div className="mt-3 rounded-lg bg-sky-100 px-3 py-2 text-xs font-semibold text-sky-700 dark:bg-sky-500/15 dark:text-sky-300">🔎 Inbound: ran your site audit{p.auditScore != null ? ` (scored ${p.auditScore}/100)` : ""}. Warm lead, reach out fast.</div>
                 : p.source === "quo"
                 ? <div className="mt-3 rounded-lg bg-violet-100 px-3 py-2 text-xs font-semibold text-violet-700 dark:bg-violet-500/15 dark:text-violet-300">📞 Synced from a Quo call, not yet in the CRM by name. Fill in what you know below.</div>
+                : p.source === "whatsapp"
+                ? <div className="mt-3 rounded-lg bg-emerald-100 px-3 py-2 text-xs font-semibold text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300">💬 Replied to your WhatsApp community post. Warm inbound: reply fast and book the call.</div>
                 : !p.hasSite && <div className="mt-3 rounded-lg bg-rose-100 px-3 py-2 text-xs font-semibold text-rose-700 dark:bg-rose-500/15 dark:text-rose-300">🔥 No website: top prospect. Call first.</div>}
 
               {/* contact quick actions */}
@@ -816,6 +829,12 @@ export default function Board({ user }: { user: string }) {
               </label>
               <label className="col-span-2 text-xs font-semibold crm-muted">Website
                 <input value={draft.website} onChange={(e) => setDraft({ ...draft, website: e.target.value })} placeholder="leave blank if they have no site: that's your pitch" className="mt-1 w-full rounded-lg px-3 py-2 text-sm crm-input" />
+              </label>
+              <label className="col-span-2 text-xs font-semibold crm-muted">Source
+                <select value={draft.source ?? "manual"} onChange={(e) => setDraft({ ...draft, source: e.target.value as Prospect["source"] })} className="mt-1 w-full rounded-lg px-3 py-2 text-sm crm-input">
+                  <option value="manual">Manual (found / called)</option>
+                  <option value="whatsapp">WhatsApp (community DM)</option>
+                </select>
               </label>
             </div>
             <div className="mt-4 flex justify-end gap-2">

@@ -42,7 +42,7 @@ export type Prospect = {
   notes: string;
   createdAt: number;
   tier?: ProspectTier; // qualification tier for no-website leads
-  source?: "audit" | "manual" | "import" | "quo"; // where the lead came from
+  source?: "audit" | "manual" | "import" | "quo" | "whatsapp"; // where the lead came from
   auditScore?: number; // score if they ran the site audit
   tags?: string[]; // manual labels (Hot, Cold, Many reviews, …)
   // Structured fields captured on a call (kept separate from freeform notes).
