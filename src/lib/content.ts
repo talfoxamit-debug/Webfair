@@ -157,6 +157,28 @@ export const projects: Project[] = [
     image: "/shots/yathub.webp",
     tier: "more",
   },
+  {
+    name: "FoxStays Docks",
+    tag: "Two-sided marketplace, dock owners meet boat owners.",
+    blurb:
+      "A South Florida dock rental marketplace connecting boat owners with verified private docks, with instant per-foot pricing.",
+    features: ["Instant per-foot quotes", "Search + list-your-dock, both sides", "Verified dock listings"],
+    href: "https://fortlauderdaledockrental.com",
+    result: "Turns a two-sided cold-start problem into a working marketplace: boaters get a slip in minutes, dock owners get bookings without lifting a finger.",
+    accent: "from-cyan-800 via-sky-950 to-ink-700",
+    tier: "more",
+  },
+  {
+    name: "Nagari Fogel",
+    tag: "A craftsman's personal brand, built to sell the work.",
+    blurb:
+      "A custom furniture and woodworking artisan's portfolio site: the story, the process, and the finished pieces, built to turn browsers into commissions.",
+    features: ["Portfolio & process storytelling", "Client story section", "Built for a one-person craft business"],
+    href: "https://nagarifogel.vercel.app",
+    result: "Proof the same build quality works just as well for a solo craftsman's personal brand as it does for a multi-location marketplace.",
+    accent: "from-orange-900 via-stone-950 to-ink-800",
+    tier: "more",
+  },
 ];
 
 export const whatYouGet = {
