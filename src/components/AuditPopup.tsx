@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Check } from "./icons";
 import { promo } from "@/lib/content";
 import { getAttribution } from "@/lib/attribution";
+import { getPromo, getPromoForSubmit } from "@/lib/promo";
 import { track } from "@/lib/track";
 
 const SEEN_KEY = "stackwrk_audit_popup_seen";
@@ -30,6 +31,10 @@ export default function AuditPopup() {
   const [err, setErr] = useState("");
   const dialogRef = useRef<HTMLDivElement>(null);
   const firstFieldRef = useRef<HTMLInputElement>(null);
+  const [refPromo, setRefPromo] = useState<ReturnType<typeof getPromo>>(null);
+  const totalOffPct = 10 + (refPromo?.extraPercent ?? 0);
+
+  useEffect(() => { setRefPromo(getPromo()); }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -100,8 +105,8 @@ export default function AuditPopup() {
           method: "POST", headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             name: name.trim(), email: email.trim(), result: audit,
-            source: "popup_audit", note: "Popup: wants 10% founding discount",
-            ...getAttribution(),
+            source: "popup_audit", note: `Popup: wants ${totalOffPct}% founding discount`,
+            ...getAttribution(), ...getPromoForSubmit(),
           }),
         }).then((r) => r.json()).catch(() => ({}));
         if (rep && rep.ok) setEmailed(true);
@@ -112,8 +117,8 @@ export default function AuditPopup() {
           body: JSON.stringify({
             name: name.trim(), email: email.trim(), website: url.trim(),
             source: "popup_audit",
-            message: "Free-audit popup: wants 10% founding discount (site unreachable at submit).",
-            ...getAttribution(),
+            message: `Free-audit popup: wants ${totalOffPct}% founding discount (site unreachable at submit).`,
+            ...getAttribution(), ...getPromoForSubmit(),
           }),
         });
       }
@@ -162,7 +167,7 @@ export default function AuditPopup() {
               ) : (
                 <>We&rsquo;ve got your details and we&rsquo;ll send your audit to <span className="text-lime">{email.trim()}</span> shortly. </>
               )}
-              Your <span className="font-semibold text-lime">10% founding discount</span> is locked in, and we&rsquo;ll be in touch soon.
+              Your <span className="font-semibold text-lime">{totalOffPct}% founding discount</span>{refPromo ? ` (10% + ${refPromo.extraPercent}% ${refPromo.partner.split(" / ")[0]} referral)` : ""} is locked in, and we&rsquo;ll be in touch soon.
             </p>
             <button onClick={close} className="btn-primary mt-6 !rounded-md">Done</button>
           </div>
@@ -176,12 +181,17 @@ export default function AuditPopup() {
             </h2>
             <div className="mt-2 flex flex-wrap items-baseline gap-x-2 font-display uppercase leading-none">
               <span className="text-2xl text-white/55">+</span>
-              <span className="text-accent-glow text-5xl">10% off</span>
+              <span className="text-accent-glow text-5xl">{totalOffPct}% off</span>
               <span className="text-2xl text-white">your new site</span>
             </div>
+            {refPromo && (
+              <p className="mt-1.5 text-xs font-semibold text-lime">
+                🎉 {refPromo.partner.split(" / ")[0]} referral: 10% + an extra {refPromo.extraPercent}% off, applied automatically
+              </p>
+            )}
             <p className="mt-3 text-sm leading-relaxed text-white/65">
               See exactly what&rsquo;s costing you jobs, sent to your inbox. Start with us and take{" "}
-              <span className="font-semibold text-white">10% off your build</span>.
+              <span className="font-semibold text-white">{totalOffPct}% off your build</span>.
             </p>
 
             <form onSubmit={submit} className="mt-5 space-y-3">
@@ -203,7 +213,7 @@ export default function AuditPopup() {
               {err && <p className="text-xs text-rose-400">{err}</p>}
 
               <button type="submit" disabled={!ready || status === "sending"} className="btn-primary w-full !rounded-md disabled:cursor-not-allowed disabled:opacity-60">
-                {status === "sending" ? "Sending…" : "Get my free audit + 10% off"}
+                {status === "sending" ? "Sending…" : `Get my free audit + ${totalOffPct}% off`}
                 {status !== "sending" && <ArrowRight width={18} height={18} />}
               </button>
               <p className="text-center text-[0.7rem] text-white/35">No spam. Unsubscribe any time. Takes 20 seconds.</p>

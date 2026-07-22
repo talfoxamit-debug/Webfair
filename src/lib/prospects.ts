@@ -113,7 +113,7 @@ export const PHONE_FLAG_META: Record<Exclude<PhoneFlag, "ok">, { short: string; 
 /** One-tap tags to set before/after a call. Stored on prospect.tags. */
 export const QUICK_TAGS = [
   "Hot", "Warm", "Cold", "Many reviews", "Few reviews",
-  "Left VM", "Gatekeeper", "Decision-maker", "Callback", "Bilingual",
+  "Left VM", "Gatekeeper", "Decision-maker", "Callback", "Bilingual", "FOX5",
 ] as const;
 
 /** Chip color for a tag (theme-aware Tailwind classes). */
@@ -124,6 +124,7 @@ export function tagStyle(tag: string): string {
   if (t === "cold") return "bg-sky-100 text-sky-700 dark:bg-sky-500/20 dark:text-sky-300";
   if (t === "many reviews") return "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300";
   if (t === "callback") return "bg-violet-100 text-violet-700 dark:bg-violet-500/20 dark:text-violet-300";
+  if (t === "fox5") return "bg-cyan-100 text-cyan-700 dark:bg-cyan-500/20 dark:text-cyan-300";
   return "bg-slate-200 text-slate-700 dark:bg-white/10 dark:text-slate-200";
 }
 

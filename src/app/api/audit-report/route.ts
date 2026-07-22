@@ -10,6 +10,7 @@ import {
   type CheckStatus,
 } from "@/lib/audit-report";
 import { site } from "@/lib/content";
+import { PROMO_CODES } from "@/lib/promo";
 
 export const runtime = "nodejs";
 export const maxDuration = 15;
@@ -94,18 +95,26 @@ export async function POST(req: Request) {
   const source = clamp(body.source, 40) || "instant_audit";
   const summary = (note ? `[${note}] ` : "") + reportSummaryText(name, result);
 
+  // Validate the promo code server-side (don't trust a client-supplied
+  // discount percent): the code is real, the extra percent always comes from
+  // our own table.
+  const promoCode = clamp(body.promo_code, 20).toUpperCase();
+  const promoDef = promoCode ? PROMO_CODES[promoCode] : undefined;
+  const promo =
+    promoDef?.active ? { promo_code: promoCode, promo_extra_pct: promoDef.extraPercent } : {};
+
   // 1) Store the lead + audit in the CRM (best-effort; graceful if unconfigured).
   let stored = false;
   try {
     const supabase = getSupabaseAdmin();
     if (supabase) {
-      const { error } = await supabase.from("leads").insert({
-        name,
-        email,
-        website: result.finalUrl || null,
-        message: summary,
-        source,
-      });
+      const base = { name, email, website: result.finalUrl || null, message: summary, source };
+      let { error } = await supabase.from("leads").insert({ ...base, ...promo });
+      if (error && Object.keys(promo).length) {
+        // promo_code/promo_extra_pct columns not migrated yet: don't drop the lead.
+        console.warn("[audit-report] insert with promo failed, retrying base only:", error.message);
+        ({ error } = await supabase.from("leads").insert(base));
+      }
       if (error) console.error("[audit-report] lead insert failed:", error.message);
       else stored = true;
     }
@@ -130,11 +139,14 @@ export async function POST(req: Request) {
   // 3) Notify Tal of the new lead (best-effort, only if configured).
   const notify = notifyEmail();
   if (notify) {
+    const promoLine = promo.promo_code
+      ? `\nReferral: ${promo.promo_code} (${PROMO_CODES[promo.promo_code].partner.replace(/</g, "&lt;")}, +${promo.promo_extra_pct}% extra off)`
+      : "";
     await sendEmail({
       to: notify,
       subject: `New audit lead: ${name} (${result.score}/100)`,
       html: `<pre style="font:14px ui-monospace,monospace;white-space:pre-wrap;">${summary
-        .replace(/</g, "&lt;")}\n\nEmail: ${email}</pre>`,
+        .replace(/</g, "&lt;")}\n\nEmail: ${email}${promoLine}</pre>`,
       replyTo: email,
     });
   }

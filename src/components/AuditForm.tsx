@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { ArrowRight, Check } from "./icons";
 import { finalCta } from "@/lib/content";
 import { getAttribution } from "@/lib/attribution";
+import { getPromo, getPromoForSubmit } from "@/lib/promo";
 import { track } from "@/lib/track";
 
 type Status = "idle" | "submitting" | "success" | "error";
@@ -11,6 +12,9 @@ type Status = "idle" | "submitting" | "success" | "error";
 export default function AuditForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState<string>("");
+  const [promo, setPromo] = useState<ReturnType<typeof getPromo>>(null);
+
+  useEffect(() => { setPromo(getPromo()); }, []);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -25,7 +29,7 @@ export default function AuditForm() {
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, ...getAttribution() }),
+        body: JSON.stringify({ ...data, ...getAttribution(), ...getPromoForSubmit() }),
       });
       const json = await res.json().catch(() => ({}));
 
@@ -72,6 +76,11 @@ export default function AuditForm() {
 
   return (
     <form onSubmit={onSubmit} className="space-y-3" noValidate>
+      {promo && (
+        <p className="rounded-lg border border-lime/30 bg-lime/[0.06] px-4 py-2.5 text-center text-xs font-semibold text-lime">
+          🎉 {promo.partner.split(" / ")[0]} referral: 10% + an extra {promo.extraPercent}% off your project
+        </p>
+      )}
       {/* Honeypot: visually hidden, ignored by humans, catches bots */}
       <input
         type="text"

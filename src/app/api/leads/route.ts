@@ -3,6 +3,8 @@ import crypto from "crypto";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { LEAD_STATUSES } from "@/lib/crm";
 import { getClientIp, rateLimit } from "@/lib/rate-limit";
+import { sendEmail, notifyEmail } from "@/lib/email";
+import { PROMO_CODES } from "@/lib/promo";
 
 export const runtime = "nodejs";
 
@@ -18,6 +20,8 @@ type LeadBody = {
   utm_campaign?: string;
   referrer?: string;
   landing_path?: string;
+  promo_code?: string;
+  promo_extra_pct?: number;
 };
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -142,10 +146,17 @@ export async function POST(req: Request) {
     referrer: clamp(body.referrer, 300) || null,
     landing_path: clamp(body.landing_path, 200) || null,
   };
+  // Validate the promo code against the known set server-side (don't trust a
+  // client-supplied discount percent, even for a non-payment field): the code
+  // is real, but the extra percent it carries always comes from our own table.
+  const promoCode = clamp(body.promo_code, 20).toUpperCase();
+  const promoDef = promoCode ? PROMO_CODES[promoCode] : undefined;
+  const promo =
+    promoDef?.active ? { promo_code: promoCode, promo_extra_pct: promoDef.extraPercent } : {};
 
-  // Store with attribution. If those columns are not present yet (schema not
-  // migrated), retry with the base row only so a lead is never dropped.
-  let { error } = await supabase.from("leads").insert({ ...base, ...attribution });
+  // Store with attribution + promo. If those columns are not present yet
+  // (schema not migrated), retry with the base row only so a lead is never dropped.
+  let { error } = await supabase.from("leads").insert({ ...base, ...attribution, ...promo });
   if (error) {
     console.warn("[leads] insert with attribution failed, retrying base only:", error.message);
     ({ error } = await supabase.from("leads").insert(base));
@@ -153,6 +164,22 @@ export async function POST(req: Request) {
   if (error) {
     console.error("[leads] insert failed:", error.message);
     return NextResponse.json({ ok: false, error: "insert_failed" }, { status: 500 });
+  }
+
+  // Notify Tal of the new lead (best-effort, only if configured). Without
+  // this, a mockup-request submission landed in the DB with no one told.
+  const notify = notifyEmail();
+  if (notify) {
+    const esc = (s: string) => s.replace(/</g, "&lt;");
+    const promoLine = promo.promo_code
+      ? `\nReferral: ${esc(promo.promo_code)} (${esc(PROMO_CODES[promo.promo_code].partner)}, +${promo.promo_extra_pct}% extra off)`
+      : "";
+    await sendEmail({
+      to: notify,
+      subject: `New lead: ${name}`,
+      html: `<pre style="font:14px ui-monospace,monospace;white-space:pre-wrap;">Name: ${esc(name)}\nEmail: ${esc(email)}\nWebsite: ${esc(website || "-")}\nSource: ${esc(base.source)}${promoLine}\n\n${esc(message || "")}</pre>`,
+      replyTo: email,
+    });
   }
 
   return NextResponse.json({ ok: true });

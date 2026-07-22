@@ -18,8 +18,12 @@ const presetDiscount = (pkg: AgreementConfig["pkg"]) => {
  * clients. Fee is rounded to a clean $50 so quotes never drift off the preset.
  */
 export default function AgreementGen({ prospect, onCopy }: { prospect: Prospect; onCopy: (msg: string) => void }) {
+  // A FOX5-tagged lead (referred from FoxStays Docks) gets the standard founding
+  // discount plus an extra 5 points, stacked. Tal still reviews and sends every
+  // agreement, so this is a default to start from, not an unreviewed auto-charge.
+  const promoExtra = prospect.tags?.includes("FOX5") ? 5 : 0;
   const [pkg, setPkg] = useState<AgreementConfig["pkg"]>("Growth");
-  const [discount, setDiscount] = useState<number>(() => presetDiscount("Growth"));
+  const [discount, setDiscount] = useState<number>(() => presetDiscount("Growth") + promoExtra);
   const [care, setCare] = useState<number>(PLAN_PRESETS.Growth.careMonthly);
 
   const list = PLAN_PRESETS[pkg].listFee;
@@ -28,7 +32,7 @@ export default function AgreementGen({ prospect, onCopy }: { prospect: Prospect;
 
   function selectPlan(next: AgreementConfig["pkg"]) {
     setPkg(next);
-    setDiscount(presetDiscount(next));
+    setDiscount(presetDiscount(next) + promoExtra);
     setCare(PLAN_PRESETS[next].careMonthly);
   }
 
@@ -47,6 +51,11 @@ export default function AgreementGen({ prospect, onCopy }: { prospect: Prospect;
   return (
     <div className="mt-5 rounded-lg p-3 crm-stat">
       <p className="text-xs font-bold uppercase tracking-wide crm-muted">Client agreement · auto-filled for {prospect.name}</p>
+      {promoExtra > 0 && (
+        <p className="mt-1 text-[0.62rem] font-semibold text-emerald-700 dark:text-lime">
+          🎉 FOX5 referral: standard discount + {promoExtra}% extra applied by default
+        </p>
+      )}
       <div className="mt-2 grid grid-cols-2 gap-2">
         <label className="text-[0.62rem] font-semibold crm-subtle">Plan
           <select value={pkg} onChange={(e) => selectPlan(e.target.value as AgreementConfig["pkg"])} className="mt-0.5 w-full rounded-lg px-2 py-1.5 text-xs crm-input">

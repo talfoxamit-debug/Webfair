@@ -19,6 +19,8 @@ create table if not exists public.leads (
   utm_campaign text,
   referrer     text,                       -- first external referrer
   landing_path text,                       -- first page the visitor landed on
+  promo_code       text,                   -- referral code captured from ?promo=/?code= (e.g. 'FOX5')
+  promo_extra_pct  int,                    -- extra discount % that code carries, looked up server-side
   status       text not null default 'new',-- new|contacted|call_booked|proposal|won|lost
   notes        text
 );
@@ -36,6 +38,11 @@ alter table public.leads enable row level security;
 --   alter table public.leads add column if not exists utm_campaign text;
 --   alter table public.leads add column if not exists referrer     text;
 --   alter table public.leads add column if not exists landing_path text;
+
+-- Referral/promo code support (FOX5 and any future codes), run this once if
+-- the leads table predates it:
+--   alter table public.leads add column if not exists promo_code      text;
+--   alter table public.leads add column if not exists promo_extra_pct int;
 
 -- ---------------------------------------------------------------- audits
 -- Every audit run is logged here (a warm-lead signal: who's checking their score).
