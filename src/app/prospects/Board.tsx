@@ -149,6 +149,21 @@ export default function Board({ user }: { user: string }) {
   // Version of the shared doc we last loaded, sent back on save so the server
   // can reject a concurrent clobber. Null until a load succeeds.
   const baseUpdatedAt = useRef<string | null>(null);
+  // Always the latest items, read inside doSave so a save queued while an
+  // earlier one is still in flight persists the freshest edits, not whatever
+  // was current when that earlier save's closure was created.
+  const itemsRef = useRef(items);
+  itemsRef.current = items;
+  // clearTimeout only cancels a *pending* debounce; it does nothing once a
+  // save is already in flight over the network. Without this pair, editing a
+  // field, then editing another before the first request returns, sends a
+  // second save with the same (now-stale) baseUpdatedAt as the first, and the
+  // server correctly rejects it as a conflict, wiping the edit that was just
+  // made. `saving` blocks a second request from firing concurrently; `pendingSave`
+  // remembers that more changed while one was in flight, and re-saves once it
+  // resolves, using the fresh baseUpdatedAt from that response.
+  const saving = useRef(false);
+  const pendingSave = useRef(false);
 
   // Load the shared team pipeline + merge in inbound audited sites (page is
   // already gated server-side). Anyone who runs the site audit shows up here as
@@ -207,25 +222,37 @@ export default function Board({ user }: { user: string }) {
 
   // Persist: debounced save to the shared DB. Sends the loaded version so the
   // server can reject a concurrent or empty-overwriting write; on conflict we
-  // resync from the server rather than clobber it.
+  // resync from the server rather than clobber it. Only one save is ever in
+  // flight at a time (see `saving`/`pendingSave` above), so a burst of edits
+  // never races itself into a false conflict.
+  async function doSave() {
+    saving.current = true;
+    try {
+      const r = await fetch("/api/team", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ data: itemsRef.current, baseUpdatedAt: baseUpdatedAt.current }),
+      }).then((res) => res.json());
+      if (r.ok) {
+        baseUpdatedAt.current = r.updatedAt ?? baseUpdatedAt.current;
+      } else if (r.error === "conflict" || r.error === "refuse_empty_overwrite") {
+        flash("Pipeline changed elsewhere. Reloading the latest to avoid overwriting it.");
+        const fresh = await fetch("/api/team").then((res) => res.json());
+        if (fresh.ok) { baseUpdatedAt.current = fresh.updatedAt ?? null; setItems(fresh.data || []); }
+      }
+    } catch { /* transient network, will retry on next change */ }
+    finally {
+      saving.current = false;
+      if (pendingSave.current) { pendingSave.current = false; doSave(); }
+    }
+  }
+
   useEffect(() => {
     if (!ready) return;
     if (saveTimer.current) clearTimeout(saveTimer.current);
-    saveTimer.current = setTimeout(async () => {
-      try {
-        const r = await fetch("/api/team", {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ data: items, baseUpdatedAt: baseUpdatedAt.current }),
-        }).then((res) => res.json());
-        if (r.ok) {
-          baseUpdatedAt.current = r.updatedAt ?? baseUpdatedAt.current;
-        } else if (r.error === "conflict" || r.error === "refuse_empty_overwrite") {
-          flash("Pipeline changed elsewhere. Reloading the latest to avoid overwriting it.");
-          const fresh = await fetch("/api/team").then((res) => res.json());
-          if (fresh.ok) { baseUpdatedAt.current = fresh.updatedAt ?? null; setItems(fresh.data || []); }
-        }
-      } catch { /* transient network, will retry on next change */ }
+    saveTimer.current = setTimeout(() => {
+      if (saving.current) { pendingSave.current = true; return; }
+      doSave();
     }, 800);
   }, [items, ready]);
 
